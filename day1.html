@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAY 1 - Shenzhen & Hong Kong</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  </header>
+
+  <!-- ドロワーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
+
+  <!-- バックドロップ -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- メインコンテンツ -->
+  <main class="page-container">
+    
+    <!-- タイトルヘッダー -->
+    <div class="schedule-header">
+      <p class="schedule-sub">TRAVEL SCHEDULE</p>
+      <h1 class="schedule-title">DAY 1</h1>
+      <p class="schedule-date">DATE: 10/14 (WED)</p>
+    </div>
+
+    <!-- カプセル型タイムライン -->
+    <div class="schedule-list">
+
+      <div class="schedule-card">
+        <span class="time">08:30</span>
+        <span class="text">羽田空港 到着</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">11:10</span>
+        <span class="text">搭乗 (NH965)</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">15:10</span>
+        <span class="text">深圳空港 到着</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">15:30 - 16:30</span>
+        <span class="text"><a href="https://www.hyatt.com/" target="_blank">ホテルチェックイン</a></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">16:30 - 17:30</span>
+        <span class="text">香港へ移動</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">17:30 - 18:30</span>
+        <span class="text">タクシーで尖沙咀 <a href="https://www.k11musea.com/" target="_blank">K11 MUSEA</a> etc</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">18:30 - 19:00</span>
+        <span class="text"><a href="https://www.starferry.com.hk/" target="_blank">スターフェリー</a>で中環へ</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">19:30 - 20:30</span>
+        <span class="text"><a href="foods.html">ご飯・ディナー</a></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">21:00 - 22:00</span>
+        <span class="text"><a href="https://www.thepeak.com.hk/" target="_blank">ビクトリアピーク</a></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">22:00 - 23:00</span>
+        <span class="text"><a href="https://www.hongkong.jp/" target="_blank">男人街</a> or バー散策</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">23:00 -</span>
+        <span class="text">深圳へ戻る</span>
+      </div>
+
+    </div>
+
+    <!-- 持ち物・メモカード -->
+    <div class="memo-box">
+      <div class="memo-badge">MEMO / CHECK</div>
+      <ul class="memo-list">
+        <li>パスポート・インサイトカード</li>
+        <li>香港ドル / 人民元 現金</li>
+        <li>モバイルバッテリー・変換プラグ</li>
+        <li>オクトパスカード (Octopus)</li>
+      </ul>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
 
