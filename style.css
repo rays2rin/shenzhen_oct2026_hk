@@ -182,3 +182,118 @@ body {
   font-weight: 400;
   opacity: 0.9;
 }
+
+/* --- カプセル型カードスタイル --- */
+.schedule-header {
+  text-align: center;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.schedule-sub {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #1a4a84;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.schedule-title {
+  font-family: "Georgia", serif;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: #111111;
+  margin-bottom: 4px;
+}
+
+.schedule-date {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: #555555;
+  font-weight: 500;
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.schedule-card {
+  display: flex;
+  align-items: center;
+  background-color: #f5f6f8;
+  padding: 12px 18px;
+  border-radius: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.schedule-card .time {
+  font-weight: 700;
+  font-size: 13px;
+  color: #1a4a84;
+  min-width: 105px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.schedule-card .text {
+  font-size: 13px;
+  color: #222222;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.schedule-card .text a {
+  color: #1a4a84;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+/* メモエリア */
+.memo-box {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.memo-badge {
+  display: inline-block;
+  background-color: #1a4a84;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.memo-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+}
+
+.memo-list li {
+  font-size: 12px;
+  color: #444444;
+  display: flex;
+  align-items: center;
+}
+
+.memo-list li::before {
+  content: "□";
+  margin-right: 6px;
+  color: #1a4a84;
+  font-weight: bold;
+}
+
