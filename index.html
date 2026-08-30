@@ -19,7 +19,7 @@
 
     <div class="hero-content">
       
-      <!-- タイトルグループ（左揃えで頭位置を完全統一） -->
+      <!-- タイトルグループ（位置を約40px上へ移動） -->
       <div class="hero-title-group">
         <h1 class="hero-title title-shenzhen">SHENZHEN</h1>
         <h1 class="hero-title title-hongkong">HONG KONG</h1>
@@ -30,7 +30,7 @@
 
       <!-- ボタン群 -->
       <nav class="top-nav">
-        <!-- DAY選択タブ（JavaScriptでアクティブ状態を自動制御） -->
+        <!-- DAY選択タブ -->
         <div class="nav-row primary-row">
           <a href="day1.html" class="btn btn-primary active">DAY 1</a>
           <a href="day2.html" class="btn btn-primary">DAY 2</a>
@@ -50,7 +50,6 @@
   </main>
 
   <script>
-    // タブ選択時の動作（クリックしたボタンをアクティブ化）
     document.querySelectorAll('.btn-primary').forEach(button => {
       button.addEventListener('click', function(e) {
         document.querySelectorAll('.btn-primary').forEach(btn => btn.classList.remove('active'));
