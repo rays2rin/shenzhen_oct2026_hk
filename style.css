@@ -24,7 +24,6 @@ body {
   border-bottom: 1px solid #f0f0f3;
 }
 
-/* ハンバーガーアイコン */
 .menu-icon {
   display: flex;
   flex-direction: column;
@@ -137,16 +136,6 @@ body {
   object-fit: cover;
 }
 
-.hero-gradient {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 45%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
-  pointer-events: none;
-}
-
 .hero-overlay {
   position: absolute;
   bottom: 50px;
@@ -172,23 +161,16 @@ body {
   margin-bottom: 6px;
 }
 
-.hero-month {
-  font-size: 12px;
-  letter-spacing: 2px;
-  font-weight: 400;
-  opacity: 0.85;
-}
-
-/* --- 下層・スケジュールページ --- */
+/* 共通ページレイアウト */
 .page-container {
-  padding: 36px 20px 60px;
+  padding: 32px 18px 60px;
   max-width: 500px;
   margin: 0 auto;
 }
 
 .schedule-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .schedule-sub {
@@ -196,7 +178,7 @@ body {
   letter-spacing: 3px;
   color: #718096;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .schedule-title {
@@ -205,7 +187,6 @@ body {
   font-weight: 400;
   letter-spacing: 2px;
   color: #2d3748;
-  margin-bottom: 4px;
 }
 
 .schedule-date {
@@ -213,16 +194,17 @@ body {
   letter-spacing: 1.5px;
   color: #a0aec0;
   font-weight: 500;
+  margin-top: 4px;
 }
 
+/* スケジュールページ（DAY1~3） */
 .schedule-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-/* カードのデザイン（柔らかい背景と低コントラストの文字） */
 .schedule-card {
   display: flex;
   align-items: center;
@@ -254,7 +236,175 @@ body {
   text-decoration: none;
   border-bottom: 1px dashed #2b6cb0;
   font-weight: 500;
-  padding-bottom: 1px;
+}
+
+/* --- TODO / 持ち物 ページデザイン --- */
+.checklist-card {
+  background-color: #f5f6f8;
+  border-radius: 20px;
+  padding: 20px 18px;
+  margin-bottom: 24px;
+}
+
+.checklist-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 10px;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  user-select: none;
+}
+
+.check-item input[type="checkbox"] {
+  display: none;
+}
+
+.check-item .box {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #a0aec0;
+  border-radius: 4px;
+  background-color: #ffffff;
+  margin-right: 8px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.check-item input[type="checkbox"]:checked + .box {
+  background-color: #4a5568;
+  border-color: #4a5568;
+}
+
+.check-item input[type="checkbox"]:checked + .box::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.check-item .label-text {
+  font-size: 13px;
+  color: #2d3748;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.check-item input[type="checkbox"]:checked ~ .label-text {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
+.check-item .label-text small {
+  font-size: 11px;
+  color: #718096;
+}
+
+.check-item .label-text a {
+  color: #2b6cb0;
+  text-decoration: none;
+  border-bottom: 1px dashed #2b6cb0;
+}
+
+.check-item .label-text code {
+  background-color: #e2e8f0;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: #2d3748;
+}
+
+/* --- EXPENSES ページ専用デザイン --- */
+.total-expense-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f0f3;
+  margin-bottom: 28px;
+}
+
+.total-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #718096;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.total-amount {
+  font-family: "Georgia", serif;
+  font-size: 22px;
+  color: #2b6cb0;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.total-note {
+  font-size: 11px;
+  color: #a0aec0;
+}
+
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  border: 1px solid #f0f0f3;
+}
+
+.expense-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.expense-name {
+  font-size: 13px;
+  color: #2d3748;
+  font-weight: 500;
+}
+
+.expense-sub {
+  font-size: 11px;
+  color: #718096;
+  margin-top: 2px;
+}
+
+.expense-price {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  flex-shrink: 0;
+  margin-left: 12px;
 }
 
 .back-link {
