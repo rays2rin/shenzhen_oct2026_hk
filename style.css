@@ -2144,5 +2144,190 @@ body.top-page {
   100% {
     opacity: 1;
   }
+/* ==========================================
+   EXPENSES PAGE - MINIMAL MODERN DESIGN
+========================================== */
+
+body.expenses-page {
+  background-color: #0d0d0d !important;
+  color: #ffffff !important;
+  font-family: 'Montserrat', sans-serif !important;
+  margin: 0;
+  padding: 20px;
 }
+
+/* ヘッダー */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 480px;
+  margin: 0 auto 24px auto;
+}
+
+.back-link {
+  color: #8e8e93;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #0a84ff; /* 青アクセント */
+}
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* メインコンテナ */
+.expenses-container {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 1. 青カードを廃止した合計金額表示カード */
+.total-display-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 32px 20px 24px 20px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. ESTIMATED TOTAL（小さく控えめに） */
+.estimated-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #8e8e93;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* 2. 合計金額（ページの視覚的主役） */
+.total-amount-box {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.currency-symbol {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0a84ff; /* 青アクセント */
+}
+
+.total-amount {
+  font-size: 48px; /* 特大サイズで主役化 */
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #ffffff;
+  display: inline-block;
+}
+
+/* 4. 金額変更時の数字アニメーション */
+.total-amount.pop-anim {
+  animation: numPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes numPop {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.92) translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 5. 通貨トグル（青は線・文字などのアクセントに限定） */
+.currency-toggle {
+  display: inline-flex;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 4px;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: #8e8e93;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  color: #0a84ff; /* 青テキスト */
+  background: rgba(10, 132, 255, 0.12); /* 青アクセント背景 */
+  border: 1px solid rgba(10, 132, 255, 0.3); /* 薄い青枠線 */
+}
+
+/* 明細リスト */
+.expenses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-subtitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #8e8e93;
+  margin: 0 0 4px 4px;
+}
+
+.expense-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px 20px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.item-sub {
+  font-size: 11px;
+  color: #6c6c70;
+}
+
+.item-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
 
