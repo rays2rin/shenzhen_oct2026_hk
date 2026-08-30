@@ -3,253 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EXPENSES - Shenzhen & Hong Kong</title>
+  <title>EXPENSES - SHENZHEN & HONG KONG</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* 1行レイアウト用調整 */
-    .expense-card-inline {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 14px 16px;
-      gap: 12px;
-    }
-    .expense-label-group {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-width: 0;
-    }
-    .expense-select-inline {
-      width: auto;
-      min-width: 130px;
-      padding: 6px 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #2d3748;
-      background-color: #f8fafc;
-      border: 1px solid #cbd5e0;
-      border-radius: 8px;
-      outline: none;
-      cursor: pointer;
-      text-align: right;
-    }
-    .expense-select-inline:focus {
-      border-color: #4299e1;
-      background-color: #ffffff;
-    }
-    .total-box {
-      background: linear-gradient(135deg, #4299e1, #3182ce);
-      color: #ffffff;
-      padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 24px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
-    }
-    .total-title {
-      font-size: 12px;
-      letter-spacing: 1px;
-      opacity: 0.9;
-      margin-bottom: 4px;
-    }
-    .total-amount {
-      font-size: 28px;
-      font-weight: 700;
-    }
-    .expense-fixed-amount {
-      font-size: 15px;
-      font-weight: 700;
-      color: #2d3748;
-      white-space: nowrap;
-    }
-    .item-desc {
-      font-size: 10px;
-      color: #718096;
-      margin-top: 2px;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="sub-page expenses-page">
 
-  <!-- ナビゲーションバー -->
-  <header class="navbar">
-    <div class="menu-icon" onclick="toggleMenu()">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </div>
-    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  <header class="page-header">
+    <a href="index.html" class="back-link">← TOP</a>
+    <h1 class="page-title">EXPENSES</h1>
   </header>
 
-  <!-- ドロワーメニュー -->
-  <nav class="drawer-menu" id="drawerMenu">
-    <div class="close-btn" onclick="toggleMenu()">✕</div>
-    <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li><a href="day1.html">DAY 1</a></li>
-      <li><a href="day2.html">DAY 2</a></li>
-      <li><a href="day3.html">DAY 3</a></li>
-      <li class="divider"></li>
-      <li><a href="todo.html">todo</a></li>
-      <li><a href="expenses.html">expenses</a></li>
-      <li><a href="traffic.html">traffic</a></li>
-      <li><a href="foods.html">foods</a></li>
-    </ul>
-  </nav>
+  <main class="expenses-container">
 
-  <!-- バックドロップ -->
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <section class="total-display-card">
+      <span class="estimated-label">ESTIMATED TOTAL</span>
+      <div class="total-amount-box">
+        <span class="currency-symbol" id="currencySymbol">¥</span>
+        <span class="total-amount" id="totalAmount">0</span>
+      </div>
+      
+      <div class="currency-toggle">
+        <button class="toggle-btn active" id="btnJPY" onclick="switchCurrency('JPY')">JPY (¥)</button>
+        <button class="toggle-btn" id="btnHKD" onclick="switchCurrency('HKD')">HKD ($)</button>
+        <button class="toggle-btn" id="btnCNY" onclick="switchCurrency('CNY')">CNY (¥)</button>
+      </div>
+    </section>
 
-  <!-- メインコンテンツ -->
-  <main class="page-container">
-    
-    <!-- タイトルヘッダー -->
-    <div class="schedule-header">
-      <p class="schedule-sub">ESTIMATED BUDGET</p>
-      <h1 class="schedule-title">EXPENSES</h1>
-    </div>
-
-    <!-- 合計金額表示エリア -->
-    <div class="total-box">
-      <div class="total-title">ESTIMATED TOTAL</div>
-      <div class="total-amount" id="totalAmount">¥0</div>
-    </div>
-
-    <!-- 費用項目リスト -->
-    <div class="schedule-list">
-
-      <!-- 飛行機代 (1行表示) -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">FLIGHT</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">飛行機代</span>
+    <section class="expenses-list">
+      <h2 class="section-subtitle">BREAKDOWN</h2>
+      
+      <div class="expense-item">
+        <div class="item-info">
+          <span class="item-title">交通費（MTR・フェリー等）</span>
+          <span class="item-sub">交通カード・移動費合計</span>
         </div>
-        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="129455">129,455</span></div>
+        <div class="item-price" data-jpy="8500" data-hkd="425" data-cny="400">¥8,500</div>
       </div>
 
-      <!-- ホテル代 (1行表示) -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">HOTEL</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">ホテル代</span>
+      <div class="expense-item">
+        <div class="item-info">
+          <span class="item-title">食費（飲茶・ローカルフード）</span>
+          <span class="item-sub">全日程の食事概算</span>
         </div>
-        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="62477">62,477</span></div>
+        <div class="item-price" data-jpy="15000" data-hkd="750" data-cny="700">¥15,000</div>
       </div>
 
-      <!-- eSIM（1行表示 & ¥700修正） -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">eSIM / INTERNET</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">eSIM（通信費）</span>
+      <div class="expense-item">
+        <div class="item-info">
+          <span class="item-title">観光・入場料</span>
+          <span class="item-sub">施設利用料など</span>
         </div>
-        <select class="expense-select-inline calc-select" id="esimSelect" onchange="calculateTotal()">
-          <option value="700" selected>番号なし (¥700)</option>
-          <option value="2500">電話番号付帯 (¥2,500)</option>
-        </select>
+        <div class="item-price" data-jpy="6000" data-hkd="300" data-cny="280">¥6,000</div>
       </div>
 
-      <!-- 海外旅行保険 (1行表示) -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">INSURANCE</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">海外旅行保険</span>
+      <div class="expense-item">
+        <div class="item-info">
+          <span class="item-title">予備費・お土産</span>
+          <span class="item-sub">ショッピング・その他</span>
         </div>
-        <select class="expense-select-inline calc-select" id="insuranceSelect" onchange="calculateTotal()">
-          <option value="2000" selected>基本 (¥2,000)</option>
-          <option value="4000">キャンセル保証付 (¥4,000)</option>
-        </select>
+        <div class="item-price" data-jpy="10000" data-hkd="500" data-cny="470">¥10,000</div>
       </div>
-
-      <!-- 食事 (深圳) (1行表示) -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">FOOD - SHENZHEN</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">食事（深圳）</span>
-        </div>
-        <select class="expense-select-inline calc-select" id="foodShenzhen" onchange="calculateTotal()">
-          <option value="10000" selected>¥10,000</option>
-          <option value="15000">¥15,000</option>
-          <option value="20000">¥20,000</option>
-        </select>
-      </div>
-
-      <!-- 食事 (香港) (1行表示) -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">FOOD - HONG KONG</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">食事（香港）</span>
-        </div>
-        <select class="expense-select-inline calc-select" id="foodHongKong" onchange="calculateTotal()">
-          <option value="10000" selected>¥10,000</option>
-          <option value="15000">¥15,000</option>
-          <option value="20000">¥20,000</option>
-        </select>
-      </div>
-
-      <!-- タクシー (深圳) (1行表示) -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">TAXI - SHENZHEN</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">タクシー（深圳）</span>
-        </div>
-        <select class="expense-select-inline calc-select" id="taxiShenzhen" onchange="calculateTotal()">
-          <option value="10000" selected>¥10,000</option>
-          <option value="15000">¥15,000</option>
-          <option value="20000">¥20,000</option>
-        </select>
-      </div>
-
-      <!-- タクシー (香港) (1行表示) -->
-      <div class="schedule-card expense-card-inline">
-        <div class="expense-label-group">
-          <span class="time" style="font-size: 11px; color: #718096;">TAXI - HONG KONG</span>
-          <span class="text" style="font-weight: 600; font-size: 14px;">タクシー（香港）</span>
-        </div>
-        <select class="expense-select-inline calc-select" id="taxiHongKong" onchange="calculateTotal()">
-          <option value="10000" selected>¥10,000</option>
-          <option value="15000">¥15,000</option>
-          <option value="20000">¥20,000</option>
-        </select>
-      </div>
-
-    </div>
-
-    <div class="back-link">
-      <a href="index.html">← TOP PAGE</a>
-    </div>
+    </section>
 
   </main>
 
   <script>
-    function toggleMenu() {
-      document.getElementById('drawerMenu').classList.toggle('active');
-      document.getElementById('overlay').classList.toggle('active');
-    }
+    // 1 HKD / CNY の簡易換算レート（表示保持用データ）
+    const rates = { JPY: 1, HKD: 0.05, CNY: 0.047 };
+    let currentCurrency = 'JPY';
 
-    // 自動計算機能
+    // 合計金額の計算・更新
     function calculateTotal() {
+      const items = document.querySelectorAll('.item-price');
       let total = 0;
 
-      // 固定金額の合算 (飛行機代: 129,455円、ホテル代: 62,477円)
-      const fixedItems = document.querySelectorAll('.calc-item');
-      fixedItems.forEach(item => {
-        total += parseInt(item.getAttribute('data-value'), 10) || 0;
+      items.forEach(item => {
+        const val = parseFloat(item.getAttribute(`data-${currentCurrency.toLowerCase()}`)) || 0;
+        total += val;
+        
+        // 明細リスト側の表示更新
+        const symbol = currentCurrency === 'HKD' ? '$' : '¥';
+        item.textContent = symbol + val.toLocaleString();
       });
 
-      // 選択式金額の合算 (eSIM、保険、食事、タクシー)
-      const selectItems = document.querySelectorAll('.calc-select');
-      selectItems.forEach(select => {
-        total += parseInt(select.value, 10) || 0;
-      });
+      // 主役の合計金額を更新＆軽めのアニメーション発動
+      const totalEl = document.getElementById('totalAmount');
+      const symbolEl = document.getElementById('currencySymbol');
+      
+      symbolEl.textContent = currentCurrency === 'HKD' ? '$' : '¥';
+      totalEl.textContent = total.toLocaleString();
 
-      // 3桁カンマ区切りで表示
-      document.getElementById('totalAmount').textContent = '¥' + total.toLocaleString();
+      // 数字のアニメーションリセット
+      totalEl.classList.remove('pop-anim');
+      void totalEl.offsetWidth; // リフロー発生
+      totalEl.classList.add('pop-anim');
     }
 
-    // ページ読み込み時に初期計算を実行
-    document.addEventListener('DOMContentLoaded', calculateTotal);
+    // 通貨切り替え
+    function switchCurrency(type) {
+      currentCurrency = type;
+      document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`btn${type}`).classList.add('active');
+      calculateTotal();
+    }
+
+    // 初期計算
+    window.addEventListener('DOMContentLoaded', calculateTotal);
   </script>
 </body>
 </html>
