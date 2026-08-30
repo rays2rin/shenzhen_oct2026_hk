@@ -1,452 +1,54 @@
-```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shenzhen Hong Kong Travel Itinerary</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
-            background-color: #080b10;
-            color: #ffffff;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Mobile Viewport Container */
-        .app-container {
-            position: relative;
-            width: 100%;
-            max-width: 430px;
-            height: 100vh;
-            max-height: 932px;
-            background: url('https://images.unsplash.com/photo-1506970846876-ac3117409228?q=80&w=1000&auto=format&fit=crop') center center / cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-        }
-
-        /* Dark Gradient Overlay */
-        .app-container::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                180deg, 
-                rgba(5, 8, 15, 0.45) 0%, 
-                rgba(5, 8, 15, 0.65) 40%, 
-                rgba(5, 8, 15, 0.88) 75%, 
-                rgba(5, 8, 15, 0.98) 100%
-            );
-            z-index: 1;
-        }
-
-        /* Content Layer */
-        .main-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 50px 24px 30px 24px;
-            justify-content: flex-start;
-        }
-
-        /* Header Section */
-        .header-section {
-            text-align: center;
-            margin-top: 35px;
-        }
-
-        .title-main {
-            font-family: 'Cinzel', serif;
-            font-size: 38px;
-            font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-transform: uppercase;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-        }
-
-        .title-main span {
-            display: block;
-        }
-
-        /* Subtitle without any animation */
-        .title-sub {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 5px;
-            color: rgba(255, 255, 255, 0.85);
-            margin-top: 18px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-            /* 静的表示（アニメーション無し） */
-            animation: none !important;
-            transition: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-        }
-
-        /* Button Grid Layout - Positioned lowered down */
-        .navigation-grid {
-            margin-top: 210px; /* DAY 1の位置を元TODO/FOODSの中間位置へ下げる設定 */
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            width: 100%;
-        }
-
-        /* Row 1: Day Buttons */
-        .days-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .btn-day {
-            background-color: #ffffff;
-            color: #0f172a;
-            border: none;
-            border-radius: 14px;
-            padding: 16px 0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-            transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-            text-align: center;
-        }
-
-        .btn-day:active {
-            transform: scale(0.96);
-            background-color: #f1f5f9;
-        }
-
-        /* Sub Category Rows (Glassmorphism) */
-        .sub-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .btn-glass {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 14px;
-            padding: 16px 0;
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-        }
-
-        .btn-glass:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Bottom Detail Drawer / Modal */
-        .modal-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-sheet {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #121824;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 28px 28px 0 0;
-            padding: 24px 20px 36px 20px;
-            z-index: 11;
-            max-height: 80vh;
-            overflow-y: auto;
-            transform: translateY(100%);
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-        }
-
-        .modal-overlay.active .modal-sheet {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #38bdf8;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .close-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: #ffffff;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        /* Modal Body Items */
-        .info-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .info-card h4 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-card p {
-            font-size: 13px;
-            color: #94a3b8;
-            line-height: 1.5;
-        }
-
-        .tag {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.2);
-            color: #38bdf8;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-        }
-
-        /* Scrollbar styling for sheet */
-        .modal-sheet::-webkit-scrollbar {
-            width: 4px;
-        }
-        .modal-sheet::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHENZHEN & HONG KONG</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="top-page">
 
-    <div class="app-container">
-        <div class="main-content">
-            <!-- Header Section -->
-            <div class="header-section">
-                <h1 class="title-main">
-                    <span>SHENZHEN</span>
-                    <span>HONG KONG</span>
-                </h1>
-                <!-- アニメーションなしのサブタイトル -->
-                <div class="title-sub">TRAVEL ITINERARY</div>
-            </div>
+  <!-- フルスクリーン・メインビジュアル -->
+  <main class="hero-section">
+    <img src="IMG_3110.jpeg" alt="Shenzhen & Hong Kong" class="hero-img">
+    
+    <!-- 背景を暗くして視認性を高めるオーバーレイ -->
+    <div class="hero-overlay"></div>
 
-            <!-- Navigation Grid Buttons (の位置を下げたレイアウト) -->
-            <div class="navigation-grid">
-                <!-- Day 1, 2, 3 Buttons -->
-                <div class="days-row">
-                    <button class="btn-day" onclick="openModal('day1')">DAY 1</button>
-                    <button class="btn-day" onclick="openModal('day2')">DAY 2</button>
-                    <button class="btn-day" onclick="openModal('day3')">DAY 3</button>
-                </div>
+    <div class="hero-content">
+      
+      <!-- 巨大タイトル（左からSHENZHEN、右からHONG KONG） -->
+      <div class="hero-title-group">
+        <h1 class="hero-title title-shenzhen">SHENZHEN</h1>
+        <h1 class="hero-title title-hongkong">HONG KONG</h1>
+      </div>
 
-                <!-- TODO & EXPENSES Buttons -->
-                <div class="sub-row">
-                    <button class="btn-glass" onclick="openModal('todo')">TODO</button>
-                    <button class="btn-glass" onclick="openModal('expenses')">EXPENSES</button>
-                </div>
+      <!-- 静止表示（アニメーションなし）のサブタイトル -->
+      <p class="hero-sub">TRAVEL ITINERARY</p>
 
-                <!-- FOODS & TRAFFIC Buttons -->
-                <div class="sub-row">
-                    <button class="btn-glass" onclick="openModal('foods')">FOODS</button>
-                    <button class="btn-glass" onclick="openModal('traffic')">TRAFFIC</button>
-                </div>
-            </div>
+      <!-- ボタン群（少し下寄りに配置） -->
+      <nav class="top-nav">
+        <!-- メイン日程（DAY 1 ~ 3） -->
+        <div class="nav-row primary-row">
+          <a href="day1.html" class="btn btn-primary">DAY 1</a>
+          <a href="day2.html" class="btn btn-primary">DAY 2</a>
+          <a href="day3.html" class="btn btn-primary">DAY 3</a>
         </div>
 
-        <!-- Detail Modal Sheet -->
-        <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-            <div class="modal-sheet" onclick="event.stopPropagation()">
-                <div class="modal-header">
-                    <div class="modal-title" id="modalTitle">
-                        <i class="fa-solid fa-calendar-days"></i> TITLE
-                    </div>
-                    <button class="close-btn" onclick="closeModalDirect()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div id="modalContent">
-                    <!-- Content will be injected dynamically -->
-                </div>
-            </div>
+        <!-- サブカテゴリ（2行2列） -->
+        <div class="nav-grid secondary-grid">
+          <a href="todo.html" class="btn btn-secondary">TODO</a>
+          <a href="expenses.html" class="btn btn-secondary">EXPENSES</a>
+          <a href="foods.html" class="btn btn-secondary">FOODS</a>
+          <a href="traffic.html" class="btn btn-secondary">TRAFFIC</a>
         </div>
+      </nav>
+
     </div>
+  </main>
 
-    <script>
-        const contentData = {
-            day1: {
-                title: "DAY 1 - SHENZHEN TECH & CITY",
-                icon: "fa-solid fa-city",
-                items: [
-                    { time: "09:00", name: "平安金融中心 (Ping An Finance Centre)", desc: "深圳一の超高層ビル展望台（599m）からハイテク都市を一望。" },
-                    { time: "12:00", name: "華強北 (Huaqiangbei)", desc: "世界最大の電子街散策。最新ガジェットや電子部品のマーケット。" },
-                    { time: "15:00", name: "華僑城LOFT (OCT LOFT)", desc: "工場跡地をリノベーションしたアートカルチャーエリア。カフェで一息。" },
-                    { time: "19:00", name: "人才公園 (Talent Park) 夜景", desc: "深圳湾の摩天楼群とライトアップショーを堪能。" }
-                ]
-            },
-            day2: {
-                title: "DAY 2 - SHENZHEN TO HONG KONG",
-                icon: "fa-solid fa-train-subway",
-                items: [
-                    { time: "09:30", name: "広深港高速鉄道で香港へ移動", desc: "福田駅/深圳北駅から西九竜駅までわずか14分で移動。" },
-                    { time: "11:30", name: "尖沙咀 (Tsim Sha Tsui)", desc: "ハーバーシティ散策、ヴィクトリアハーバーの絶景フォトスポット。" },
-                    { time: "15:00", name: "スターフェリー (Star Ferry)", desc: "伝統のフェリーで香港島・中環（Central）へ移動。" },
-                    { time: "18:30", name: "ヴィクトリア・ピーク (Victoria Peak)", desc: "ピークトラムに乗車し、100万ドルの夜景を鑑賞。" }
-                ]
-            },
-            day3: {
-                title: "DAY 3 - HONG KONG ISLAND EXPLORE",
-                icon: "fa-solid fa-building-user",
-                items: [
-                    { time: "10:00", name: "中環・上環 (Central & Sheung Wan)", desc: "壁画アート街散策、香港トラム（2階建て路面電車）体験。" },
-                    { time: "13:00", name: "モンスターマンション (Yick Cheong Building)", desc: "鰂魚涌（Quarry Bay）のインスタ映え超高密度住宅。" },
-                    { time: "17:00", name: "K11 MUSEA & アベニュー・オブ・スターズ", desc: "ブルース・リー像と星光大道で九龍側の夜景を満喫。" }
-                ]
-            },
-            todo: {
-                title: "TODO LIST",
-                icon: "fa-solid fa-list-check",
-                items: [
-                    { time: "準備", name: "パスポート＆中国ビザ確認", desc: "有効期限6ヶ月以上あることを事前に確認。" },
-                    { time: "決済", name: "WeChat Pay / AlipayHK 設定", desc: "クレジットカード連携を日本国内で完了させておく。" },
-                    { time: "交通", name: "オクトパスカード (Octopus Card)", desc: "Apple Payに香港オクトパスカードを追加しチャージ。" },
-                    { time: "通信", name: "eSIM / 大陸・香港共通SIM", desc: "GFW（金盾）回避可能なHK/Mainland両用eSIMの準備。" }
-                ]
-            },
-            expenses: {
-                title: "EXPENSES & BUDGET",
-                icon: "fa-solid fa-wallet",
-                items: [
-                    { time: "交通費", name: "高速鉄道＆MTR", desc: "深圳-香港高速鉄道: 約75 RMB / MTR・トラム: 約100 HKD" },
-                    { time: "観光", name: "入場料・展望台", desc: "平安金融中心: 約200 RMB / ピークトラム往復: 約148 HKD" },
-                    { time: "食事", name: "グルメ・飲茶", desc: "1日あたり約 250〜400 HKD (飲茶・火鍋・香港スイーツ)" }
-                ]
-            },
-            foods: {
-                title: "FOODS & GOURMET",
-                icon: "fa-solid fa-utensils",
-                items: [
-                    { time: "深圳", name: "椰子鶏 (Yejizi) & 火鍋", desc: "ココナッツスープの絶品チキン火鍋。" },
-                    { time: "香港", name: "添好運 (Tim Ho Wan) 飲茶", desc: "世界一リーズナブルなミシュラン点心。チャーシューパオが絶品。" },
-                    { time: "香港", name: "港式奶茶 (香港式ミルクティー)", desc: "濃厚な紅茶とエバミルクの本格ミルクティー＆エッグタルト。" }
-                ]
-            },
-            traffic: {
-                title: "TRAFFIC GUIDE",
-                icon: "fa-solid fa-compass",
-                items: [
-                    { time: "国境", name: "イミグレーション (口岸)", desc: "高速鉄道西九竜駅の一地両検、または羅湖/落馬洲口岸を利用。" },
-                    { time: "タクシー", name: "滴滴出行 (DiDi)", desc: "深圳市内はDiDiアプリで配車。香港内は赤タクシー利用。" }
-                ]
-            }
-        };
-
-        function openModal(key) {
-            const data = contentData[key];
-            if (!data) return;
-
-            document.getElementById('modalTitle').innerHTML = `<i class="${data.icon}"></i> ${data.title}`;
-            
-            const contentContainer = document.getElementById('modalContent');
-            contentContainer.innerHTML = data.items.map(item => `
-                <div class="info-card">
-                    <span class="tag">${item.time}</span>
-                    <h4>${item.name}</h4>
-                    <p>${item.desc}</p>
-                </div>
-            `).join('');
-
-            document.getElementById('modalOverlay').classList.add('active');
-        }
-
-        function closeModal(event) {
-            if (event.target.id === 'modalOverlay') {
-                document.getElementById('modalOverlay').classList.remove('active');
-            }
-        }
-
-        function closeModalDirect() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
-    </script>
 </body>
 </html>
-
-```
