@@ -6,7 +6,6 @@
   <title>EXPENSES - Shenzhen & Hong Kong</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* 予算計算用スタイル */
     .expense-select {
       width: 100%;
       padding: 8px 12px;
@@ -114,29 +113,58 @@
         <div class="expense-fixed-amount">¥<span class="calc-item" data-value="20000">20,000</span></div>
       </div>
 
-      <!-- 食事代 (選択式) -->
+      <!-- 海外旅行保険 -->
       <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
-        <span class="time" style="font-size: 12px; color: #718096;">FOOD & DRINK</span>
-        <span class="text" style="font-weight: 600;">食事代（概算）</span>
-        <select class="expense-select calc-select" id="foodSelect" onchange="calculateTotal()">
-          <option value="10000">¥10,000</option>
-          <option value="15000" selected>¥15,000 (推奨)</option>
-          <option value="20000">¥20,000</option>
-        </select>
+        <span class="time" style="font-size: 12px; color: #718096;">INSURANCE</span>
+        <span class="text" style="font-weight: 600;">海外旅行保険</span>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="2000">2,000</span></div>
       </div>
 
-      <!-- タクシー代 (選択式) -->
+      <!-- 食事 (深圳) -->
       <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
-        <span class="time" style="font-size: 12px; color: #718096;">TAXI & TRANSPORT</span>
-        <span class="text" style="font-weight: 600;">タクシー・交通費</span>
-        <select class="expense-select calc-select" id="taxiSelect" onchange="calculateTotal()">
+        <span class="time" style="font-size: 12px; color: #718096;">FOOD - SHENZHEN</span>
+        <span class="text" style="font-weight: 600;">食事（深圳）</span>
+        <select class="expense-select calc-select" id="foodShenzhen" onchange="calculateTotal()">
           <option value="10000" selected>¥10,000</option>
           <option value="15000">¥15,000</option>
           <option value="20000">¥20,000</option>
         </select>
       </div>
 
-      <!-- 予備費・その他 -->
+      <!-- 食事 (香港) -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">FOOD - HONG KONG</span>
+        <span class="text" style="font-weight: 600;">食事（香港）</span>
+        <select class="expense-select calc-select" id="foodHongKong" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <!-- タクシー (深圳) -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">TAXI - SHENZHEN</span>
+        <span class="text" style="font-weight: 600;">タクシー（深圳）</span>
+        <select class="expense-select calc-select" id="taxiShenzhen" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <!-- タクシー (香港) -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">TAXI - HONG KONG</span>
+        <span class="text" style="font-weight: 600;">タクシー（香港）</span>
+        <select class="expense-select calc-select" id="taxiHongKong" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <!-- 予備費・お土産 -->
       <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
         <span class="time" style="font-size: 12px; color: #718096;">OTHERS</span>
         <span class="text" style="font-weight: 600;">お土産・観光・予備費</span>
@@ -161,13 +189,13 @@
     function calculateTotal() {
       let total = 0;
 
-      // 固定金額の合算 (飛行機、ホテル、予備費)
+      // 固定金額の合算 (飛行機、ホテル、保険、予備費)
       const fixedItems = document.querySelectorAll('.calc-item');
       fixedItems.forEach(item => {
         total += parseInt(item.getAttribute('data-value'), 10) || 0;
       });
 
-      // 選択式金額の合算 (食事、タクシー)
+      // 選択式金額の合算 (食事深圳、食事香港、タクシー深圳、タクシー香港)
       const selectItems = document.querySelectorAll('.calc-select');
       selectItems.forEach(select => {
         total += parseInt(select.value, 10) || 0;
