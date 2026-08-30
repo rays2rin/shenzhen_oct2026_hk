@@ -3,92 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Itinerary - 深圳・香港</title>
+  <title>Shenzhen HongKong</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <main class="itinerary-card">
-    
-    <!-- ヘッダー -->
-    <header class="header">
-      <h1 class="header-title">Travel Itinerary</h1>
-      <div class="header-divider"></div>
-      <div class="header-info">
-        <span>14Wed. - 16Fri. / OCT / 2026</span>
-        <span>深圳・香港</span>
-      </div>
-    </header>
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title">Shenzhen HongKong</div>
+  </header>
 
-    <!-- DAY 1 -->
-    <section class="day-section">
-      <div class="day-header">DAY 1 | ARRIVAL DAY</div>
-      
-      <div class="day-card">
-        <ul class="timeline">
-          <li><span class="time">8:45</span><span class="event"><a href="https://www.tokyo-airport-bldg.co.jp/" target="_blank">羽田空港</a>（NH965 11:10 発）</span></li>
-          <li><span class="time">15:10</span><span class="event">深圳到着</span></li>
-          <li><span class="time">16:00-16:30</span><span class="event">チェックイン（<a href="https://www.hyatt.com/" target="_blank">アルコープ by ハイアット</a>）</span></li>
-          <li><span class="time">16:30-17:30</span><span class="event">香港へ移動</span></li>
-          <li><span class="time">17:30-18:00</span><span class="event"><a href="https://www.k11musea.com/" target="_blank">K11</a>、<a href="https://www.starferry.com.hk/" target="_blank">スターフェリー</a></span></li>
-          <li><span class="time">18:30-20:00</span><span class="event">食事</span></li>
-          <li><span class="time">20:00-22:30</span><span class="event"><a href="https://www.thepeak.com.hk/" target="_blank">ビクトリアピーク</a>、女人街 etc.</span></li>
-          <li><span class="time">23:00</span><span class="event">深圳へ移動</span></li>
-        </ul>
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1506970845246-18f21d533b20?auto=format&fit=crop&w=600&q=80" alt="Hong Kong View">
-        </div>
-      </div>
-    </section>
+  <!-- スライドアウト・ハンバーガーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
 
-    <!-- DAY 2 -->
-    <section class="day-section">
-      <div class="day-header">DAY 2 | EXPLORATION</div>
-      
-      <div class="day-card">
-        <ul class="timeline">
-          <li><span class="time">9:00</span><span class="event">飲茶のお店へ</span></li>
-          <li><span class="time">10:30-11:00</span><span class="event"><a href="https://maps.google.com" target="_blank">蓮花山公園</a></span></li>
-          <li><span class="time">11:30-12:30</span><span class="event"><a href="https://maps.google.com" target="_blank">深圳湾公園</a>（蓮花山から車で20分）</span></li>
-          <li><span class="time">13:00-14:00</span><span class="event"><a href="https://maps.google.com" target="_blank">海上世界</a>（深圳湾公園から車で15分）</span></li>
-          <li><span class="time">14:30-16:00</span><span class="event"><a href="https://maps.google.com" target="_blank">華強北 電気街のビルへ</a>（車で30分）</span></li>
-          <li><span class="time">16:20-18:00</span><span class="event">東門老街で日没まで休憩</span></li>
-          <li><span class="time">18:30-20:00</span><span class="event">市民中心で食事</span></li>
-          <li><span class="time">21:00</span><span class="event">自由時間</span></li>
-        </ul>
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" alt="Shenzhen View">
-        </div>
-      </div>
-    </section>
+  <!-- バックドロップ（メニュー表示時の背景暗転） -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <!-- DAY 3 -->
-    <section class="day-section">
-      <div class="day-header">DAY 3 | DEPARTURE DAY</div>
-      
-      <div class="day-card">
-        <ul class="timeline">
-          <li><span class="time">7:30</span><span class="event">起床・身支度</span></li>
-          <li><span class="time">8:00</span><span class="event">朝食</span></li>
-          <li><span class="time">9:30</span><span class="event">荷物整理・出発準備</span></li>
-          <li><span class="time">10:00</span><span class="event">チェックアウト</span></li>
-          <li><span class="time">11:00</span><span class="event">立ち寄り（<a href="https://instagram.com" target="_blank">EMPTY MUG COFFEE</a>）</span></li>
-          <li><span class="time">12:30</span><span class="event">昼食（<a href="https://maps.google.com" target="_blank">たんぽぽベーカリー</a>）</span></li>
-          <li><span class="time">14:30</span><span class="event">現地出発</span></li>
-          <li><span class="time">18:00</span><span class="event">到着・解散</span></li>
-        </ul>
-        <div class="card-image placeholder">
-          <span>UPLOAD IMAGE</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- フッター -->
-    <footer class="footer">
-      Created on June 10, 2026
-    </footer>
-
+  <!-- メインビジュアル（heroエリア） -->
+  <main class="hero-container">
+    <img src="https://images.unsplash.com/photo-1506970845246-18f21d533b20?auto=format&fit=crop&w=1200&q=80" alt="Main View" class="hero-image">
+    <div class="hero-overlay">
+      <h2 class="hero-dates">14 WED - 16 FRI</h2>
+      <p class="hero-month">October 2026</p>
+    </div>
   </main>
 
+  <script>
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
