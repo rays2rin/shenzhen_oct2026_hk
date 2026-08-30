@@ -48,6 +48,11 @@
       color: #2d3748;
       margin-top: 4px;
     }
+    .item-desc {
+      font-size: 11px;
+      color: #718096;
+      margin-top: 2px;
+    }
   </style>
 </head>
 <body>
@@ -92,7 +97,7 @@
 
     <!-- 合計金額表示エリア -->
     <div class="total-box">
-      <div class="total-title">ESTIMATED TOTAL / PER PERSON</div>
+      <div class="total-title">ESTIMATED TOTAL</div>
       <div class="total-amount" id="totalAmount">¥0</div>
     </div>
 
@@ -103,21 +108,36 @@
       <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
         <span class="time" style="font-size: 12px; color: #718096;">FLIGHT</span>
         <span class="text" style="font-weight: 600;">飛行機代</span>
-        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="45000">45,000</span></div>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="129455">129,455</span></div>
       </div>
 
       <!-- ホテル代 -->
       <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
         <span class="time" style="font-size: 12px; color: #718096;">HOTEL</span>
-        <span class="text" style="font-weight: 600;">ホテル代 (2泊)</span>
-        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="20000">20,000</span></div>
+        <span class="text" style="font-weight: 600;">ホテル代</span>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="62477">62,477</span></div>
       </div>
 
-      <!-- 海外旅行保険 -->
+      <!-- eSIM（番号あり/なし選択） -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">eSIM / INTERNET</span>
+        <span class="text" style="font-weight: 600;">eSIM（通信費）</span>
+        <div class="item-desc">※電話番号付帯の有無を選択できます</div>
+        <select class="expense-select calc-select" id="esimSelect" onchange="calculateTotal()">
+          <option value="1500" selected>番号なし（約 ¥1,500）</option>
+          <option value="2500">電話番号付帯（約 ¥2,500）</option>
+        </select>
+      </div>
+
+      <!-- 海外旅行保険（キャンセル保証有無） -->
       <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
         <span class="time" style="font-size: 12px; color: #718096;">INSURANCE</span>
         <span class="text" style="font-weight: 600;">海外旅行保険</span>
-        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="2000">2,000</span></div>
+        <div class="item-desc">※キャンセル保証の有無を選択できます</div>
+        <select class="expense-select calc-select" id="insuranceSelect" onchange="calculateTotal()">
+          <option value="2000" selected>基本プラン（約 ¥2,000）</option>
+          <option value="4000">キャンセル保証付き（約 ¥4,000）</option>
+        </select>
       </div>
 
       <!-- 食事 (深圳) -->
@@ -164,13 +184,6 @@
         </select>
       </div>
 
-      <!-- 予備費・お土産 -->
-      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
-        <span class="time" style="font-size: 12px; color: #718096;">OTHERS</span>
-        <span class="text" style="font-weight: 600;">お土産・観光・予備費</span>
-        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="10000">10,000</span></div>
-      </div>
-
     </div>
 
     <div class="back-link">
@@ -189,13 +202,13 @@
     function calculateTotal() {
       let total = 0;
 
-      // 固定金額の合算 (飛行機、ホテル、保険、予備費)
+      // 固定金額の合算（飛行機代: 129,455円、ホテル代: 62,477円）
       const fixedItems = document.querySelectorAll('.calc-item');
       fixedItems.forEach(item => {
         total += parseInt(item.getAttribute('data-value'), 10) || 0;
       });
 
-      // 選択式金額の合算 (食事深圳、食事香港、タクシー深圳、タクシー香港)
+      // 選択式金額の合算（eSIM、保険、食事深圳/香港、タクシー深圳/香港）
       const selectItems = document.querySelectorAll('.calc-select');
       selectItems.forEach(select => {
         total += parseInt(select.value, 10) || 0;
