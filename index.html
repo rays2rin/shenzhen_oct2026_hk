@@ -3,206 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Itinerary - Shenzhen & Hong Kong</title>
+  <title>Travel Itinerary - 深圳・香港</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="itinerary-card">
+  <main class="itinerary-card">
     
+    <!-- ヘッダー -->
     <header class="header">
       <h1 class="header-title">Travel Itinerary</h1>
+      <div class="header-divider"></div>
       <div class="header-info">
-        <span class="info-date">14Wed. - 16Fri. / OCT / 2026</span>
-        <span class="info-loc">深圳・香港</span>
+        <span>14Wed. - 16Fri. / OCT / 2026</span>
+        <span>深圳・香港</span>
       </div>
     </header>
 
-    <div class="main-content">
+    <!-- DAY 1 -->
+    <section class="day-section">
+      <div class="day-header">DAY 1 | ARRIVAL DAY</div>
       
-      <section class="day-section">
-        <h2 class="day-title">DAY 1 <span class="day-subtitle">| ARRIVAL DAY</span></h2>
-        
-        <div class="schedule-block">
-          <div class="schedule-item">
-            <div class="schedule-time">8:45</div>
-            <div class="schedule-event">
-              <a href="https://www.tokyo-airport-bldg.co.jp/" target="_blank">羽田空港</a><br>
-              <span class="event-details">(NH965 11:10 発)</span>
-            </div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">15:10</div>
-            <div class="schedule-event">深圳到着</div>
-          </div>
-
-          <div class="schedule-item has-details">
-            <div class="schedule-time">16:00-16:30</div>
-            <div class="schedule-event">チェックイン</div>
-            <div class="event-extra-box">
-              <span class="extra-label">Hotel:</span>
-              <a href="https://www.hyatt.com/" target="_blank">アルコープ by ハイアット</a>
-            </div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">16:30-17:30</div>
-            <div class="schedule-event">香港へ移動</div>
-          </div>
-
-          <div class="schedule-item is-featured">
-            <div class="schedule-time">17:30-18:00</div>
-            <div class="schedule-event">K11、スターフェリー</div>
-            <div class="event-featured-info">
-              <div class="featured-links">
-                <a href="https://www.k11musea.com/" target="_blank" class="featured-link">K11 musea</a>
-                <a href="https://www.starferry.com.hk/" target="_blank" class="featured-link">Star Ferry</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="schedule-item highlight">
-            <div class="schedule-time">18:30-20:00</div>
-            <div class="schedule-event">食事</div>
-          </div>
-
-          <div class="schedule-item has-details">
-            <div class="schedule-time">20:00-22:30</div>
-            <div class="schedule-event">
-              <a href="https://www.thepeak.com.hk/" target="_blank">ビクトリアピーク</a>、女人街 etc.
-            </div>
-            <div class="event-image">
-              <img src="https://images.unsplash.com/photo-1506970845246-18f21d533b20?auto=format&fit=crop&w=800&q=80" alt="Hong Kong Night View">
-            </div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">23:00</div>
-            <div class="schedule-event">深圳へ移動</div>
-          </div>
+      <div class="day-card">
+        <ul class="timeline">
+          <li><span class="time">8:45</span><span class="event"><a href="https://www.tokyo-airport-bldg.co.jp/" target="_blank">羽田空港</a>（NH965 11:10 発）</span></li>
+          <li><span class="time">15:10</span><span class="event">深圳到着</span></li>
+          <li><span class="time">16:00-16:30</span><span class="event">チェックイン（<a href="https://www.hyatt.com/" target="_blank">アルコープ by ハイアット</a>）</span></li>
+          <li><span class="time">16:30-17:30</span><span class="event">香港へ移動</span></li>
+          <li><span class="time">17:30-18:00</span><span class="event"><a href="https://www.k11musea.com/" target="_blank">K11</a>、<a href="https://www.starferry.com.hk/" target="_blank">スターフェリー</a></span></li>
+          <li><span class="time">18:30-20:00</span><span class="event">食事</span></li>
+          <li><span class="time">20:00-22:30</span><span class="event"><a href="https://www.thepeak.com.hk/" target="_blank">ビクトリアピーク</a>、女人街 etc.</span></li>
+          <li><span class="time">23:00</span><span class="event">深圳へ移動</span></li>
+        </ul>
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1506970845246-18f21d533b20?auto=format&fit=crop&w=600&q=80" alt="Hong Kong View">
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="day-section">
-        <h2 class="day-title">DAY 2 <span class="day-subtitle">| EXPLORATION</span></h2>
-        
-        <div class="schedule-block">
-          <div class="schedule-item">
-            <div class="schedule-time">9:00</div>
-            <div class="schedule-event">飲茶のお店へ</div>
-          </div>
-
-          <div class="schedule-item highlight is-featured">
-            <div class="schedule-time">10:30-14:00</div>
-            <div class="schedule-event">公園巡り</div>
-            <div class="featured-info-list">
-              <div class="info-list-item">
-                <span class="info-tag">10:30</span>
-                <a href="https://maps.google.com" target="_blank">蓮花山公園</a>
-              </div>
-              <div class="info-list-item">
-                <span class="info-tag">11:30</span>
-                <a href="https://maps.google.com" target="_blank">深圳湾公園</a>
-                <span class="extra-label-sm">(蓮花山から車20分)</span>
-              </div>
-              <div class="info-list-item">
-                <span class="info-tag">13:00</span>
-                <a href="https://maps.google.com" target="_blank">海上世界</a>
-                <span class="extra-label-sm">(深圳湾から車15分)</span>
-              </div>
-            </div>
-            <div class="event-image">
-              <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Shenzhen Skyline">
-            </div>
-          </div>
-
-          <div class="schedule-item has-details">
-            <div class="schedule-time">14:30-16:00</div>
-            <div class="schedule-event">ショッピング</div>
-            <div class="event-extra-box">
-              <span class="extra-label">Place:</span>
-              <a href="https://maps.google.com" target="_blank">華強北 電気街</a>
-              <span class="extra-label-sm">(車で30分)</span>
-            </div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">16:20-18:00</div>
-            <div class="schedule-event">東門老街で日没まで休憩</div>
-          </div>
-
-          <div class="schedule-item highlight">
-            <div class="schedule-time">18:30-20:00</div>
-            <div class="schedule-event">市民中心で食事</div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">21:00</div>
-            <div class="schedule-event">自由時間</div>
-          </div>
+    <!-- DAY 2 -->
+    <section class="day-section">
+      <div class="day-header">DAY 2 | EXPLORATION</div>
+      
+      <div class="day-card">
+        <ul class="timeline">
+          <li><span class="time">9:00</span><span class="event">飲茶のお店へ</span></li>
+          <li><span class="time">10:30-11:00</span><span class="event"><a href="https://maps.google.com" target="_blank">蓮花山公園</a></span></li>
+          <li><span class="time">11:30-12:30</span><span class="event"><a href="https://maps.google.com" target="_blank">深圳湾公園</a>（蓮花山から車で20分）</span></li>
+          <li><span class="time">13:00-14:00</span><span class="event"><a href="https://maps.google.com" target="_blank">海上世界</a>（深圳湾公園から車で15分）</span></li>
+          <li><span class="time">14:30-16:00</span><span class="event"><a href="https://maps.google.com" target="_blank">華強北 電気街のビルへ</a>（車で30分）</span></li>
+          <li><span class="time">16:20-18:00</span><span class="event">東門老街で日没まで休憩</span></li>
+          <li><span class="time">18:30-20:00</span><span class="event">市民中心で食事</span></li>
+          <li><span class="time">21:00</span><span class="event">自由時間</span></li>
+        </ul>
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" alt="Shenzhen View">
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="day-section">
-        <h2 class="day-title">DAY 3 <span class="day-subtitle">| DEPARTURE DAY</span></h2>
-        
-        <div class="schedule-block">
-          <div class="schedule-item">
-            <div class="schedule-time">7:30</div>
-            <div class="schedule-event">起床・身支度</div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">8:00</div>
-            <div class="schedule-event">朝食</div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">10:00</div>
-            <div class="schedule-event">チェックアウト</div>
-          </div>
-
-          <div class="schedule-item highlight has-details">
-            <div class="schedule-time">11:00-14:00</div>
-            <div class="schedule-event">立ち寄り</div>
-            <div class="featured-info-list">
-              <div class="info-list-item">
-                <span class="info-tag">11:00</span>
-                <a href="https://instagram.com" target="_blank">EMPTY MUG COFFEE</a>
-              </div>
-              <div class="info-list-item">
-                <span class="info-tag">12:30</span>
-                <a href="https://maps.google.com" target="_blank">たんぽぽベーカリー</a>
-              </div>
-            </div>
-            <div class="event-image placeholder">
-              <div class="placeholder-content">
-                <span class="placeholder-icon">🌁</span>
-                <span class="placeholder-text">UPLOAD CAFE IMAGE</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="schedule-item">
-            <div class="schedule-time">14:30</div>
-            <div class="schedule-event">現地出発</div>
-          </div>
-
-          <div class="schedule-item highlight">
-            <div class="schedule-time">18:00</div>
-            <div class="schedule-event">到着・解散</div>
-          </div>
+    <!-- DAY 3 -->
+    <section class="day-section">
+      <div class="day-header">DAY 3 | DEPARTURE DAY</div>
+      
+      <div class="day-card">
+        <ul class="timeline">
+          <li><span class="time">7:30</span><span class="event">起床・身支度</span></li>
+          <li><span class="time">8:00</span><span class="event">朝食</span></li>
+          <li><span class="time">9:30</span><span class="event">荷物整理・出発準備</span></li>
+          <li><span class="time">10:00</span><span class="event">チェックアウト</span></li>
+          <li><span class="time">11:00</span><span class="event">立ち寄り（<a href="https://instagram.com" target="_blank">EMPTY MUG COFFEE</a>）</span></li>
+          <li><span class="time">12:30</span><span class="event">昼食（<a href="https://maps.google.com" target="_blank">たんぽぽベーカリー</a>）</span></li>
+          <li><span class="time">14:30</span><span class="event">現地出発</span></li>
+          <li><span class="time">18:00</span><span class="event">到着・解散</span></li>
+        </ul>
+        <div class="card-image placeholder">
+          <span>UPLOAD IMAGE</span>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div>
-
+    <!-- フッター -->
     <footer class="footer">
       Created on June 10, 2026
     </footer>
 
-  </div>
+  </main>
 
 </body>
 </html>
