@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TODO - Shenzhen & Hong Kong</title>
+  <title>TODO & PACKING - Shenzhen & Hong Kong</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -46,118 +46,99 @@
       <h1 class="schedule-title">TO DO & PACKING</h1>
     </div>
 
-    <!-- 事前準備リスト -->
-    <section class="todo-section">
-      <h2 class="todo-section-title">PREPARATION</h2>
-      
-      <div class="todo-card-list">
+    <!-- TODO ブロック（カバンの中の位置付け） -->
+    <div class="checklist-card">
+      <h2 class="checklist-title">TODO</h2>
+      <div class="checklist-grid">
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">eSIM購入</span>
-            <p class="todo-desc">
-              ・番号不要：<a href="https://esim.holafly.com/ja/" target="_blank">Holafly</a>（コード <code>ONODA</code>）<br>
-              ・番号必要：<a href="https://chocosim.net/" target="_blank">チョコSIM90</a>
-            </p>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">
+            eSIM (番号なし)<br>
+            <small><a href="https://esim.holafly.com/ja/" target="_blank">Holafly</a> [<code>ONODA</code>]</small>
+          </span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">旅行保険の加入</span>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">
+            eSIM (番号あり)<br>
+            <small><a href="https://chocosim.net/" target="_blank">チョコSIM90</a></small>
+          </span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">オンライン入国カード作成</span>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">旅行保険の加入</span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">WeChat 登録</span>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">オンライン入国カード</span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">Alipay 登録</span>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">WeChat 登録</span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">Alipay 登録</span>
         </label>
 
       </div>
-    </section>
+    </div>
 
-    <!-- 持ち物リスト -->
-    <section class="todo-section">
-      <h2 class="todo-section-title">PACKING LIST</h2>
-      
-      <div class="todo-card-list">
+    <!-- 持ち物 ブロック（キャリーケースの位置付け） -->
+    <div class="checklist-card">
+      <h2 class="checklist-title">持ち物</h2>
+      <div class="checklist-grid">
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">パスポート</span>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">パスポート</span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">充電器</span>
-            <p class="todo-desc">予備としてケーブル2本</p>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">充電器<br><small>(予備ケーブル2本)</small></span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">モバイルバッテリー</span>
-            <p class="todo-desc">43,200mAh以下</p>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">モバイルバッテリー<br><small>(43,200mAh以下)</small></span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">メガネ / コンタクト / 薬</span>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">メガネ / コンタクト / 薬</span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">クレジットカード</span>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">クレジットカード</span>
         </label>
 
-        <label class="todo-card">
-          <input type="checkbox" class="todo-checkbox">
-          <span class="custom-check"></span>
-          <div class="todo-content">
-            <span class="todo-title">現金</span>
-            <p class="todo-desc">香港で必要</p>
-          </div>
+        <label class="check-item">
+          <input type="checkbox">
+          <span class="box"></span>
+          <span class="label-text">現金<br><small>(香港で必要)</small></span>
         </label>
 
       </div>
-    </section>
+    </div>
 
     <div class="back-link">
       <a href="index.html">← TOP PAGE</a>
