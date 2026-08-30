@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO - Shenzhen & Hong Kong</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  </header>
+
+  <!-- ドロワーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
+
+  <!-- バックドロップ -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- メインコンテンツ -->
+  <main class="page-container">
+    
+    <!-- タイトルヘッダー -->
+    <div class="schedule-header">
+      <p class="schedule-sub">CHECKLIST</p>
+      <h1 class="schedule-title">TO DO & PACKING</h1>
+    </div>
+
+    <!-- 事前準備リスト -->
+    <div class="todo-group">
+      <h2 class="todo-category-title">事前準備</h2>
+      
+      <div class="todo-list">
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>eSIM購入</strong>
+            <p class="todo-desc">
+              ・番号不要：<a href="https://esim.holafly.com/ja/" target="_blank">Holafly</a>（クーポン：<code>ONODA</code>）<br>
+              ・番号必要：チョコSIM90
+            </p>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>旅行保険の加入</strong>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>オンライン入国カード作成</strong>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>WeChat 登録</strong>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>Alipay 登録</strong>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- 持ち物リスト -->
+    <div class="todo-group">
+      <h2 class="todo-category-title">持ち物チェック</h2>
+      
+      <div class="todo-list">
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>パスポート</strong>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>充電器</strong>
+            <p class="todo-desc">予備としてケーブル2本</p>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>モバイルバッテリー</strong>
+            <p class="todo-desc">43,200mAh以下</p>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>メガネ / コンタクト / 薬</strong>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>クレジットカード</strong>
+          </div>
+        </label>
+
+        <label class="todo-item">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+          <div class="todo-text">
+            <strong>現金</strong>
+            <p class="todo-desc">香港で必要</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
 
