@@ -4,12 +4,202 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EXPENSES - SHENZHEN & HONG KONG</title>
-  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 全体リセット & ダークモード基調 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0d0d0d !important;
+      color: #ffffff !important;
+      font-family: 'Montserrat', -apple-system, sans-serif !important;
+      min-height: 100vh;
+      padding: 20px 20px 40px 20px;
+    }
+
+    /* ヘッダー */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 440px;
+      margin: 0 auto 28px auto;
+    }
+
+    .back-link {
+      color: #8e8e93;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: #0a84ff; /* 青アクセント */
+    }
+
+    .page-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    /* メインコンテナ */
+    .expenses-container {
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* 1. 青カード廃止・ダークガラス調の合計金額エリア */
+    .total-display-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 28px 20px 20px 20px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    /* 3. ESTIMATED TOTAL（小さく控えめに） */
+    .estimated-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #8e8e93;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* 2. 合計金額（ページの視覚的主役・特大化） */
+    .total-amount-box {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    .currency-symbol {
+      font-size: 28px;
+      font-weight: 600;
+      color: #0a84ff; /* 青アクセント */
+    }
+
+    .total-amount {
+      font-size: 48px; /* 主役サイズ */
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #ffffff;
+      display: inline-block;
+    }
+
+    /* 4. 金額変更時の数字ポップアニメーション */
+    .total-amount.pop-anim {
+      animation: numPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes numPop {
+      0% {
+        opacity: 0.3;
+        transform: scale(0.92) translateY(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* 5. 通貨トグル（青はテキスト・薄枠線などのアクセントに限定） */
+    .currency-toggle {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      gap: 4px;
+    }
+
+    .toggle-btn {
+      background: transparent;
+      border: none;
+      color: #8e8e93;
+      padding: 8px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .toggle-btn.active {
+      color: #0a84ff; /* 青テキスト */
+      background: rgba(10, 132, 255, 0.12); /* 青アクセント背景 */
+      border: 1px solid rgba(10, 132, 255, 0.3); /* 青線 */
+    }
+
+    /* BREAKDOWN 明細リスト */
+    .expenses-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-subtitle {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #8e8e93;
+      margin: 0 0 4px 4px;
+    }
+
+    .expense-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 18px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .item-sub {
+      font-size: 11px;
+      color: #6c6c70;
+    }
+
+    .item-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+  </style>
 </head>
-<body class="sub-page expenses-page">
+<body class="expenses-page">
 
   <header class="page-header">
     <a href="index.html" class="back-link">← TOP</a>
@@ -22,7 +212,7 @@
       <span class="estimated-label">ESTIMATED TOTAL</span>
       <div class="total-amount-box">
         <span class="currency-symbol" id="currencySymbol">¥</span>
-        <span class="total-amount" id="totalAmount">0</span>
+        <span class="total-amount" id="totalAmount">39,500</span>
       </div>
       
       <div class="currency-toggle">
@@ -71,11 +261,8 @@
   </main>
 
   <script>
-    // 1 HKD / CNY の簡易換算レート（表示保持用データ）
-    const rates = { JPY: 1, HKD: 0.05, CNY: 0.047 };
     let currentCurrency = 'JPY';
 
-    // 合計金額の計算・更新
     function calculateTotal() {
       const items = document.querySelectorAll('.item-price');
       let total = 0;
@@ -84,12 +271,10 @@
         const val = parseFloat(item.getAttribute(`data-${currentCurrency.toLowerCase()}`)) || 0;
         total += val;
         
-        // 明細リスト側の表示更新
         const symbol = currentCurrency === 'HKD' ? '$' : '¥';
         item.textContent = symbol + val.toLocaleString();
       });
 
-      // 主役の合計金額を更新＆軽めのアニメーション発動
       const totalEl = document.getElementById('totalAmount');
       const symbolEl = document.getElementById('currencySymbol');
       
@@ -98,11 +283,10 @@
 
       // 数字のアニメーションリセット
       totalEl.classList.remove('pop-anim');
-      void totalEl.offsetWidth; // リフロー発生
+      void totalEl.offsetWidth;
       totalEl.classList.add('pop-anim');
     }
 
-    // 通貨切り替え
     function switchCurrency(type) {
       currentCurrency = type;
       document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
@@ -110,7 +294,6 @@
       calculateTotal();
     }
 
-    // 初期計算
     window.addEventListener('DOMContentLoaded', calculateTotal);
   </script>
 </body>
