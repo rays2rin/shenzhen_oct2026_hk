@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAY 2 - Shenzhen & Hong Kong</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  </header>
+
+  <!-- ドロワーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
+
+  <!-- バックドロップ -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- メインコンテンツ -->
+  <main class="page-container">
+    
+    <!-- タイトルヘッダー -->
+    <div class="schedule-header">
+      <p class="schedule-sub">TRAVEL SCHEDULE</p>
+      <h1 class="schedule-title">DAY 2</h1>
+      <p class="schedule-date">DATE: 10/15 (THU)</p>
+    </div>
+
+    <!-- カプセル型タイムライン -->
+    <div class="schedule-list">
+
+      <div class="schedule-card">
+        <span class="time">09:00 - 10:00</span>
+        <span class="text"><a href="foods.html">飲茶店で朝食・点心</a></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">10:30 - 11:00</span>
+        <span class="text"><a href="https://ja.wikipedia.org/wiki/%E8%93%AE%E8%8A%B1%E5%B1%B1%E5%85%AC%E5%9C%92" target="_blank">蓮花山公園</a> 散策</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">11:30 - 12:30</span>
+        <span class="text"><a href="https://jp.trip.com/guide/info/%E6%B7%B1%E5%9C%B3%E6%B9%BE%E5%85%AC%E5%9C%92.html" target="_blank">深圳湾公園</a><br><small style="color:#718096;">※ドローンデリバリーで飲み物を購入</small></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">12:30 - 13:00</span>
+        <span class="text">無人タクシー（ロボタクシー）で移動</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">13:00 - 14:00</span>
+        <span class="text"><a href="https://ja.wikipedia.org/wiki/%E6%B5%B7%E4%B8%8A%E4%B8%96%E7%95%8C" target="_blank">海上世界</a> 散策・ランチ</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">14:30 - 16:00</span>
+        <span class="text"><a href="https://jp.trip.com/moments/detail/shenzhen-83-10825310/" target="_blank">華強北 電気街ビル</a> 観光</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">16:20 - 18:00</span>
+        <span class="text">東門老街でマッサージ＆休憩</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">18:30 - 20:00</span>
+        <span class="text"><a href="foods.html">市民中心でディナー</a></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">20:30 - 21:30</span>
+        <span class="text">お土産・ショッピング</span>
+      </div>
+
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
 
