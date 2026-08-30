@@ -2329,5 +2329,216 @@ body.expenses-page {
   font-weight: 700;
   color: #ffffff;
 }
+/* ==========================================
+   TOP PAGE - POSITION & RADIUS ADJUSTMENT
+========================================== */
+
+body.top-page {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #000000 !important;
+  overflow: hidden !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+}
+
+.hero-section {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.hero-img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  z-index: 1 !important;
+}
+
+.hero-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.15) 60%,
+    rgba(0, 0, 0, 0.75) 100%
+  ) !important;
+  z-index: 2 !important;
+}
+
+.hero-content {
+  position: relative !important;
+  z-index: 10 !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+
+/* ------------------------------------------
+   タイトル（位置を約40px上へ調整）
+------------------------------------------ */
+.hero-title-group {
+  width: 100% !important;
+  margin-top: -40px !important; /* 位置を約40px上へ移動 */
+  margin-bottom: 6px !important;
+  text-align: left !important;
+}
+
+.hero-title {
+  font-family: 'Cinzel', serif !important;
+  font-size: 38px !important;
+  font-weight: 900 !important;
+  line-height: 0.95 !important;
+  letter-spacing: 2px !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+  text-align: left !important;
+  opacity: 0;
+}
+
+.title-shenzhen {
+  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.title-hongkong {
+  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards !important;
+}
+
+.hero-sub {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 6px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin: 0 !important;
+  width: 100% !important;
+  text-align: center !important;
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards 1.45s !important;
+}
+
+/* ------------------------------------------
+   ナビゲーションボタン
+------------------------------------------ */
+.top-nav {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin-top: 70px !important;
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards 1.6s !important;
+}
+
+.btn {
+  font-family: 'Montserrat', sans-serif !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  transition: all 0.25s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* DAY 1 ~ 3 カプセルボタン */
+.primary-row {
+  display: flex !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+.btn-primary {
+  flex: 1 !important;
+  height: 46px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  background: rgba(20, 20, 20, 0.5) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 30px !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.btn-primary.active {
+  color: #111111 !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2) !important;
+}
+
+.btn-primary:active {
+  transform: scale(0.96) !important;
+}
+
+/* 下4つボタン（radiusを8pxに減衰） */
+.secondary-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+.btn-secondary {
+  height: 42px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  color: #ffffff !important;
+  background: rgba(20, 20, 20, 0.45) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 8px !important; /* radiusを削減 */
+  box-shadow: none !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.btn-secondary:active {
+  transform: scale(0.96) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ------------------------------------------
+   アニメーションキーフレーム
+------------------------------------------ */
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 
