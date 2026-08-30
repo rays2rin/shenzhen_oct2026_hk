@@ -7,35 +7,9 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body class="top-page">
-
-  <!-- 画像の上に浮かせる透明ハンバーガーボタン -->
-  <button class="overlay-menu-btn" onclick="toggleMenu()" aria-label="Menu">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
-  </button>
-
-  <!-- ドロワーメニュー -->
-  <nav class="drawer-menu" id="drawerMenu">
-    <div class="close-btn" onclick="toggleMenu()">✕</div>
-    <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li><a href="day1.html">DAY 1</a></li>
-      <li><a href="day2.html">DAY 2</a></li>
-      <li><a href="day3.html">DAY 3</a></li>
-      <li class="divider"></li>
-      <li><a href="todo.html">todo</a></li>
-      <li><a href="expenses.html">expenses</a></li>
-      <li><a href="traffic.html">traffic</a></li>
-      <li><a href="foods.html">foods</a></li>
-    </ul>
-  </nav>
-
-  <!-- バックドロップ -->
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- メインビジュアル（フルスクリーン） -->
   <main class="hero-section">
@@ -44,23 +18,33 @@
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-      <!-- 左右から流れ込んでくるタイトルアニメーション -->
-      <h1 class="slide-title">
-        <span class="title-left">SHENZHEN</span>
-        <span class="title-amp">&amp;</span>
-        <span class="title-right">HONG KONG</span>
-      </h1>
+      <!-- 互い違いに配置した巨大タイトル -->
+      <div class="hero-title-box">
+        <span class="hero-title-left">SHENZHEN</span>
+        <span class="hero-title-right">HONG KONG</span>
+      </div>
 
       <p class="hero-sub">TRAVEL ITINERARY</p>
-      <p class="hero-date">14 WED — 16 FRI</p>
+
+      <!-- 直感的に押せるナビゲーションボタン -->
+      <nav class="top-nav">
+        <!-- メイン日程ボタン -->
+        <div class="nav-group main-days">
+          <a href="day1.html" class="nav-btn primary">DAY 1</a>
+          <a href="day2.html" class="nav-btn primary">DAY 2</a>
+          <a href="day3.html" class="nav-btn primary">DAY 3</a>
+        </div>
+
+        <!-- カテゴリボタン -->
+        <div class="nav-group sub-categories">
+          <a href="todo.html" class="nav-btn secondary">TODO</a>
+          <a href="expenses.html" class="nav-btn secondary">EXPENSES</a>
+          <a href="foods.html" class="nav-btn secondary">FOODS</a>
+          <a href="traffic.html" class="nav-btn secondary">TRAFFIC</a>
+        </div>
+      </nav>
     </div>
   </main>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('drawerMenu').classList.toggle('active');
-      document.getElementById('overlay').classList.toggle('active');
-    }
-  </script>
 </body>
 </html>
