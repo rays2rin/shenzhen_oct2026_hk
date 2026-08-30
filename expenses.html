@@ -49,8 +49,8 @@
     <!-- 合計金額カード -->
     <div class="total-expense-card">
       <p class="total-label">推定合計費用</p>
-      <h2 class="total-amount">¥244,027 〜 ¥252,627</h2>
-      <p class="total-note">※保険・eSIMのプラン選択により変動します</p>
+      <h2 class="total-amount" id="totalDisplay">¥0</h2>
+      <p class="total-note">※選択したプランに応じて自動計算されます</p>
     </div>
 
     <!-- 費用一覧リスト -->
@@ -60,58 +60,64 @@
         <div class="expense-info">
           <span class="expense-name">飛行機</span>
         </div>
-        <span class="expense-price">¥129,450</span>
+        <span class="expense-price">¥<span class="calc-price" data-min="129450" data-max="129450">129,450</span></span>
       </div>
 
       <div class="expense-item">
         <div class="expense-info">
           <span class="expense-name">ホテル</span>
         </div>
-        <span class="expense-price">¥62,477</span>
+        <span class="expense-price">¥<span class="calc-price" data-min="62477" data-max="62477">62,477</span></span>
       </div>
 
       <div class="expense-item">
         <div class="expense-info">
           <span class="expense-name">旅行保険</span>
-          <span class="expense-sub">キャンセル補償なし: ¥1,400</span>
+          <select class="expense-select" id="insuranceSelect" onchange="updateTotal()">
+            <option value="5000" data-min="5000" data-max="5000" selected>キャンセル補償あり (¥5,000)</option>
+            <option value="1400" data-min="1400" data-max="1400">キャンセル補償なし (¥1,400)</option>
+          </select>
         </div>
-        <span class="expense-price">¥5,000</span>
+        <span class="expense-price">¥<span id="insurancePrice">5,000</span></span>
       </div>
 
       <div class="expense-item">
         <div class="expense-info">
           <span class="expense-name">eSIM</span>
-          <span class="expense-sub">番号付帯の場合: ¥5,000</span>
+          <select class="expense-select" id="esimSelect" onchange="updateTotal()">
+            <option value="700" data-min="700" data-max="700" selected>番号なし (¥700)</option>
+            <option value="5000" data-min="5000" data-max="5000">番号あり (¥5,000)</option>
+          </select>
         </div>
-        <span class="expense-price">¥700</span>
+        <span class="expense-price">¥<span id="esimPrice">700</span></span>
       </div>
 
       <div class="expense-item">
         <div class="expense-info">
           <span class="expense-name">タクシー（香港）</span>
         </div>
-        <span class="expense-price">¥10,000</span>
+        <span class="expense-price">¥<span class="calc-price" data-min="10000" data-max="10000">10,000</span></span>
       </div>
 
       <div class="expense-item">
         <div class="expense-info">
           <span class="expense-name">タクシー（深圳）</span>
         </div>
-        <span class="expense-price">¥10,000</span>
+        <span class="expense-price">¥<span class="calc-price" data-min="10000" data-max="10000">10,000</span></span>
       </div>
 
       <div class="expense-item">
         <div class="expense-info">
           <span class="expense-name">食事（香港）</span>
         </div>
-        <span class="expense-price">¥15,000</span>
+        <span class="expense-price">¥<span class="calc-price" data-min="15000" data-max="15000">15,000</span></span>
       </div>
 
       <div class="expense-item">
         <div class="expense-info">
           <span class="expense-name">食事（深圳）</span>
         </div>
-        <span class="expense-price">¥15,000</span>
+        <span class="expense-price">¥<span class="calc-price" data-min="15000" data-max="15000">15,000</span></span>
       </div>
 
     </div>
@@ -127,7 +133,31 @@
       document.getElementById('drawerMenu').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
     }
+
+    function updateTotal() {
+      // ドロップダウンの選択金額を取得
+      const insuranceVal = parseInt(document.getElementById('insuranceSelect').value);
+      const esimVal = parseInt(document.getElementById('esimSelect').value);
+
+      // 個別表示のテキストを更新
+      document.getElementById('insurancePrice').innerText = insuranceVal.toLocaleString();
+      document.getElementById('esimPrice').innerText = esimVal.toLocaleString();
+
+      // その他の固定項目の合計を計算
+      let fixedTotal = 0;
+      document.querySelectorAll('.calc-price').forEach(el => {
+        fixedTotal += parseInt(el.getAttribute('data-min'));
+      });
+
+      // 合計を算出
+      const grandTotal = fixedTotal + insuranceVal + esimVal;
+
+      // 画面に反映
+      document.getElementById('totalDisplay').innerText = '¥' + grandTotal.toLocaleString();
+    }
+
+    // ページ読み込み時に初期計算を実行
+    window.onload = updateTotal;
   </script>
 </body>
 </html>
-
