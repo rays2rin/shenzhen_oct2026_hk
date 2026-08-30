@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAY 3 - Shenzhen & Hong Kong</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  </header>
+
+  <!-- ドロワーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
+
+  <!-- バックドロップ -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- メインコンテンツ -->
+  <main class="page-container">
+    
+    <!-- タイトルヘッダー -->
+    <div class="schedule-header">
+      <p class="schedule-sub">TRAVEL SCHEDULE</p>
+      <h1 class="schedule-title">DAY 3</h1>
+      <p class="schedule-date">DATE: 10/16 (FRI)</p>
+    </div>
+
+    <!-- カプセル型タイムライン -->
+    <div class="schedule-list">
+
+      <div class="schedule-card">
+        <span class="time">09:00 - 12:00</span>
+        <span class="text">自由行動・スポット巡り<br><small style="color:#718096;">※DAY 2の夜に相談（再訪、買い物、他スポット等）</small></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">12:00</span>
+        <span class="text"><a href="foods.html">ランチ</a></span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">14:00</span>
+        <span class="text">深圳宝安国際空港 到着</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">17:00</span>
+        <span class="text">搭乗 (NH966)</span>
+      </div>
+
+      <div class="schedule-card">
+        <span class="time">22:10</span>
+        <span class="text">羽田空港 到着</span>
+      </div>
+
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
 
