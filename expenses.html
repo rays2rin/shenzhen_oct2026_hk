@@ -5,6 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EXPENSES - Shenzhen & Hong Kong</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* 予算計算用スタイル */
+    .expense-select {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d3748;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      outline: none;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+    .expense-select:focus {
+      border-color: #4299e1;
+      background-color: #ffffff;
+    }
+    .total-box {
+      background: linear-gradient(135deg, #4299e1, #3182ce);
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+    }
+    .total-title {
+      font-size: 12px;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+    .total-amount {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .expense-fixed-amount {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-top: 4px;
+    }
+  </style>
 </head>
 <body>
 
@@ -46,78 +91,56 @@
       <h1 class="schedule-title">EXPENSES</h1>
     </div>
 
-    <!-- 合計金額カード -->
-    <div class="total-expense-card">
-      <p class="total-label">推定合計費用</p>
-      <h2 class="total-amount" id="totalDisplay">¥0</h2>
-      <p class="total-note">※選択したプランに応じて自動計算されます</p>
+    <!-- 合計金額表示エリア -->
+    <div class="total-box">
+      <div class="total-title">ESTIMATED TOTAL / PER PERSON</div>
+      <div class="total-amount" id="totalAmount">¥0</div>
     </div>
 
-    <!-- 費用一覧リスト -->
-    <div class="expense-list">
+    <!-- 費用項目リスト -->
+    <div class="schedule-list">
 
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">飛行機</span>
-        </div>
-        <span class="expense-price">¥<span class="calc-price" data-min="129450" data-max="129450">129,450</span></span>
+      <!-- 飛行機代 -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">FLIGHT</span>
+        <span class="text" style="font-weight: 600;">飛行機代</span>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="45000">45,000</span></div>
       </div>
 
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">ホテル</span>
-        </div>
-        <span class="expense-price">¥<span class="calc-price" data-min="62477" data-max="62477">62,477</span></span>
+      <!-- ホテル代 -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">HOTEL</span>
+        <span class="text" style="font-weight: 600;">ホテル代 (2泊)</span>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="20000">20,000</span></div>
       </div>
 
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">旅行保険</span>
-          <select class="expense-select" id="insuranceSelect" onchange="updateTotal()">
-            <option value="5000" data-min="5000" data-max="5000" selected>キャンセル補償あり (¥5,000)</option>
-            <option value="1400" data-min="1400" data-max="1400">キャンセル補償なし (¥1,400)</option>
-          </select>
-        </div>
-        <span class="expense-price">¥<span id="insurancePrice">5,000</span></span>
+      <!-- 食事代 (選択式) -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">FOOD & DRINK</span>
+        <span class="text" style="font-weight: 600;">食事代（概算）</span>
+        <select class="expense-select calc-select" id="foodSelect" onchange="calculateTotal()">
+          <option value="10000">¥10,000</option>
+          <option value="15000" selected>¥15,000 (推奨)</option>
+          <option value="20000">¥20,000</option>
+        </select>
       </div>
 
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">eSIM</span>
-          <select class="expense-select" id="esimSelect" onchange="updateTotal()">
-            <option value="700" data-min="700" data-max="700" selected>番号なし (¥700)</option>
-            <option value="5000" data-min="5000" data-max="5000">番号あり (¥5,000)</option>
-          </select>
-        </div>
-        <span class="expense-price">¥<span id="esimPrice">700</span></span>
+      <!-- タクシー代 (選択式) -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">TAXI & TRANSPORT</span>
+        <span class="text" style="font-weight: 600;">タクシー・交通費</span>
+        <select class="expense-select calc-select" id="taxiSelect" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
       </div>
 
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">タクシー（香港）</span>
-        </div>
-        <span class="expense-price">¥<span class="calc-price" data-min="10000" data-max="10000">10,000</span></span>
-      </div>
-
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">タクシー（深圳）</span>
-        </div>
-        <span class="expense-price">¥<span class="calc-price" data-min="10000" data-max="10000">10,000</span></span>
-      </div>
-
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">食事（香港）</span>
-        </div>
-        <span class="expense-price">¥<span class="calc-price" data-min="15000" data-max="15000">15,000</span></span>
-      </div>
-
-      <div class="expense-item">
-        <div class="expense-info">
-          <span class="expense-name">食事（深圳）</span>
-        </div>
-        <span class="expense-price">¥<span class="calc-price" data-min="15000" data-max="15000">15,000</span></span>
+      <!-- 予備費・その他 -->
+      <div class="schedule-card" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+        <span class="time" style="font-size: 12px; color: #718096;">OTHERS</span>
+        <span class="text" style="font-weight: 600;">お土産・観光・予備費</span>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="10000">10,000</span></div>
       </div>
 
     </div>
@@ -134,30 +157,28 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    function updateTotal() {
-      // ドロップダウンの選択金額を取得
-      const insuranceVal = parseInt(document.getElementById('insuranceSelect').value);
-      const esimVal = parseInt(document.getElementById('esimSelect').value);
+    // 自動計算機能
+    function calculateTotal() {
+      let total = 0;
 
-      // 個別表示のテキストを更新
-      document.getElementById('insurancePrice').innerText = insuranceVal.toLocaleString();
-      document.getElementById('esimPrice').innerText = esimVal.toLocaleString();
-
-      // その他の固定項目の合計を計算
-      let fixedTotal = 0;
-      document.querySelectorAll('.calc-price').forEach(el => {
-        fixedTotal += parseInt(el.getAttribute('data-min'));
+      // 固定金額の合算 (飛行機、ホテル、予備費)
+      const fixedItems = document.querySelectorAll('.calc-item');
+      fixedItems.forEach(item => {
+        total += parseInt(item.getAttribute('data-value'), 10) || 0;
       });
 
-      // 合計を算出
-      const grandTotal = fixedTotal + insuranceVal + esimVal;
+      // 選択式金額の合算 (食事、タクシー)
+      const selectItems = document.querySelectorAll('.calc-select');
+      selectItems.forEach(select => {
+        total += parseInt(select.value, 10) || 0;
+      });
 
-      // 画面に反映
-      document.getElementById('totalDisplay').innerText = '¥' + grandTotal.toLocaleString();
+      // 3桁カンマ区切りで表示
+      document.getElementById('totalAmount').textContent = '¥' + total.toLocaleString();
     }
 
     // ページ読み込み時に初期計算を実行
-    window.onload = updateTotal;
+    document.addEventListener('DOMContentLoaded', calculateTotal);
   </script>
 </body>
 </html>
