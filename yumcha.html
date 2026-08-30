@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YUM CHA - Shenzhen & Hong Kong</title>
+  <title>DIM SUM SPOT - Shenzhen & Hong Kong</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -15,7 +18,7 @@
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
-    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+    <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
   </header>
 
   <!-- ドロワーメニュー -->
@@ -41,10 +44,11 @@
   <main class="page-container">
     
     <!-- タイトルヘッダー -->
-    <div class="schedule-header">
-      <p class="schedule-sub">DAY 1 BREAKFAST / LUNCH</p>
+    <header class="schedule-header">
+      <p class="schedule-sub">DAY 1 ・ BREAKFAST / LUNCH</p>
       <h1 class="schedule-title">DIM SUM SPOT</h1>
-    </div>
+      <div class="title-underline"></div>
+    </header>
 
     <div class="yumcha-list">
 
@@ -54,11 +58,11 @@
         <div class="slider-container" id="slider1">
           <div class="slider-wrapper">
             <img src="IMG_3121.jpeg" alt="陶陶居 1" class="slide active">
-            <img src="IMG_3123.jpeg" alt="陶陶居2" class="slide">
-            <img src="IMG_3124.jpeg" alt="陶陶居3" class="slide">
+            <img src="IMG_3123.jpeg" alt="陶陶居 2" class="slide">
+            <img src="IMG_3124.jpeg" alt="陶陶居 3" class="slide">
           </div>
-          <button class="prev-btn" onclick="moveSlide('slider1', -1)">‹</button>
-          <button class="next-btn" onclick="moveSlide('slider1', 1)">›</button>
+          <button class="prev-btn" onclick="moveSlide('slider1', -1)" aria-label="Previous slide">‹</button>
+          <button class="next-btn" onclick="moveSlide('slider1', 1)" aria-label="Next slide">›</button>
           <div class="dots-container">
             <span class="dot active" onclick="setSlide('slider1', 0)"></span>
             <span class="dot" onclick="setSlide('slider1', 1)"></span>
@@ -68,10 +72,26 @@
 
         <!-- 詳細情報 -->
         <div class="yumcha-info">
-          <h2 class="yumcha-name">陶陶居酒家（卓悦中心店）</h2>
+          <div class="yumcha-header-row">
+            <span class="category-badge">RECOMMENDED</span>
+            <h2 class="yumcha-name">陶陶居酒家<span class="branch-name">（卓悦中心店）</span></h2>
+          </div>
+          
           <div class="yumcha-meta">
-            <p><strong>営業時間：</strong>10:00〜</p>
-            <p><strong>アクセス：</strong>ホテルから1.8km</p>
+            <div class="meta-item">
+              <span class="meta-icon">🕒</span>
+              <div class="meta-content">
+                <span class="meta-label">営業時間</span>
+                <span class="meta-value">10:00 〜</span>
+              </div>
+            </div>
+            <div class="meta-item">
+              <span class="meta-icon">📍</span>
+              <div class="meta-content">
+                <span class="meta-label">アクセス</span>
+                <span class="meta-value">ホテルから 1.8 km</span>
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -85,8 +105,8 @@
             <img src="IMG_3125.jpeg" alt="利宝阁 2" class="slide">
             <img src="IMG_3127.jpeg" alt="利宝阁 3" class="slide">
           </div>
-          <button class="prev-btn" onclick="moveSlide('slider2', -1)">‹</button>
-          <button class="next-btn" onclick="moveSlide('slider2', 1)">›</button>
+          <button class="prev-btn" onclick="moveSlide('slider2', -1)" aria-label="Previous slide">‹</button>
+          <button class="next-btn" onclick="moveSlide('slider2', 1)" aria-label="Next slide">›</button>
           <div class="dots-container">
             <span class="dot active" onclick="setSlide('slider2', 0)"></span>
             <span class="dot" onclick="setSlide('slider2', 1)"></span>
@@ -96,10 +116,26 @@
 
         <!-- 詳細情報 -->
         <div class="yumcha-info">
-          <h2 class="yumcha-name">利宝阁（嘉里建設広場店）</h2>
+          <div class="yumcha-header-row">
+            <span class="category-badge gold">POPULAR</span>
+            <h2 class="yumcha-name">利宝阁<span class="branch-name">（嘉里建設広場店）</span></h2>
+          </div>
+          
           <div class="yumcha-meta">
-            <p><strong>営業時間：</strong>9:00〜</p>
-            <p><strong>アクセス：</strong>ホテルから1.3km</p>
+            <div class="meta-item">
+              <span class="meta-icon">🕒</span>
+              <div class="meta-content">
+                <span class="meta-label">営業時間</span>
+                <span class="meta-value">09:00 〜</span>
+              </div>
+            </div>
+            <div class="meta-item">
+              <span class="meta-icon">📍</span>
+              <div class="meta-content">
+                <span class="meta-label">アクセス</span>
+                <span class="meta-value">ホテルから 1.3 km</span>
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -113,19 +149,25 @@
   </main>
 
   <script>
+    // ドロワーメニュー制御
     function toggleMenu() {
       document.getElementById('drawerMenu').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // スライドショー制御用ロジック
+    // スライドショーインデックス管理
     const slideIndexes = {
       slider1: 0,
       slider2: 0
     };
 
+    // 自動スライド用のタイマー保持オブジェクト
+    const autoSlideTimers = {};
+
     function showSlide(sliderId, index) {
       const slider = document.getElementById(sliderId);
+      if (!slider) return;
+
       const slides = slider.querySelectorAll('.slide');
       const dots = slider.querySelectorAll('.dot');
       
@@ -146,12 +188,34 @@
 
     function moveSlide(sliderId, step) {
       showSlide(sliderId, slideIndexes[sliderId] + step);
+      resetAutoSlide(sliderId); // 手動操作時にタイマーをリセット
     }
 
     function setSlide(sliderId, index) {
       showSlide(sliderId, index);
+      resetAutoSlide(sliderId); // 手動操作時にタイマーをリセット
     }
+
+    // 自動スライド開始
+    function startAutoSlide(sliderId, intervalMs = 3500) {
+      autoSlideTimers[sliderId] = setInterval(() => {
+        showSlide(sliderId, slideIndexes[sliderId] + 1);
+      }, intervalMs);
+    }
+
+    // 手動操作時に自動スライドのカウントを再スタート
+    function resetAutoSlide(sliderId) {
+      if (autoSlideTimers[sliderId]) {
+        clearInterval(autoSlideTimers[sliderId]);
+      }
+      startAutoSlide(sliderId);
+    }
+
+    // ページ読み込み完了時に自動スライドを起動
+    document.addEventListener('DOMContentLoaded', () => {
+      startAutoSlide('slider1', 3500); // 3.5秒間隔
+      startAutoSlide('slider2', 4000); // 4.0秒間隔（少しずらすとおしゃれです）
+    });
   </script>
 </body>
 </html>
-
