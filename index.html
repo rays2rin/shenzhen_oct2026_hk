@@ -7,42 +7,45 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body class="top-page">
 
-  <!-- メインビジュアル（フルスクリーン） -->
+  <!-- フルスクリーン・メインビジュアル -->
   <main class="hero-section">
     <img src="IMG_3110.jpeg" alt="Shenzhen & Hong Kong" class="hero-img">
     
+    <!-- 背景をしっかり暗くし視認性を担保するオーバーレイ -->
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-      <!-- 互い違いに配置した巨大タイトル -->
-      <div class="hero-title-box">
-        <span class="hero-title-left">SHENZHEN</span>
-        <span class="hero-title-right">HONG KONG</span>
+      
+      <!-- 超巨大・互い違いアニメーションタイトル -->
+      <div class="hero-title-group">
+        <h1 class="hero-title title-shenzhen">SHENZHEN</h1>
+        <h1 class="hero-title title-hongkong">HONG KONG</h1>
       </div>
 
       <p class="hero-sub">TRAVEL ITINERARY</p>
 
-      <!-- 直感的に押せるナビゲーションボタン -->
+      <!-- 高級感と視認性を両立させたナビゲーション -->
       <nav class="top-nav">
-        <!-- メイン日程ボタン -->
-        <div class="nav-group main-days">
-          <a href="day1.html" class="nav-btn primary">DAY 1</a>
-          <a href="day2.html" class="nav-btn primary">DAY 2</a>
-          <a href="day3.html" class="nav-btn primary">DAY 3</a>
+        <!-- メイン日程（1行3列） -->
+        <div class="nav-row primary-row">
+          <a href="day1.html" class="btn btn-primary">DAY 1</a>
+          <a href="day2.html" class="btn btn-primary">DAY 2</a>
+          <a href="day3.html" class="btn btn-primary">DAY 3</a>
         </div>
 
-        <!-- カテゴリボタン -->
-        <div class="nav-group sub-categories">
-          <a href="todo.html" class="nav-btn secondary">TODO</a>
-          <a href="expenses.html" class="nav-btn secondary">EXPENSES</a>
-          <a href="foods.html" class="nav-btn secondary">FOODS</a>
-          <a href="traffic.html" class="nav-btn secondary">TRAFFIC</a>
+        <!-- サブメニュー（2行2列で整列） -->
+        <div class="nav-grid secondary-grid">
+          <a href="todo.html" class="btn btn-secondary">TODO</a>
+          <a href="expenses.html" class="btn btn-secondary">EXPENSES</a>
+          <a href="foods.html" class="btn btn-secondary">FOODS</a>
+          <a href="traffic.html" class="btn btn-secondary">TRAFFIC</a>
         </div>
       </nav>
+
     </div>
   </main>
 
