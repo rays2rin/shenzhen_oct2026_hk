@@ -10,14 +10,14 @@ body {
   color: #333;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .itinerary-card {
   background-color: #fcfcf9;
   width: 100%;
   max-width: 600px;
-  padding: 30px 25px;
+  padding: 20px 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
 }
@@ -33,7 +33,7 @@ body {
 
 .header-title {
   font-family: Georgia, serif;
-  font-size: 20px;
+  font-size: 18px;
   color: #7a7a7a;
   letter-spacing: 1px;
 }
@@ -44,7 +44,7 @@ body {
   border-top: 1px solid #e0e0e0;
   margin-top: 8px;
   padding-top: 8px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   color: #4a4a4a;
 }
@@ -59,7 +59,7 @@ body {
   color: #555;
   text-align: center;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 1.5px;
   padding: 4px 0;
   margin-bottom: 12px;
@@ -67,7 +67,7 @@ body {
 
 .day-content {
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
 
 /* スケジュールリスト */
@@ -75,19 +75,21 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .row {
   display: flex;
   font-size: 11px;
-  padding: 3px 0;
+  padding: 4px 0;
   border-bottom: 1px dotted #e0e0e0;
+  line-height: 1.4;
 }
 
 .time {
-  width: 75px;
+  width: 68px;
   text-align: right;
-  padding-right: 10px;
+  padding-right: 6px;
   color: #666;
   font-weight: 500;
   flex-shrink: 0;
@@ -96,6 +98,7 @@ body {
 .event {
   flex: 1;
   color: #333;
+  word-break: break-all;
 }
 
 .event a {
@@ -103,14 +106,10 @@ body {
   text-decoration: underline;
 }
 
-.event a:hover {
-  color: #0b57d0;
-}
-
 /* 右側の画像 */
 .image-box {
-  width: 180px;
-  height: 120px;
+  width: 110px;
+  height: 100px;
   flex-shrink: 0;
   border-radius: 2px;
   overflow: hidden;
@@ -129,7 +128,7 @@ body {
   justify-content: center;
   border: 1px dashed #cbd5e1;
   color: #94a3b8;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 1px;
 }
 
@@ -140,4 +139,3 @@ body {
   color: #a0a0a0;
   margin-top: 10px;
 }
-
