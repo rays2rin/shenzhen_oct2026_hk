@@ -497,17 +497,17 @@
         <div class="t-tab" onclick="setTab(this, 'sz')">🚘 深圳</div>
       </div>
 
-      <!-- 合計金額・時間表示（自動連動） -->
+      <!-- 合計金額・時間表示（選択時のみ表示） -->
       <div class="summary-box">
         <div>
-          <div class="summary-label">表示中ルートの目安金額</div>
-          <div class="summary-amount" id="total-price">¥0</div>
+          <div class="summary-label">選択ルートの目安金額</div>
+          <div class="summary-amount" id="total-price">¥--</div>
         </div>
-        <div class="summary-time">所要時間 <span id="total-time">約 0分</span></div>
+        <div class="summary-time">所要時間 <span id="total-time">--分</span></div>
       </div>
     </div>
 
-    <div class="section-label" id="section-title-label">おすすめルート一覧</div>
+    <div class="section-label">おすすめルート一覧</div>
 
     <!-- ルート一覧（JSで動的表示） -->
     <div class="route-cards-container" id="routes-list"></div>
@@ -525,11 +525,11 @@
 
   <!-- フッター固定表示 -->
   <div class="sticky-footer" id="sticky-btn" onclick="scrollToTop()">
-    選択したルートを表示中 (<span id="selected-count">0</span>件)
+    選択したルートを見る (<span id="selected-count">0</span>件)
   </div>
 
   <script>
-    // ルートデータ（ご提示のデータ＋追加データの華強北→市民中心）
+    // 全ルートデータ
     const routesData = [
       // 香港ルート
       { id: 1, area: 'hk', from: '皇岗', to: '尖沙咀', time: 30, hkd: 400, jpy: 9200, type: 'タクシー', note: '皇岗口岸から尖沙咀まで直行', recommend: true },
@@ -549,8 +549,6 @@
       { id: 13, area: 'sz', from: '海上世界', to: '宝安空港', time: 40, cny: 70, jpy: 1900, type: '配車/タクシー', note: '空港への帰り', recommend: false },
       { id: 14, area: 'sz', from: '華強北', to: '东门老街', time: 10, cny: 25, jpy: 700, type: '配車/タクシー', note: '老街繁華街へ', recommend: false },
       { id: 15, area: 'sz', from: '东门老街', to: '市民中心', time: 20, cny: 20, jpy: 600, type: '配車/タクシー', note: '市民中心エリアへ', recommend: false },
-      
-      // 【追加】華強北→市民中心（地下鉄2駅4分）
       { id: 16, area: 'sz', from: '華強北', to: '市民中心', time: 4, cny: 2, jpy: 40, type: '地下鉄 (2駅)', note: '地下鉄2号線・8号線で直通4分', recommend: true }
     ];
 
@@ -581,7 +579,7 @@
       });
 
       renderRoutes(filtered);
-      updateSummary(filtered);
+      updateSummary();
     }
 
     function renderRoutes(routes) {
@@ -639,27 +637,29 @@
       onFilterChange();
     }
 
-    // 検索条件または個別チェックに基いて金額・時間を更新
-    function updateSummary(filteredRoutes) {
+    // チェックを入れた時だけ金額・所要時間を計算・表示
+    function updateSummary() {
+      if (selectedRouteIds.length === 0) {
+        document.getElementById('total-price').innerText = '¥--';
+        document.getElementById('total-time').innerText = '--分';
+        document.getElementById('selected-count').innerText = '0';
+        return;
+      }
+
       let totalJpy = 0;
       let totalTime = 0;
-      let count = 0;
 
-      // チェックボックス選択が1個以上ある場合はチェック優先、何も選んでいない時は検索結果全体を反映
-      const targets = selectedRouteIds.length > 0 
-        ? routesData.filter(r => selectedRouteIds.includes(r.id))
-        : filteredRoutes;
-
-      targets.forEach(item => {
-        totalJpy += item.jpy;
-        totalTime += item.time;
+      selectedRouteIds.forEach(id => {
+        const item = routesData.find(r => r.id === id);
+        if (item) {
+          totalJpy += item.jpy;
+          totalTime += item.time;
+        }
       });
-
-      count = targets.length;
 
       document.getElementById('total-price').innerText = `約 ¥${totalJpy.toLocaleString()}`;
       document.getElementById('total-time').innerText = `約 ${totalTime}分`;
-      document.getElementById('selected-count').innerText = count;
+      document.getElementById('selected-count').innerText = selectedRouteIds.length;
     }
 
     function scrollToTop() {
