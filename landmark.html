@@ -1,1 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LANDMARK - Shenzhen & Hong Kong</title>
+
+  <!-- フォント読み込み -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fcfcf9;
+      color: #202A3A;
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ナビゲーションバー */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #edf2f7;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .bar {
+      width: 20px;
+      height: 2px;
+      background-color: #202A3A;
+      border-radius: 2px;
+    }
+
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #202A3A;
+    }
+
+    /* ドロワーメニュー */
+    .drawer-menu {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 300;
+      transition: left 0.3s ease;
+      padding: 24px;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    }
+
+    .drawer-menu.active { left: 0; }
+
+    .close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 20px;
+      color: #718096;
+    }
+
+    .drawer-menu ul { list-style: none; }
+    .drawer-menu li { margin-bottom: 16px; }
+    .drawer-menu a {
+      text-decoration: none;
+      color: #202A3A;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+    .drawer-menu .divider {
+      height: 1px;
+      background-color: #edf2f7;
+      margin: 16px 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 200;
+      display: none;
+    }
+    .overlay.active { display: block; }
+
+    /* メインレイアウト */
+    .page-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* ページタイトル */
+    .header-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1e2d1d;
+      letter-spacing: 2.5px;
+    }
+
+    .page-sub {
+      font-size: 12px;
+      color: #718096;
+      margin-top: 6px;
+    }
+
+    /* アコーディオンセクション */
+    .accordion-section {
+      margin-bottom: 20px;
+      background: #f7f6f0;
+      border-radius: 12px;
+      border: 1px solid #e5e2d5;
+      overflow: hidden;
+    }
+
+    /* アコーディオンヘッダー */
+    .accordion-header {
+      background: #1e2d1d;
+      color: #ffffff;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .accordion-header h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .accordion-icon {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-section.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    /* アコーディオンコンテンツ */
+    .accordion-content {
+      display: none;
+      padding: 16px;
+    }
+
+    .accordion-section.active .accordion-content {
+      display: block;
+    }
+
+    /* カードグリッド（画像通り2列〜3列対応） */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    /* スポットカード */
+    .spot-card {
+      background: #ffffff;
+      border: 1px solid #e5e2d5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 画像エリアと番号バッジ */
+    .card-image-box {
+      position: relative;
+      width: 100%;
+      height: 130px;
+      background-color: #eeeeee;
+    }
+
+    .card-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .badge-num {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 26px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e2d1d;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    /* カード本文 */
+    .card-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .spot-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #202A3A;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .spot-desc {
+      font-size: 11px;
+      color: #666666;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      flex-grow: 1;
+    }
+
+    .spot-location {
+      font-size: 10px;
+      color: #718096;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* フッター注記 */
+    .bottom-hint {
+      text-align: center;
+      font-size: 11px;
+      color: #718096;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  </header>
+
+  <!-- ドロワーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+      <li><a href="landmark.html">landmark</a></li>
+    </ul>
+  </nav>
+
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- メインコンテンツ -->
+  <main class="page-container">
+
+    <div class="header-section">
+      <h1 class="page-title">SIGHTSEEING GUIDE</h1>
+      <p class="page-sub">観光名所やお勧めスポットをエリア別にご紹介します。</p>
+    </div>
+
+    <!-- 香港エリア -->
+    <div class="accordion-section active">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <h2>HONG KONG</h2>
+        <span class="accordion-icon">▲</span>
+      </div>
+      <div class="accordion-content">
+        <div class="grid-container">
+
+          <!-- 01 ビクトリア・ハーバー -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">01</span>
+              <img src="https://images.unsplash.com/photo-1506318137071-a8e068b4bec0?auto=format&fit=crop&w=600&q=80" alt="ビクトリア・ハーバー">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">ビクトリア・ハーバー</div>
+              <div class="spot-desc">香港の象徴的な景色。スターフェリーからの眺めや夜景は必見です。</div>
+              <div class="spot-location">📍 中環 / 尖沙咀</div>
+            </div>
+          </div>
+
+          <!-- 02 ヴィクトリア・ピーク -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">02</span>
+              <img src="https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&w=600&q=80" alt="ヴィクトリア・ピーク">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">ヴィクトリア・ピーク</div>
+              <div class="spot-desc">香港島を一望できる絶景スポット。ピークトラムでのアクセスも人気。</div>
+              <div class="spot-location">📍 山頂</div>
+            </div>
+          </div>
+
+          <!-- 03 男人街 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">03</span>
+              <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=80" alt="男人街">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">男人街（テンプルストリート）</div>
+              <div class="spot-desc">ナイトマーケットが賑わうエリア。露店やローカルフードを体感。</div>
+              <div class="spot-location">📍 油麻地 / 九龍</div>
+            </div>
+          </div>
+
+          <!-- 04 SOHO -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">04</span>
+              <img src="https://images.unsplash.com/photo-1570191947183-d4d61598c20f?auto=format&fit=crop&w=600&q=80" alt="SOHO">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">SOHO（ソーホー）</div>
+              <div class="spot-desc">オシャレなカフェやバー、ウォールアートが並ぶ洗練された街並み。</div>
+              <div class="spot-location">📍 中環</div>
+            </div>
+          </div>
+
+          <!-- 05 K11 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">05</span>
+              <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="K11">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">K11 MUSEA</div>
+              <div class="spot-desc">アートとショッピングが融合した複合施設。海沿いの絶好ロケーション。</div>
+              <div class="spot-location">📍 尖沙咀</div>
+            </div>
+          </div>
+
+          <!-- 06 南丫島 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">06</span>
+              <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80" alt="南丫島">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">南丫島（ラマ島）</div>
+              <div class="spot-desc">のどかな離島ビーチと新鮮な海鮮料理が楽しめる癒しのリゾート。</div>
+              <div class="spot-location">📍 離島区</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 深圳エリア -->
+    <div class="accordion-section active">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <h2>SHENZHEN</h2>
+        <span class="accordion-icon">▲</span>
+      </div>
+      <div class="accordion-content">
+        <div class="grid-container">
+
+          <!-- 01 深圳湾公園 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">01</span>
+              <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=600&q=80" alt="深圳湾公園">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">深圳湾公園</div>
+              <div class="spot-desc">海沿いの遊歩道が美しい公園。散歩やサイクリングにおすすめ。</div>
+              <div class="spot-location">📍 南山区</div>
+            </div>
+          </div>
+
+          <!-- 02 華強北 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">02</span>
+              <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=600&q=80" alt="華強北">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">華強北</div>
+              <div class="spot-desc">中国最大級の電気街。ガジェットや電子部品の宝庫！</div>
+              <div class="spot-location">📍 福田区</div>
+            </div>
+          </div>
+
+          <!-- 03 巨大展 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">03</span>
+              <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="巨大展">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">深圳之眼（巨大展）</div>
+              <div class="spot-desc">未来的な建築デザインが目を引く巨大展示＆ランドマーク空間。</div>
+              <div class="spot-location">📍 福田区 / 宝安区</div>
+            </div>
+          </div>
+
+          <!-- 04 海上世界 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">04</span>
+              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="海上世界">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">海上世界</div>
+              <div class="spot-desc">巨大豪華客船を中心に広がる国際的なエンタメ＆レストランエリア。</div>
+              <div class="spot-location">📍 蛇口 / 南山区</div>
+            </div>
+          </div>
+
+          <!-- 05 东门老街 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">05</span>
+              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="东门老街">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">东门老街</div>
+              <div class="spot-desc">活気にあふれた深圳屈指の歩行者天国。食べ歩きや買い物に最適。</div>
+              <div class="spot-location">📍 羅湖区</div>
+            </div>
+          </div>
+
+          <!-- 06 甘坑客家小鎮 -->
+          <div class="spot-card">
+            <div class="card-image-box">
+              <span class="badge-num">06</span>
+              <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=600&q=80" alt="甘坑客家小鎮">
+            </div>
+            <div class="card-body">
+              <div class="spot-title">甘坑客家小鎮</div>
+              <div class="spot-desc">客家文化を感じられる観光エリア。夜はライトアップが幻想的。</div>
+              <div class="spot-location">📍 龍崗区</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-hint">
+      💡 タップすると詳細情報やアクセス方法をご覧いただけます。
+    </div>
+
+  </main>
+
+  <script>
+    /* ドロワーメニュー制御 */
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+
+    /* アコーディオン開閉制御 */
+    function toggleAccordion(headerElement) {
+      const section = headerElement.parentElement;
+      section.classList.toggle('active');
+      
+      const icon = headerElement.querySelector('.accordion-icon');
+      if (section.classList.contains('active')) {
+        icon.innerText = '▲';
+      } else {
+        icon.innerText = '▼';
+      }
+    }
+  </script>
+</body>
+</html>
 
