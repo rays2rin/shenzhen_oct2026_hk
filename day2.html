@@ -163,7 +163,7 @@
     /* タイムラインカード */
     .timeline-item {
       position: relative;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     /* 丸いノード */
@@ -171,7 +171,7 @@
       content: '';
       position: absolute;
       left: -28px;
-      top: 20px;
+      top: 18px;
       width: 10px;
       height: 10px;
       border-radius: 50%;
@@ -182,19 +182,10 @@
 
     .card {
       background: #ffffff;
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      border-radius: 14px;
+      padding: 14px 18px;
       border: 1px solid rgba(226, 232, 240, 0.8);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-    }
-
-    .card-body {
-      flex: 1;
-      min-width: 0;
     }
 
     .time {
@@ -232,27 +223,6 @@
       margin-top: 2px;
       display: block;
       line-height: 1.3;
-    }
-
-    /* サムネイル画像・アイコン */
-    .thumb-img {
-      width: 68px;
-      height: 68px;
-      border-radius: 12px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .card-icon {
-      font-size: 24px;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #f8fafc;
-      border-radius: 10px;
-      flex-shrink: 0;
     }
 
     /* MEMOフォーム */
@@ -375,95 +345,68 @@
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">09:00 - 09:30</span>
-            <a class="place-link" href="https://ja.wikipedia.org/wiki/%E8%93%AE%E8%8A%B1%E5%B1%B1%E5%85%AC%E5%9C%92" target="_blank">蓮花山公園</a>
-            <span class="action-text">散策</span>
-          </div>
-          <img class="thumb-img" src="https://images.unsplash.com/photo-1508873696983-2df515122519?w=200&auto=format&fit=crop&q=80" alt="蓮花山公園">
+          <span class="time">09:00 - 09:30</span>
+          <a class="place-link" href="https://ja.wikipedia.org/wiki/%E8%93%AE%E8%8A%B1%E5%B1%B1%E5%85%AC%E5%9C%92" target="_blank">蓮花山公園</a>
+          <span class="action-text">散策</span>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">10:00 - 11:30</span>
-            <a class="place-link" href="yumcha.html">飲茶店</a>
-            <span class="action-text">朝昼兼用ご飯</span>
-          </div>
-          <div class="card-icon">🥟</div>
+          <span class="time">10:00 - 11:30</span>
+          <a class="place-link" href="yumcha.html">飲茶店</a>
+          <span class="action-text">朝昼兼用ご飯</span>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">11:30 - 12:30</span>
-            <a class="place-link" href="https://jp.trip.com/guide/info/%E6%B7%B1%E5%9C%B3%E6%B9%BE%E5%85%AC%E5%9C%92.html" target="_blank">深圳湾公園</a>
-            <span class="note-text">※ドローンデリバリーで飲み物を購入</span>
-          </div>
-          <img class="thumb-img" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=200&auto=format&fit=crop&q=80" alt="深圳湾公園">
+          <span class="time">11:30 - 12:30</span>
+          <a class="place-link" href="https://jp.trip.com/guide/info/%E6%B7%B1%E5%9C%B3%E6%B9%BE%E5%85%AC%E5%9C%92.html" target="_blank">深圳湾公園</a>
+          <span class="note-text">※ドローンデリバリーで飲み物を購入</span>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">12:30 - 13:00</span>
-            <span class="action-text">無人タクシー利用で移動</span>
-          </div>
-          <div class="card-icon">🚖</div>
+          <span class="time">12:30 - 13:00</span>
+          <span class="action-text">無人タクシー利用で移動</span>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">13:00 - 14:00</span>
-            <a class="place-link" href="https://ja.wikipedia.org/wiki/%E6%B5%B7%E4%B8%8A%E4%B8%96%E7%95%8C" target="_blank">海上世界</a>
-          </div>
-          <img class="thumb-img" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=200&auto=format&fit=crop&q=80" alt="海上世界">
+          <span class="time">13:00 - 14:00</span>
+          <a class="place-link" href="https://ja.wikipedia.org/wiki/%E6%B5%B7%E4%B8%8A%E4%B8%96%E7%95%8C" target="_blank">海上世界</a>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">14:30 - 16:00</span>
-            <a class="place-link" href="https://jp.trip.com/moments/detail/shenzhen-83-10825310/" target="_blank">華強北 電気街ビル</a>
-          </div>
-          <img class="thumb-img" src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=200&auto=format&fit=crop&q=80" alt="華強北">
+          <span class="time">14:30 - 16:00</span>
+          <a class="place-link" href="https://jp.trip.com/moments/detail/shenzhen-83-10825310/" target="_blank">華強北 電気街ビル</a>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">16:20 - 18:00</span>
-            <span class="action-text">東門老街 マッサージ</span>
-          </div>
-          <div class="card-icon">💆‍♂️</div>
+          <span class="time">16:20 - 18:00</span>
+          <span class="action-text">東門老街 マッサージ</span>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">18:30 - 20:00</span>
-            <a class="place-link" href="foods.html">市民中心</a>
-            <span class="action-text">ご飯</span>
-          </div>
-          <div class="card-icon">🍴</div>
+          <span class="time">18:30 - 20:00</span>
+          <a class="place-link" href="foods.html">市民中心</a>
+          <span class="action-text">ご飯</span>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="card">
-          <div class="card-body">
-            <span class="time">20:30 - 21:30</span>
-            <span class="action-text">お土産等買い物</span>
-          </div>
-          <div class="card-icon">🛍️</div>
+          <span class="time">20:30 - 21:30</span>
+          <span class="action-text">お土産等買い物</span>
         </div>
       </div>
 
