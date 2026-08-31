@@ -36,41 +36,55 @@
       text-align: right;
     }
     .expense-select-inline:focus {
-      border-color: #0a84ff; /* 青アクセント線 */
+      border-color: #0a84ff;
       background-color: #ffffff;
     }
 
-    /* 1. 青カード廃止・背景を白地ベースに変更 */
+    /* ------------------------------------------
+       ヘッダー〜合計カード〜明細リストの余白調整
+    ------------------------------------------ */
+    .schedule-header {
+      margin-bottom: 32px !important; /* EXPENSES → 合計カードの余白拡大 */
+    }
+
+    /* ①〜⑤ 合計金額カード（白背景・高さ160px・濃いネイビー文字・2px青アクセントライン） */
     .total-box {
       background: #ffffff;
-      color: #1a202c;
-      padding: 24px 20px;
-      border-radius: 16px;
-      margin-bottom: 24px;
-      text-align: center;
       border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border-top: 2px solid #0a84ff; /* 上部の繊細な青ラインアクセント */
+      border-radius: 16px;
+      height: 160px; /* ② 高さを約160pxに指定 */
+      box-sizing: border-box;
+      padding: 0 20px;
+      margin-bottom: 32px !important; /* 合計カード → FLIGHTの余白拡大 */
+      
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
     }
 
-    /* 3. ESTIMATED TOTAL は小さく控えめに */
+    /* ④ ESTIMATED TOTAL（font-size: 14px） */
     .total-title {
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: #a0aec0;
-      margin-bottom: 6px;
+      color: #718096;
+      margin-bottom: 8px;
     }
 
-    /* 2. 合計金額をページの視覚的主役に (特大化 & 青アクセント) */
+    /* ③ 金額（濃いネイビー #1e293b / font-size: 52px） */
     .total-amount {
-      font-size: 44px;
+      font-size: 52px;
       font-weight: 800;
-      color: #0a84ff; /* 青文字アクセント */
-      line-height: 1.1;
+      color: #1e293b; /* 濃いネイビー / チャコール */
+      line-height: 1;
       display: inline-block;
+      letter-spacing: -1px;
     }
 
-    /* 4. 金額変更時の軽めのアニメーション */
+    /* 金額変更時の軽めのアニメーション */
     .total-amount.pop-anim {
       animation: numPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -78,7 +92,7 @@
     @keyframes numPop {
       0% {
         opacity: 0.4;
-        transform: scale(0.95);
+        transform: scale(0.96);
       }
       100% {
         opacity: 1;
@@ -166,7 +180,7 @@
         <div class="expense-fixed-amount">¥<span class="calc-item" data-value="62477">62,477</span></div>
       </div>
 
-      <!-- eSIM（1行表示 & ¥700修正） -->
+      <!-- eSIM（1行表示） -->
       <div class="schedule-card expense-card-inline">
         <div class="expense-label-group">
           <span class="time" style="font-size: 11px; color: #718096;">eSIM / INTERNET</span>
