@@ -3,281 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YAMCHA - Shenzhen & Hong Kong</title>
-
-  <!-- フォント読み込み -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
-
+  <title>YUM CHA - Shenzhen & Hong Kong</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- フォント調整・カードレイアウト用スタイル -->
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #fcfcf9;
-      color: #202A3A;
-      font-family: 'Noto Sans JP', sans-serif;
-      min-height: 100vh;
-      padding-bottom: 60px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ナビゲーションバー */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background-color: #ffffff;
-      border-bottom: 1px solid #edf2f7;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .menu-icon {
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .bar {
-      width: 20px;
-      height: 2px;
-      background-color: #202A3A;
-      border-radius: 2px;
-    }
-
-    .site-title {
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 1.5px;
-      color: #202A3A;
-    }
-
-    /* ドロワーメニュー */
-    .drawer-menu {
-      position: fixed;
-      top: 0;
-      left: -260px;
-      width: 260px;
-      height: 100%;
-      background-color: #ffffff;
-      z-index: 300;
-      transition: left 0.3s ease;
-      padding: 24px;
-      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
-    }
-
-    .drawer-menu.active { left: 0; }
-
-    .close-btn {
-      font-size: 20px;
-      cursor: pointer;
-      text-align: right;
-      margin-bottom: 20px;
-      color: #718096;
-    }
-
-    .drawer-menu ul { list-style: none; }
-    .drawer-menu li { margin-bottom: 16px; }
-    .drawer-menu a {
-      text-decoration: none;
-      color: #202A3A;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 1px;
-    }
-    .drawer-menu .divider {
-      height: 1px;
-      background-color: #edf2f7;
-      margin: 16px 0;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 200;
-      display: none;
-    }
-    .overlay.active { display: block; }
-
-    /* メインレイアウト */
-    .page-container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 24px 16px;
-    }
-
-    /* 戻るボタン */
-    .back-link {
-      display: inline-block;
-      margin-bottom: 16px;
-      font-size: 12px;
-      color: #718096;
-      text-decoration: none;
-    }
-
-    .header-section {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .page-title {
-      font-family: 'Cinzel', serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: #1f2b1a;
-      letter-spacing: 2px;
-    }
-
-    .page-sub {
-      font-size: 11px;
-      color: #718096;
-      margin-top: 4px;
-    }
-
-    /* 店舗カードコンテナ */
-    .shop-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* 店舗ごとのカード */
-    .shop-card {
-      background: #ffffff;
-      border: 1px solid #e5e2d5;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-
-    /* スライドショーコンテナ（高さ抑えめ） */
-    .carousel-container {
+    /* 画像を横長＆高さを従来の約7割（180px程度）に調整 */
+    .slider-container {
       position: relative;
       width: 100%;
       height: 180px;
       overflow: hidden;
       background-color: #f0f0f0;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
     }
 
-    .carousel-track {
-      display: flex;
+    .slider-wrapper {
+      position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.3s ease-in-out;
     }
 
-    .carousel-slide {
-      min-width: 100%;
-      height: 100%;
-    }
-
-    .carousel-slide img {
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
     }
 
-    /* スライド矢印ボタン */
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.7);
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #202A3A;
-      z-index: 10;
+    .slide.active {
+      opacity: 1;
     }
-    .carousel-arrow.prev { left: 8px; }
-    .carousel-arrow.next { right: 8px; }
 
-    /* スライドドット指示器 */
-    .carousel-dots {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 6px;
-      z-index: 10;
-    }
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-    }
-    .dot.active {
+    /* 店舗カード調整 */
+    .yumcha-card {
       background: #ffffff;
+      border: 1px solid #e5e2d5;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     }
 
-    /* カード本体コンテンツ */
-    .card-body {
-      padding: 14px 16px;
+    .yumcha-info {
+      padding: 16px;
     }
 
-    /* 店名と支店名ヘッダー */
-    .shop-header {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 8px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #f0ede0;
-    }
-
-    .shop-name {
-      font-family: 'Shippori Mincho', serif;
+    /* 店名・支店名のレイアウト（店名20px、支店名を同じ行に配置） */
+    .yumcha-name {
       font-size: 20px;
       font-weight: 700;
       color: #1e2d1d;
-      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     .branch-name {
       font-size: 13px;
       color: #718096;
-      font-weight: 400;
+      font-weight: normal;
     }
 
-    /* 店舗詳細情報（エリア・営業時間のみ） */
-    .shop-info-list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 11px;
+    .yumcha-meta p {
+      font-size: 12px;
       color: #4a5568;
-    }
-
-    .info-item {
-      display: flex;
-      gap: 8px;
-    }
-
-    .info-label {
-      font-weight: 500;
-      color: #718096;
-      min-width: 50px;
+      margin-bottom: 4px;
     }
   </style>
 </head>
@@ -309,116 +107,86 @@
     </ul>
   </nav>
 
+  <!-- バックドロップ -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- メインコンテンツ -->
   <main class="page-container">
-    <a href="foods.html" class="back-link">← グルメ一覧（foods）に戻る</a>
-
-    <div class="header-section">
-      <h1 class="page-title">DIM SUM</h1>
-      <p class="page-sub">おすすめの飲茶・点心スポット</p>
+    
+    <!-- タイトルヘッダー -->
+    <div class="schedule-header">
+      <p class="schedule-sub">DAY 1 BREAKFAST / LUNCH</p>
+      <h1 class="schedule-title">DIM SUM SPOT</h1>
     </div>
 
-    <div class="shop-list">
+    <div class="yumcha-list">
 
-      <!-- 店舗 1: 陶陶居 -->
-      <div class="shop-card">
-        <div class="carousel-container" id="carousel-1">
-          <div class="carousel-track">
-            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80" alt="陶陶居 1"></div>
-            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800&q=80" alt="陶陶居 2"></div>
+      <!-- 店舗1：利宝阁 -->
+      <article class="yumcha-card">
+        <!-- スライドショー -->
+        <div class="slider-container" id="slider1">
+          <div class="slider-wrapper">
+            <img src="images/li_bao_ge_1.jpg" alt="利宝阁 1" class="slide active">
+            <img src="images/li_bao_ge_2.jpg" alt="利宝阁 2" class="slide">
+            <img src="images/li_bao_ge_3.jpg" alt="利宝阁 3" class="slide">
           </div>
-          <button class="carousel-arrow prev" onclick="moveSlide('carousel-1', -1)">❮</button>
-          <button class="carousel-arrow next" onclick="moveSlide('carousel-1', 1)">❯</button>
-          <div class="carousel-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="shop-header">
-            <span class="shop-name">陶陶居</span>
-            <span class="branch-name">卓悦中心店</span>
-          </div>
-          <div class="shop-info-list">
-            <div class="info-item">
-              <span class="info-label">エリア</span>
-              <span>深圳 / 福田区</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">営業時間</span>
-              <span>10:00 - 21:30</span>
-            </div>
+          <button class="prev-btn" onclick="moveSlide('slider1', -1)">‹</button>
+          <button class="next-btn" onclick="moveSlide('slider1', 1)">›</button>
+          <div class="dots-container">
+            <span class="dot active" onclick="setSlide('slider1', 0)"></span>
+            <span class="dot" onclick="setSlide('slider1', 1)"></span>
+            <span class="dot" onclick="setSlide('slider1', 2)"></span>
           </div>
         </div>
-      </div>
 
-      <!-- 店舗 2: 点都徳 -->
-      <div class="shop-card">
-        <div class="carousel-container" id="carousel-2">
-          <div class="carousel-track">
-            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800&q=80" alt="点都徳 1"></div>
-            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80" alt="点都徳 2"></div>
-          </div>
-          <button class="carousel-arrow prev" onclick="moveSlide('carousel-2', -1)">❮</button>
-          <button class="carousel-arrow next" onclick="moveSlide('carousel-2', 1)">❯</button>
-          <div class="carousel-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
+        <!-- 詳細情報 -->
+        <div class="yumcha-info">
+          <h2 class="yumcha-name">
+            利宝阁 <span class="branch-name">嘉里建設広場店</span>
+          </h2>
+          <div class="yumcha-meta">
+            <p><strong>営業時間：</strong>9:00〜</p>
+            <p><strong>アクセス：</strong>ホテルから徒歩23分 (1.3km)</p>
           </div>
         </div>
-        <div class="card-body">
-          <div class="shop-header">
-            <span class="shop-name">点都徳</span>
-            <span class="branch-name">華強北店</span>
-          </div>
-          <div class="shop-info-list">
-            <div class="info-item">
-              <span class="info-label">エリア</span>
-              <span>深圳 / 華強北</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">営業時間</span>
-              <span>08:00 - 22:00</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      </article>
 
-      <!-- 店舗 3: 蘩楼 -->
-      <div class="shop-card">
-        <div class="carousel-container" id="carousel-3">
-          <div class="carousel-track">
-            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80" alt="蘩楼 1"></div>
-            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80" alt="蘩楼 2"></div>
+      <!-- 店舗2：陶陶居酒家 -->
+      <article class="yumcha-card">
+        <!-- スライドショー -->
+        <div class="slider-container" id="slider2">
+          <div class="slider-wrapper">
+            <img src="images/tao_tao_ju_1.jpg" alt="陶陶居 1" class="slide active">
+            <img src="images/tao_tao_ju_2.jpg" alt="陶陶居 2" class="slide">
+            <img src="images/tao_tao_ju_3.jpg" alt="陶陶居 3" class="slide">
           </div>
-          <button class="carousel-arrow prev" onclick="moveSlide('carousel-3', -1)">❮</button>
-          <button class="carousel-arrow next" onclick="moveSlide('carousel-3', 1)">❯</button>
-          <div class="carousel-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="shop-header">
-            <span class="shop-name">蘩楼</span>
-            <span class="branch-name">華強北本店</span>
-          </div>
-          <div class="shop-info-list">
-            <div class="info-item">
-              <span class="info-label">エリア</span>
-              <span>深圳 / 華強北</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">営業時間</span>
-              <span>08:00 - 22:00</span>
-            </div>
+          <button class="prev-btn" onclick="moveSlide('slider2', -1)">‹</button>
+          <button class="next-btn" onclick="moveSlide('slider2', 1)">›</button>
+          <div class="dots-container">
+            <span class="dot active" onclick="setSlide('slider2', 0)"></span>
+            <span class="dot" onclick="setSlide('slider2', 1)"></span>
+            <span class="dot" onclick="setSlide('slider2', 2)"></span>
           </div>
         </div>
-      </div>
+
+        <!-- 詳細情報 -->
+        <div class="yumcha-info">
+          <h2 class="yumcha-name">
+            陶陶居酒家 <span class="branch-name">卓悦中心店</span>
+          </h2>
+          <div class="yumcha-meta">
+            <p><strong>営業時間：</strong>10:00〜</p>
+            <p><strong>アクセス：</strong>ホテルから徒歩30分 (1.8km)</p>
+          </div>
+        </div>
+      </article>
 
     </div>
+
+    <div class="back-link">
+      <a href="day1.html">← BACK TO DAY 1</a>
+    </div>
+
   </main>
 
   <script>
@@ -427,34 +195,38 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    /* スライドショー操作JS */
-    const slideState = {};
+    // スライドショー制御用ロジック
+    const slideIndexes = {
+      slider1: 0,
+      slider2: 0
+    };
 
-    function moveSlide(containerId, direction) {
-      const container = document.getElementById(containerId);
-      const track = container.querySelector('.carousel-track');
-      const slides = container.querySelectorAll('.carousel-slide');
-      const dots = container.querySelectorAll('.dot');
+    function showSlide(sliderId, index) {
+      const slider = document.getElementById(sliderId);
+      const slides = slider.querySelectorAll('.slide');
+      const dots = slider.querySelectorAll('.dot');
       
-      if (!(containerId in slideState)) {
-        slideState[containerId] = 0;
-      }
+      if (index >= slides.length) slideIndexes[sliderId] = 0;
+      else if (index < 0) slideIndexes[sliderId] = slides.length - 1;
+      else slideIndexes[sliderId] = index;
 
-      let currentIndex = slideState[containerId];
-      currentIndex += direction;
+      const currentIndex = slideIndexes[sliderId];
 
-      if (currentIndex < 0) {
-        currentIndex = slides.length - 1;
-      } else if (currentIndex >= slides.length) {
-        currentIndex = 0;
-      }
-
-      slideState[containerId] = currentIndex;
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentIndex);
       });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function moveSlide(sliderId, step) {
+      showSlide(sliderId, slideIndexes[sliderId] + step);
+    }
+
+    function setSlide(sliderId, index) {
+      showSlide(sliderId, index);
     }
   </script>
 </body>
