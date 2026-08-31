@@ -20,7 +20,7 @@
       color: #1e293b;
       font-family: 'Montserrat', -apple-system, sans-serif;
       min-height: 100vh;
-      padding: 24px 16px 40px 16px;
+      padding: 20px 16px 40px 16px;
     }
 
     /* メインコンテナ */
@@ -29,9 +29,9 @@
       margin: 0 auto;
     }
 
-    /* タイトルヘッダー */
+    /* タイトルヘッダー（下の余白を小さくしてカードを上へ） */
     .schedule-header {
-      margin-bottom: 32px;
+      margin-bottom: 16px;
       text-align: left;
     }
 
@@ -40,26 +40,26 @@
       font-weight: 700;
       letter-spacing: 2px;
       color: #64748b;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .schedule-title {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       color: #0f172a;
       letter-spacing: 1px;
     }
 
-    /* 合計金額カード（高さ約130px・青ライン維持・微細調整） */
+    /* 合計金額カード（位置を上へ・高さ110pxへコンパクト化） */
     .total-box {
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-top: 2px solid #0a84ff; /* 青ライン維持 */
-      border-radius: 16px;
-      height: 130px; /* 約15〜20%縮小（160px → 130px） */
+      border-radius: 14px;
+      height: 110px; /* さらに小さくコンパクトに */
       box-sizing: border-box;
-      padding: 0 20px;
-      margin-bottom: 32px;
+      padding: 0 16px;
+      margin-bottom: 24px; /* 明細カードとの間隔 */
       
       display: flex;
       flex-direction: column;
@@ -68,20 +68,20 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     }
 
-    /* ESTIMATED TOTAL（ほんの少し小さく＆letter spacing微増） */
+    /* ESTIMATED TOTAL（微小化 & 字間保持） */
     .total-title {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 2.5px;
       color: #64748b;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
-    /* 金額（ほんの少し小さく 44px） */
+    /* 金額（若干小さく 38px） */
     .total-amount {
-      font-size: 44px;
+      font-size: 38px;
       font-weight: 800;
-      color: #1e293b; /* 濃いネイビー/チャコール */
+      color: #1e293b;
       line-height: 1;
       display: inline-block;
       letter-spacing: -0.5px;
