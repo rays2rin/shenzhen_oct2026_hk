@@ -8,6 +8,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 追加ボタンレイアウト調整用スタイル */
+    .secondary-row-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .secondary-row-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  </style>
 </head>
 <body class="top-page">
 
@@ -30,19 +46,24 @@
 
       <!-- ボタン群 -->
       <nav class="top-nav">
-        <!-- DAY選択タブ -->
+        <!-- 1段目：DAY選択タブ -->
         <div class="nav-row primary-row">
           <a href="day1.html" class="btn btn-primary active">DAY 1</a>
           <a href="day2.html" class="btn btn-primary">DAY 2</a>
           <a href="day3.html" class="btn btn-primary">DAY 3</a>
         </div>
 
-        <!-- サブカテゴリボタン -->
-        <div class="nav-grid secondary-grid">
+        <!-- 2段目：FOOD / SIGHTSEEING / TRANSPORTATION -->
+        <div class="secondary-row-3">
+          <a href="foods.html" class="btn btn-secondary">FOOD</a>
+          <a href="landmark.html" class="btn btn-secondary">SIGHTSEEING</a>
+          <a href="traffic.html" class="btn btn-secondary">TRANSPORTATION</a>
+        </div>
+
+        <!-- 3段目：TODO / EXPENSES -->
+        <div class="secondary-row-2">
           <a href="todo.html" class="btn btn-secondary">TODO</a>
           <a href="expenses.html" class="btn btn-secondary">EXPENSES</a>
-          <a href="foods.html" class="btn btn-secondary">FOODS</a>
-          <a href="traffic.html" class="btn btn-secondary">TRAFFIC</a>
         </div>
       </nav>
 
