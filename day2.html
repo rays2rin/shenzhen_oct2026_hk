@@ -6,9 +6,8 @@
   <title>DAY 2 - Shenzhen & Hong Kong</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* 基本リセット */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,10 +15,11 @@
     }
 
     body {
-      background-color: #f8fafc;
-      color: #1e293b;
-      font-family: 'Montserrat', -apple-system, sans-serif;
+      background-color: #f6f8fb;
+      color: #2c3e50;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ナビゲーションバー */
@@ -29,7 +29,7 @@
       justify-content: space-between;
       padding: 16px 20px;
       background-color: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #edf2f7;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -45,14 +45,16 @@
     .bar {
       width: 20px;
       height: 2px;
-      background-color: #0f172a;
+      background-color: #2c3e50;
       border-radius: 2px;
     }
 
     .site-title {
-      font-weight: 800;
-      font-size: 14px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
       letter-spacing: 1.5px;
+      color: #2c3e50;
     }
 
     /* ドロワーメニュー */
@@ -66,154 +68,256 @@
       z-index: 300;
       transition: left 0.3s ease;
       padding: 24px;
-      box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
     }
 
-    .drawer-menu.active {
-      left: 0;
-    }
+    .drawer-menu.active { left: 0; }
 
     .close-btn {
       font-size: 20px;
       cursor: pointer;
       text-align: right;
       margin-bottom: 20px;
-      color: #64748b;
+      color: #718096;
     }
 
-    .drawer-menu ul {
-      list-style: none;
-    }
-
-    .drawer-menu li {
-      margin-bottom: 16px;
-    }
-
+    .drawer-menu ul { list-style: none; }
+    .drawer-menu li { margin-bottom: 16px; }
     .drawer-menu a {
       text-decoration: none;
-      color: #0f172a;
+      color: #2c3e50;
       font-weight: 700;
       font-size: 14px;
       letter-spacing: 1px;
     }
-
     .drawer-menu .divider {
       height: 1px;
-      background-color: #e2e8f0;
+      background-color: #edf2f7;
       margin: 16px 0;
     }
 
     .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
       z-index: 200;
       display: none;
     }
+    .overlay.active { display: block; }
 
-    .overlay.active {
-      display: block;
-    }
-
-    /* メインコンテナ */
+    /* メインレイアウト */
     .page-container {
-      max-width: 440px;
+      max-width: 420px;
       margin: 0 auto;
-      padding: 24px 16px 40px 16px;
+      padding: 28px 16px 40px 16px;
     }
 
     /* ヘッダー */
     .schedule-header {
-      margin-bottom: 24px;
-      text-align: left;
+      text-align: center;
+      margin-bottom: 32px;
     }
 
     .schedule-sub {
+      font-family: 'Cinzel', serif;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: #64748b;
-      margin-bottom: 2px;
+      color: #718096;
+      margin-bottom: 4px;
     }
 
     .schedule-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: #0f172a;
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #2c3e50;
       letter-spacing: 1px;
     }
 
     .schedule-date {
       font-size: 13px;
-      font-weight: 600;
-      color: #64748b;
+      font-weight: 500;
+      color: #5b73a7;
       margin-top: 2px;
     }
 
-    /* タイムラインリスト */
-    .schedule-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    /* タイムラインコンテナ */
+    .timeline-container {
+      position: relative;
+      padding-left: 28px;
     }
 
-    /* カード：情報量に応じて高さ可変・影をほんの少し薄く */
-    .schedule-card {
+    /* 左側の縦線 */
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 18px;
+      bottom: 20px;
+      width: 2px;
+      background-color: #cbd5e1;
+    }
+
+    /* タイムラインカード */
+    .timeline-item {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    /* 丸いノード */
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 20px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 3px solid #3b82f6;
+      z-index: 2;
+    }
+
+    .card {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 14px 18px; /* パディングで上下可変 */
+      border-radius: 16px;
+      padding: 14px 16px;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); /* ほんの少し薄い影 */
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
     }
 
-    .schedule-card .time {
-      font-size: 11px;
-      font-weight: 700;
-      color: #64748b;
-      letter-spacing: 0.5px;
+    .card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .time {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5b73a7;
+      display: block;
       margin-bottom: 4px;
     }
 
-    .schedule-card .content {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    /* 場所：青 ＋ 強め（リンク） */
-    .schedule-card .place-link {
-      color: #0a84ff;
-      font-weight: 700;
+    .place-link {
       font-size: 15px;
+      font-weight: 700;
+      color: #2563eb;
       text-decoration: none;
+      display: inline-block;
       line-height: 1.3;
     }
 
-    .schedule-card .place-link:hover {
+    .place-link:hover {
       text-decoration: underline;
     }
 
-    /* 行動：黒文字 */
-    .schedule-card .action-text {
-      color: #1e293b;
+    .action-text {
       font-size: 14px;
       font-weight: 600;
+      color: #1e293b;
+      display: block;
       line-height: 1.3;
     }
 
-    /* 補足：グレー ＋ 小さく */
-    .schedule-card .note-text {
-      color: #64748b;
+    .note-text {
       font-size: 11px;
-      font-weight: 500;
+      color: #64748b;
       margin-top: 2px;
+      display: block;
       line-height: 1.3;
+    }
+
+    /* サムネイル画像・アイコン */
+    .thumb-img {
+      width: 68px;
+      height: 68px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .card-icon {
+      font-size: 24px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8fafc;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    /* MEMOフォーム */
+    .memo-card {
+      background: #f0f5ff;
+      border: 1px solid #dbebe;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 32px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.04);
+    }
+
+    .memo-title {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #3b82f6;
+      margin-bottom: 6px;
+    }
+
+    .memo-desc {
+      font-size: 11px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .memo-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .memo-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      resize: vertical;
+      min-height: 50px;
+      background: #ffffff;
+    }
+
+    .memo-input:focus {
+      border-color: #2563eb;
+    }
+
+    .memo-btn {
+      align-self: flex-end;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .memo-btn:hover {
+      background-color: #1d4ed8;
     }
 
     /* バックリンク */
@@ -225,14 +329,9 @@
     .back-link a {
       color: #64748b;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
-      transition: color 0.2s;
-    }
-
-    .back-link a:hover {
-      color: #0a84ff;
     }
   </style>
 </head>
@@ -272,75 +371,111 @@
       <p class="schedule-date">October 2026</p>
     </div>
 
-    <div class="schedule-list">
+    <div class="timeline-container">
 
-      <div class="schedule-card">
-        <span class="time">09:00 - 09:30</span>
-        <div class="content">
-          <a class="place-link" href="https://ja.wikipedia.org/wiki/%E8%93%AE%E8%8A%B1%E5%B1%B1%E5%85%AC%E5%9C%92" target="_blank">蓮花山公園</a>
-          <span class="action-text">散策</span>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">09:00 - 09:30</span>
+            <a class="place-link" href="https://ja.wikipedia.org/wiki/%E8%93%AE%E8%8A%B1%E5%B1%B1%E5%85%AC%E5%9C%92" target="_blank">蓮花山公園</a>
+            <span class="action-text">散策</span>
+          </div>
+          <img class="thumb-img" src="https://images.unsplash.com/photo-1508873696983-2df515122519?w=200&auto=format&fit=crop&q=80" alt="蓮花山公園">
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">10:00 - 11:30</span>
-        <div class="content">
-          <a class="place-link" href="yumcha.html">飲茶店</a>
-          <span class="action-text">朝昼兼用ご飯</span>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">10:00 - 11:30</span>
+            <a class="place-link" href="yumcha.html">飲茶店</a>
+            <span class="action-text">朝昼兼用ご飯</span>
+          </div>
+          <div class="card-icon">🥟</div>
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">11:30 - 12:30</span>
-        <div class="content">
-          <a class="place-link" href="https://jp.trip.com/guide/info/%E6%B7%B1%E5%9C%B3%E6%B9%BE%E5%85%AC%E5%9C%92.html" target="_blank">深圳湾公園</a>
-          <span class="note-text">※ドローンデリバリーで飲み物を購入</span>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">11:30 - 12:30</span>
+            <a class="place-link" href="https://jp.trip.com/guide/info/%E6%B7%B1%E5%9C%B3%E6%B9%BE%E5%85%AC%E5%9C%92.html" target="_blank">深圳湾公園</a>
+            <span class="note-text">※ドローンデリバリーで飲み物を購入</span>
+          </div>
+          <img class="thumb-img" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=200&auto=format&fit=crop&q=80" alt="深圳湾公園">
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">12:30 - 13:00</span>
-        <div class="content">
-          <span class="action-text">無人タクシー利用で移動</span>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">12:30 - 13:00</span>
+            <span class="action-text">無人タクシー利用で移動</span>
+          </div>
+          <div class="card-icon">🚖</div>
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">13:00 - 14:00</span>
-        <div class="content">
-          <a class="place-link" href="https://ja.wikipedia.org/wiki/%E6%B5%B7%E4%B8%8A%E4%B8%96%E7%95%8C" target="_blank">海上世界</a>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">13:00 - 14:00</span>
+            <a class="place-link" href="https://ja.wikipedia.org/wiki/%E6%B5%B7%E4%B8%8A%E4%B8%96%E7%95%8C" target="_blank">海上世界</a>
+          </div>
+          <img class="thumb-img" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=200&auto=format&fit=crop&q=80" alt="海上世界">
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">14:30 - 16:00</span>
-        <div class="content">
-          <a class="place-link" href="https://jp.trip.com/moments/detail/shenzhen-83-10825310/" target="_blank">華強北 電気街ビル</a>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">14:30 - 16:00</span>
+            <a class="place-link" href="https://jp.trip.com/moments/detail/shenzhen-83-10825310/" target="_blank">華強北 電気街ビル</a>
+          </div>
+          <img class="thumb-img" src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=200&auto=format&fit=crop&q=80" alt="華強北">
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">16:20 - 18:00</span>
-        <div class="content">
-          <span class="action-text">東門老街 マッサージ</span>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">16:20 - 18:00</span>
+            <span class="action-text">東門老街 マッサージ</span>
+          </div>
+          <div class="card-icon">💆‍♂️</div>
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">18:30 - 20:00</span>
-        <div class="content">
-          <a class="place-link" href="foods.html">市民中心</a>
-          <span class="action-text">ご飯</span>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">18:30 - 20:00</span>
+            <a class="place-link" href="foods.html">市民中心</a>
+            <span class="action-text">ご飯</span>
+          </div>
+          <div class="card-icon">🍴</div>
         </div>
       </div>
 
-      <div class="schedule-card">
-        <span class="time">20:30 - 21:30</span>
-        <div class="content">
-          <span class="action-text">お土産等買い物</span>
+      <div class="timeline-item">
+        <div class="card">
+          <div class="card-body">
+            <span class="time">20:30 - 21:30</span>
+            <span class="action-text">お土産等買い物</span>
+          </div>
+          <div class="card-icon">🛍️</div>
         </div>
       </div>
 
+    </div>
+
+    <div class="memo-card">
+      <div class="memo-title">MEMO</div>
+      <p class="memo-desc">行きたいお店や食べたいものを自由にメモして送ろう。</p>
+      <form class="memo-form" action="https://formspree.io/f/your_form_id" method="POST">
+        <textarea class="memo-input" name="message" placeholder="メモを入力..." required></textarea>
+        <button type="submit" class="memo-btn">送信する</button>
+      </form>
     </div>
 
     <div class="back-link">
