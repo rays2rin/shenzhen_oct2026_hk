@@ -22,7 +22,7 @@
       color: #202A3A;
       font-family: 'Noto Sans JP', sans-serif;
       min-height: 100vh;
-      padding-bottom: 80px; /* 下部固定バーの余白 */
+      padding-bottom: 80px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -138,7 +138,7 @@
       margin-top: 4px;
     }
 
-    /* 検索ボックス（画像通り） */
+    /* 検索ボックス */
     .filter-card {
       background: #ffffff;
       border: 1px solid #e5e2d5;
@@ -200,9 +200,6 @@
       color: #555;
       cursor: pointer;
       white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
     .t-tab.active {
@@ -299,7 +296,7 @@
     }
 
     .route-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: #202A3A;
       margin-bottom: 6px;
@@ -382,7 +379,7 @@
       line-height: 1.4;
     }
 
-    /* フッター固定ボタン（モバイル用・画像通り） */
+    /* フッター固定ボタン */
     .sticky-footer {
       position: fixed;
       bottom: 16px;
@@ -441,13 +438,13 @@
       <p class="page-sub">移動手段を選択して、所要時間や料金の目安を確認できます。</p>
     </div>
 
-    <!-- 画像通りの絞り込み・検索フォーム -->
+    <!-- 検索・フィルターフォーム -->
     <div class="filter-card">
       <div class="select-group">
         <div class="select-item">
           <label>出発地</label>
-          <select id="start-point" onchange="filterRoutes()">
-            <option value="all">すべて表示</option>
+          <select id="start-point" onchange="onFilterChange()">
+            <option value="all">指定なし (すべて)</option>
             <optgroup label="香港">
               <option value="皇岗">皇岗</option>
               <option value="中環">中環</option>
@@ -469,8 +466,8 @@
         <div class="swap-icon">⇄</div>
         <div class="select-item">
           <label>目的地</label>
-          <select id="end-point" onchange="filterRoutes()">
-            <option value="all">すべて表示</option>
+          <select id="end-point" onchange="onFilterChange()">
+            <option value="all">指定なし (すべて)</option>
             <optgroup label="香港">
               <option value="尖沙咀">尖沙咀</option>
               <option value="太平山頂">太平山頂</option>
@@ -493,65 +490,68 @@
         </div>
       </div>
 
-      <!-- 絞り込みタブ -->
+      <!-- 移動手段絞り込みタブ -->
       <div class="transport-tabs">
         <div class="t-tab active" onclick="setTab(this, 'all')">すべて</div>
-        <div class="t-tab" onclick="setTab(this, 'hk')">🚖 香港タクシー</div>
-        <div class="t-tab" onclick="setTab(this, 'sz')">🚘 深圳タクシー/配車</div>
+        <div class="t-tab" onclick="setTab(this, 'hk')">🚖 香港</div>
+        <div class="t-tab" onclick="setTab(this, 'sz')">🚘 深圳</div>
       </div>
 
-      <!-- 選択中の合計金額計算バー -->
+      <!-- 合計金額・時間表示（自動連動） -->
       <div class="summary-box">
         <div>
-          <div class="summary-label">選択中のルート合計目安</div>
+          <div class="summary-label">表示中ルートの目安金額</div>
           <div class="summary-amount" id="total-price">¥0</div>
         </div>
         <div class="summary-time">所要時間 <span id="total-time">約 0分</span></div>
       </div>
     </div>
 
-    <div class="section-label">おすすめルート</div>
+    <div class="section-label" id="section-title-label">おすすめルート一覧</div>
 
-    <!-- ルート一覧（JavaScriptで動的生成・選択機能付き） -->
+    <!-- ルート一覧（JSで動的表示） -->
     <div class="route-cards-container" id="routes-list"></div>
 
-    <!-- 移動のヒント（画像デザイン準拠） -->
+    <!-- 移動のヒント -->
     <div class="hint-box">
       <div class="hint-icon">💡</div>
       <div>
         <div class="hint-text-title">移動のヒント</div>
-        <div class="hint-text-desc">タクシー料金は交通状況やルートによって変動する場合があります。ラッシュアワーを避けるとスムーズです。</div>
+        <div class="hint-text-desc">タクシー料金は時間帯や混雑状況によって前後します。深圳の地下鉄は非常に便利でスムーズです。</div>
       </div>
     </div>
 
   </main>
 
-  <!-- モバイル表示時の選択確定固定バー（画像通り） -->
+  <!-- フッター固定表示 -->
   <div class="sticky-footer" id="sticky-btn" onclick="scrollToTop()">
-    選択したルートを見る (<span id="selected-count">0</span>件)
+    選択したルートを表示中 (<span id="selected-count">0</span>件)
   </div>
 
   <script>
-    // 提供されたすべてのデータ
+    // ルートデータ（ご提示のデータ＋追加データの華強北→市民中心）
     const routesData = [
       // 香港ルート
-      { id: 1, area: 'hk', from: '皇岗', to: '尖沙咀', time: 30, hkd: 400, jpy: 9200, type: 'タクシー', recommend: true },
-      { id: 2, area: 'hk', from: '中環', to: '太平山頂', time: 15, hkd: 90, jpy: 2100, type: 'タクシー', recommend: false },
-      { id: 3, area: 'hk', from: '花園道', to: '中環', time: 5, hkd: 35, jpy: 800, type: 'タクシー', recommend: false },
-      { id: 4, area: 'hk', from: '花園道', to: '旺角', time: 25, hkd: 120, jpy: 2800, type: 'タクシー', recommend: false },
-      { id: 5, area: 'hk', from: '旺角', to: '皇岗', time: 30, hkd: 380, jpy: 8700, type: 'タクシー', recommend: false },
+      { id: 1, area: 'hk', from: '皇岗', to: '尖沙咀', time: 30, hkd: 400, jpy: 9200, type: 'タクシー', note: '皇岗口岸から尖沙咀まで直行', recommend: true },
+      { id: 2, area: 'hk', from: '中環', to: '太平山頂', time: 15, hkd: 90, jpy: 2100, type: 'タクシー', note: '山頂アクセス（山道経由）', recommend: false },
+      { id: 3, area: 'hk', from: '花園道', to: '中環', time: 5, hkd: 35, jpy: 800, type: 'タクシー', note: 'ピークトラム乗り場近くから', recommend: false },
+      { id: 4, area: 'hk', from: '花園道', to: '旺角', time: 25, hkd: 120, jpy: 2800, type: 'タクシー', note: '九龍エリアへ移動', recommend: false },
+      { id: 5, area: 'hk', from: '旺角', to: '皇岗', time: 30, hkd: 380, jpy: 8700, type: 'タクシー', note: '旺角から国境口岸へ', recommend: false },
 
       // 深圳ルート
-      { id: 6, area: 'sz', from: '宝安空港', to: '逸扉酒店', time: 40, cny: 60, jpy: 1600, type: '配車/タクシー', recommend: true },
-      { id: 7, area: 'sz', from: '逸扉酒店', to: '莲花山公园', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', recommend: false },
-      { id: 8, area: 'sz', from: '莲花山公园', to: '陶陶居', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', recommend: false },
-      { id: 9, area: 'sz', from: '陶陶居', to: '深圳湾公園', time: 30, cny: 30, jpy: 800, type: '配車/タクシー', recommend: false },
-      { id: 10, area: 'sz', from: '深圳湾公園', to: '海上世界', time: 30, cny: 50, jpy: 1350, type: '配車/タクシー', recommend: false },
-      { id: 11, area: 'sz', from: '海上世界', to: '華強北', time: 25, cny: 80, jpy: 2200, type: '配車/タクシー', recommend: false },
-      { id: 12, area: 'sz', from: '逸扉酒店', to: '海上世界', time: 40, cny: 50, jpy: 1350, type: '配車/タクシー', recommend: false },
-      { id: 13, area: 'sz', from: '海上世界', to: '宝安空港', time: 40, cny: 70, jpy: 1900, type: '配車/タクシー', recommend: false },
-      { id: 14, area: 'sz', from: '華強北', to: '东门老街', time: 10, cny: 25, jpy: 700, type: '配車/タクシー', recommend: false },
-      { id: 15, area: 'sz', from: '东门老街', to: '市民中心', time: 20, cny: 20, jpy: 600, type: '配車/タクシー', recommend: false }
+      { id: 6, area: 'sz', from: '宝安空港', to: '逸扉酒店', time: 40, cny: 60, jpy: 1600, type: '配車/タクシー', note: '空港からのスムーズ移動', recommend: true },
+      { id: 7, area: 'sz', from: '逸扉酒店', to: '莲花山公园', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', note: '公園まで短時間アクセス', recommend: false },
+      { id: 8, area: 'sz', from: '莲花山公园', to: '陶陶居', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', note: '飲茶スポットへの移動', recommend: false },
+      { id: 9, area: 'sz', from: '陶陶居', to: '深圳湾公園', time: 30, cny: 30, jpy: 800, type: '配車/タクシー', note: 'ベイエリアへの移動', recommend: false },
+      { id: 10, area: 'sz', from: '深圳湾公園', to: '海上世界', time: 30, cny: 50, jpy: 1350, type: '配車/タクシー', note: '商業エリアへ移動', recommend: false },
+      { id: 11, area: 'sz', from: '海上世界', to: '華強北', time: 25, cny: 80, jpy: 2200, type: '配車/タクシー', note: '電気街への移動', recommend: false },
+      { id: 12, area: 'sz', from: '逸扉酒店', to: '海上世界', time: 40, cny: 50, jpy: 1350, type: '配車/タクシー', note: 'ホテルからダイレクト移動', recommend: false },
+      { id: 13, area: 'sz', from: '海上世界', to: '宝安空港', time: 40, cny: 70, jpy: 1900, type: '配車/タクシー', note: '空港への帰り', recommend: false },
+      { id: 14, area: 'sz', from: '華強北', to: '东门老街', time: 10, cny: 25, jpy: 700, type: '配車/タクシー', note: '老街繁華街へ', recommend: false },
+      { id: 15, area: 'sz', from: '东门老街', to: '市民中心', time: 20, cny: 20, jpy: 600, type: '配車/タクシー', note: '市民中心エリアへ', recommend: false },
+      
+      // 【追加】華強北→市民中心（地下鉄2駅4分）
+      { id: 16, area: 'sz', from: '華強北', to: '市民中心', time: 4, cny: 2, jpy: 40, type: '地下鉄 (2駅)', note: '地下鉄2号線・8号線で直通4分', recommend: true }
     ];
 
     let selectedRouteIds = [];
@@ -566,56 +566,10 @@
       document.querySelectorAll('.t-tab').forEach(tab => tab.classList.remove('active'));
       element.classList.add('active');
       currentAreaFilter = area;
-      filterRoutes();
+      onFilterChange();
     }
 
-    function renderRoutes(routes) {
-      const container = document.getElementById('routes-list');
-      container.innerHTML = '';
-
-      if (routes.length === 0) {
-        container.innerHTML = '<div style="text-align:center; padding:20px; color:#718096; font-size:12px;">条件に一致するルートが見つかりません</div>';
-        return;
-      }
-
-      routes.forEach(route => {
-        const isSelected = selectedRouteIds.includes(route.id);
-        const card = document.createElement('div');
-        card.className = 'route-card';
-
-        let priceText = route.area === 'hk' ? `HK$ ${route.hkd}` : `${route.cny} 元`;
-        
-        card.innerHTML = `
-          <div class="card-top">
-            <div class="transport-type">
-              <span>🚖 ${route.type}</span>
-              ${route.recommend ? '<span class="badge-recommend">おすすめ</span>' : ''}
-            </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span class="time-badge">約 ${route.time} 分</span>
-              <input type="checkbox" class="checkbox-custom" ${isSelected ? 'checked' : ''} onchange="toggleSelect(${route.id})">
-            </div>
-          </div>
-          <div class="route-title">${route.from} ➔ ${route.to}</div>
-          <div class="price-display">
-            <span class="price-val">${priceText}</span>
-            <span class="price-sub">(約 ¥${route.jpy.toLocaleString()})</span>
-          </div>
-          <div class="access-info">
-            ・${route.from}からスムーズに移動可能<br>
-            ・所要時間は交通状況により前後します
-          </div>
-          <div class="card-bottom">
-            <button class="select-btn ${isSelected ? 'selected' : ''}" onclick="toggleSelect(${route.id})">
-              ${isSelected ? '選択済み' : '選択する'}
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filterRoutes() {
+    function onFilterChange() {
       const start = document.getElementById('start-point').value;
       const end = document.getElementById('end-point').value;
 
@@ -627,6 +581,53 @@
       });
 
       renderRoutes(filtered);
+      updateSummary(filtered);
+    }
+
+    function renderRoutes(routes) {
+      const container = document.getElementById('routes-list');
+      container.innerHTML = '';
+
+      if (routes.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:30px; color:#718096; font-size:12px;">該当するルートが見つかりませんでした</div>';
+        return;
+      }
+
+      routes.forEach(route => {
+        const isChecked = selectedRouteIds.includes(route.id);
+        const card = document.createElement('div');
+        card.className = 'route-card';
+
+        let priceText = route.area === 'hk' ? `HK$ ${route.hkd}` : `${route.cny} 元`;
+
+        card.innerHTML = `
+          <div class="card-top">
+            <div class="transport-type">
+              <span>${route.type.includes('地下鉄') ? '🚇' : '🚖'} ${route.type}</span>
+              ${route.recommend ? '<span class="badge-recommend">おすすめ</span>' : ''}
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="time-badge">約 ${route.time} 分</span>
+              <input type="checkbox" class="checkbox-custom" ${isChecked ? 'checked' : ''} onchange="toggleSelect(${route.id})">
+            </div>
+          </div>
+          <div class="route-title">${route.from} ➔ ${route.to}</div>
+          <div class="price-display">
+            <span class="price-val">${priceText}</span>
+            <span class="price-sub">(約 ¥${route.jpy.toLocaleString()})</span>
+          </div>
+          <div class="access-info">
+            ・${route.note}<br>
+            ・所要時間は目安となります
+          </div>
+          <div class="card-bottom">
+            <button class="select-btn ${isChecked ? 'selected' : ''}" onclick="toggleSelect(${route.id})">
+              ${isChecked ? '選択中' : '選択する'}
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
 
     function toggleSelect(id) {
@@ -635,33 +636,38 @@
       } else {
         selectedRouteIds.push(id);
       }
-      updateSummary();
-      filterRoutes();
+      onFilterChange();
     }
 
-    function updateSummary() {
+    // 検索条件または個別チェックに基いて金額・時間を更新
+    function updateSummary(filteredRoutes) {
       let totalJpy = 0;
       let totalTime = 0;
+      let count = 0;
 
-      selectedRouteIds.forEach(id => {
-        const item = routesData.find(r => r.id === id);
-        if (item) {
-          totalJpy += item.jpy;
-          totalTime += item.time;
-        }
+      // チェックボックス選択が1個以上ある場合はチェック優先、何も選んでいない時は検索結果全体を反映
+      const targets = selectedRouteIds.length > 0 
+        ? routesData.filter(r => selectedRouteIds.includes(r.id))
+        : filteredRoutes;
+
+      targets.forEach(item => {
+        totalJpy += item.jpy;
+        totalTime += item.time;
       });
+
+      count = targets.length;
 
       document.getElementById('total-price').innerText = `約 ¥${totalJpy.toLocaleString()}`;
       document.getElementById('total-time').innerText = `約 ${totalTime}分`;
-      document.getElementById('selected-count').innerText = selectedRouteIds.length;
+      document.getElementById('selected-count').innerText = count;
     }
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 初期化
-    filterRoutes();
+    // 初期起動
+    onFilterChange();
   </script>
 </body>
 </html>
