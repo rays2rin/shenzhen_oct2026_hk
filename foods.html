@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FOOD GUIDE - Shenzhen & Hong Kong</title>
 
-  <!-- フォント読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -280,6 +279,15 @@
       color: #202A3A;
     }
 
+    .res-name a {
+      color: #202A3A;
+      text-decoration: underline;
+    }
+
+    .res-name a:hover {
+      color: #3d617c;
+    }
+
     .res-desc {
       font-size: 10.5px;
       color: #555;
@@ -328,45 +336,6 @@
     .res-list-sub {
       font-size: 9.5px;
       color: #666;
-    }
-
-    /* ローカルチップス */
-    .local-tip {
-      background: #f0f3eb;
-      border: 1px solid #d4dfc7;
-      border-radius: 6px;
-      padding: 12px;
-      margin-top: 16px;
-    }
-
-    .tip-title {
-      font-family: 'Cinzel', serif;
-      font-size: 11px;
-      font-weight: 700;
-      color: #1e2d1d;
-      margin-bottom: 6px;
-      letter-spacing: 1px;
-    }
-
-    .tip-list {
-      list-style: none;
-      font-size: 10.5px;
-      color: #444;
-      line-height: 1.5;
-    }
-
-    .tip-list li {
-      position: relative;
-      padding-left: 12px;
-      margin-bottom: 3px;
-    }
-
-    .tip-list li::before {
-      content: '○';
-      position: absolute;
-      left: 0;
-      font-size: 9px;
-      color: #1e2d1d;
     }
 
     /* MEMOフォーム */
@@ -443,7 +412,6 @@
 </head>
 <body>
 
-  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -453,7 +421,6 @@
     <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -471,17 +438,14 @@
 
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- メインコンテンツ -->
   <main class="page-container">
 
     <div class="food-header">
       <h1 class="food-title">FOOD GUIDE</h1>
     </div>
 
-    <!-- 2カラムコンテンツ -->
     <div class="two-column-grid">
 
-      <!-- 左カラム: HONG KONG -->
       <div class="area-column" id="hk-column">
         <div class="area-header" onclick="toggleAccordion('hk-column')">
           <div class="area-title">HONG KONG</div>
@@ -521,28 +485,21 @@
 
           <div class="restaurant-card">
             <div class="res-tag">ICONIC / 一度は行きたい</div>
-            <div class="res-name">MOTT 32</div>
+            <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=MOTT+32+Hong+Kong" target="_blank" rel="noopener noreferrer">MOTT 32</a></div>
             <div class="res-desc">モダンチャイニーズの代表格。洗練された空間で特別な時間を。</div>
             <div class="res-location">📍 中環</div>
           </div>
 
           <div class="restaurant-card">
-            <div class="res-tag">CLASSIC / 香港らしさを感じる</div>
-            <div class="res-name">Australia Dairy Company</div>
-            <div class="res-desc">ローカルに愛される茶餐廳の名店。ふわふわスクランブルエッグが名物。</div>
-            <div class="res-location">📍 佐敦</div>
-          </div>
-
-          <div class="restaurant-card">
             <div class="res-tag">NOODLE / 麺を楽しむなら</div>
-            <div class="res-name">Lau Sum Kee</div>
+            <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=Lau+Sum+Kee+Noodle+Hong+Kong" target="_blank" rel="noopener noreferrer">Lau Sum Kee</a></div>
             <div class="res-desc">雲呑麺の名店。スープと麺のバランスが絶妙。</div>
             <div class="res-location">📍 中環</div>
           </div>
 
           <div class="restaurant-card">
             <div class="res-tag">FINE DINING / きちんとした広東料理</div>
-            <div class="res-name">香宮 (Shang Palace)</div>
+            <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=Shang+Palace+Kowloon+Shangri-La+Hong+Kong" target="_blank" rel="noopener noreferrer">香宮 (Shang Palace)</a></div>
             <div class="res-desc">格式ある広東料理の名店。接待や特別な食事におすすめ。</div>
             <div class="res-location">📍 中環 (シャングリ・ラ ホテル内)</div>
           </div>
@@ -550,7 +507,6 @@
         </div>
       </div>
 
-      <!-- 右カラム: SHENZHEN -->
       <div class="area-column" id="sz-column">
         <div class="area-header" onclick="toggleAccordion('sz-column')">
           <div class="area-title">SHENZHEN</div>
@@ -624,22 +580,11 @@
             </div>
           </div>
 
-          <div class="local-tip">
-            <div class="tip-title">LOCAL TIP</div>
-            <ul class="tip-list">
-              <li>お店の入口の生簀で海鮮を選ぶのが深圳スタイル！</li>
-              <li>海鮮は「清蒸（蒸し）」「椒塩（塩コショウ）」「蒜蓉（ニンニク蒸し）」がおすすめ。</li>
-              <li>腸粉は醤油ベースのタレでどうぞ。</li>
-              <li>飲茶は混雑することが多いので、早めの時間がおすすめ。</li>
-            </ul>
-          </div>
-
         </div>
       </div>
 
     </div>
 
-    <!-- MEMOフォーム -->
     <div class="memo-card">
       <div class="memo-title">PLAN MEMO</div>
       <p class="memo-desc">行きたいお店や食べたいものを自由にメモしておこう。</p>
@@ -649,7 +594,6 @@
       </form>
     </div>
 
-    <!-- バックリンク -->
     <div class="back-link">
       <a href="index.html">← TOP PAGE</a>
     </div>
