@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FOOD GUIDE - Shenzhen & Hong Kong</title>
 
+  <!-- フォント読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -17,7 +18,7 @@
     }
 
     body {
-      background-color: #fcfcf9; /* 画像通りの温かみのある生成り系ホワイト */
+      background-color: #fcfcf9;
       color: #202A3A;
       font-family: 'Noto Sans JP', sans-serif;
       min-height: 100vh;
@@ -116,38 +117,26 @@
       padding: 28px 16px 40px 16px;
     }
 
-    /* ページメインヘッダー */
+    /* ① 簡略化したヘッダー */
     .food-header {
       text-align: center;
       margin-bottom: 24px;
-    }
-
-    .food-sub {
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      color: #555;
-      margin-bottom: 4px;
     }
 
     .food-title {
       font-family: 'Cinzel', serif;
       font-size: 34px;
       font-weight: 700;
-      color: #1f2b1a; /* 深みのあるダークグリーン調ネイビー */
+      color: #1f2b1a;
       letter-spacing: 2px;
     }
 
-    .food-desc {
-      font-size: 12px;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    /* 2カラムレイアウト（PC・タブレットで左右分割、スマホで1カラム） */
+    /* 2カラムレイアウト（PCで左右分割、スマホで1カラム） */
     .two-column-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
+      align-items: start;
     }
 
     @media (max-width: 768px) {
@@ -164,11 +153,18 @@
       overflow: hidden;
     }
 
+    /* ⑦ アコーディオンヘッダー（タップで開閉可能） */
     .area-header {
-      background-color: #1e2d1d; /* 画像の上部ダークグリーン */
+      background-color: #1e2d1d;
       color: #ffffff;
       text-align: center;
-      padding: 12px 16px;
+      padding: 14px 16px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
     .area-title {
@@ -178,17 +174,29 @@
       letter-spacing: 1.5px;
     }
 
-    .area-sub {
+    /* 開閉インジケータ（▲▼アイコン） */
+    .accordion-icon {
+      position: absolute;
+      right: 16px;
       font-size: 10px;
-      opacity: 0.8;
-      letter-spacing: 1px;
+      transition: transform 0.3s ease;
     }
 
+    .area-column.closed .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    /* 開閉コンテンツエリア */
     .column-content {
-      padding: 16px;
+      padding: 12px 16px 16px 16px;
+      transition: max-height 0.3s ease;
     }
 
-    /* セクション見出し */
+    .area-column.closed .column-content {
+      display: none;
+    }
+
+    /* ③⑤ WHAT TO EAT 位置を上に変更 */
     .section-divider-title {
       text-align: center;
       font-family: 'Cinzel', serif;
@@ -196,7 +204,7 @@
       font-weight: 700;
       letter-spacing: 1.5px;
       color: #1e2d1d;
-      margin: 16px 0 12px 0;
+      margin: 0 0 12px 0;
       position: relative;
     }
 
@@ -211,7 +219,11 @@
       margin: 0 8px;
     }
 
-    /* 2x2のグリッド（WHAT TO EAT等） */
+    .section-divider-title.second {
+      margin-top: 20px;
+    }
+
+    /* 2x2グリッド */
     .item-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -282,35 +294,6 @@
       font-size: 10px;
       color: #3d617c;
       font-weight: 500;
-    }
-
-    /* タイムライン風・ステップ（深セン側） */
-    .time-flow {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      background: #ffffff;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #e2ded0;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .flow-item {
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .flow-time {
-      font-size: 9px;
-      color: #718096;
-      display: block;
-    }
-
-    .flow-arrow {
-      color: #a0aec0;
-      font-size: 12px;
     }
 
     /* リスト形式レストラン */
@@ -445,7 +428,7 @@
       cursor: pointer;
     }
 
-    /* フッターバックリンク */
+    /* バックリンク */
     .back-link {
       margin-top: 28px;
       text-align: center;
@@ -463,6 +446,7 @@
 </head>
 <body>
 
+  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -472,6 +456,7 @@
     <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
+  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -489,23 +474,27 @@
 
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
+  <!-- メインコンテンツ -->
   <main class="page-container">
 
+    <!-- ① FOOD GUIDEタイトルのみに変更 -->
     <div class="food-header">
-      <p class="food-sub">深圳・香港で食べたいもの</p>
       <h1 class="food-title">FOOD GUIDE</h1>
-      <p class="food-desc">ローカルの味から名店まで、グルメの街を楽しもう。</p>
     </div>
 
+    <!-- 2カラムコンテンツ -->
     <div class="two-column-grid">
 
-      <div class="area-column">
-        <div class="area-header">
+      <!-- 左カラム: HONG KONG -->
+      <div class="area-column" id="hk-column">
+        <!-- ②④ 補助テキスト削除、⑦ タップでトグルできるヘッダー -->
+        <div class="area-header" onclick="toggleAccordion('hk-column')">
           <div class="area-title">HONG KONG</div>
-          <div class="area-sub">香港で食べたいもの</div>
+          <span class="accordion-icon">▲</span>
         </div>
 
         <div class="column-content">
+          <!-- ③ WHAT TO EAT をヘッダー直下に上詰め -->
           <div class="section-divider-title">WHAT TO EAT</div>
 
           <div class="item-grid">
@@ -534,7 +523,7 @@
             </div>
           </div>
 
-          <div class="section-divider-title">RECOMMENDED RESTAURANTS</div>
+          <div class="section-divider-title second">RECOMMENDED RESTAURANTS</div>
 
           <div class="restaurant-card">
             <div class="res-tag">ICONIC / 一度は行きたい</div>
@@ -567,13 +556,16 @@
         </div>
       </div>
 
-      <div class="area-column">
-        <div class="area-header">
+      <!-- 右カラム: SHENZHEN -->
+      <div class="area-column" id="sz-column">
+        <!-- ②④ 補助テキスト削除、⑦ タップでトグルできるヘッダー -->
+        <div class="area-header" onclick="toggleAccordion('sz-column')">
           <div class="area-title">SHENZHEN</div>
-          <div class="area-sub">深圳で食べたいもの</div>
+          <span class="accordion-icon">▲</span>
         </div>
 
         <div class="column-content">
+          <!-- ⑤ WHAT TO EAT をヘッダー直下に上詰め -->
           <div class="section-divider-title">WHAT TO EAT</div>
 
           <div class="item-grid">
@@ -602,24 +594,8 @@
             </div>
           </div>
 
-          <div class="section-divider-title">RECOMMENDED RESTAURANTS</div>
-
-          <div class="time-flow">
-            <div class="flow-item">
-              <span class="flow-time">朝（確定）</span>
-              飲茶
-            </div>
-            <span class="flow-arrow">➔</span>
-            <div class="flow-item">
-              <span class="flow-time">昼</span>
-              広東・潮州料理
-            </div>
-            <span class="flow-arrow">➔</span>
-            <div class="flow-item">
-              <span class="flow-time">夜</span>
-              海鮮料理
-            </div>
-          </div>
+          <!-- ⑥ 朝昼夜のフローを削除し、直接RECOMMENDED RESTAURANTSに配置 -->
+          <div class="section-divider-title second">RECOMMENDED RESTAURANTS</div>
 
           <div class="res-list-group">
             <div class="res-list-title">飲茶・点心</div>
@@ -657,6 +633,7 @@
             </div>
           </div>
 
+          <!-- LOCAL TIP -->
           <div class="local-tip">
             <div class="tip-title">LOCAL TIP</div>
             <ul class="tip-list">
@@ -672,6 +649,7 @@
 
     </div>
 
+    <!-- MEMOフォーム -->
     <div class="memo-card">
       <div class="memo-title">PLAN MEMO</div>
       <p class="memo-desc">行きたいお店や食べたいものを自由にメモしておこう。</p>
@@ -681,6 +659,7 @@
       </form>
     </div>
 
+    <!-- バックリンク -->
     <div class="back-link">
       <a href="index.html">← TOP PAGE</a>
     </div>
@@ -692,7 +671,12 @@
       document.getElementById('drawerMenu').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
     }
+
+    /* ⑦ アコーディオン開閉制御スクリプト */
+    function toggleAccordion(columnId) {
+      const targetColumn = document.getElementById(columnId);
+      targetColumn.classList.toggle('closed');
+    }
   </script>
 </body>
 </html>
-
