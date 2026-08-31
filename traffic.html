@@ -1,1 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRANSPORTATION - Shenzhen & Hong Kong</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fcfcf9;
+      color: #202A3A;
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ナビゲーションバー */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #edf2f7;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .bar {
+      width: 20px;
+      height: 2px;
+      background-color: #202A3A;
+      border-radius: 2px;
+    }
+
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #202A3A;
+    }
+
+    /* ドロワーメニュー */
+    .drawer-menu {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 300;
+      transition: left 0.3s ease;
+      padding: 24px;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    }
+
+    .drawer-menu.active { left: 0; }
+
+    .close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 20px;
+      color: #718096;
+    }
+
+    .drawer-menu ul { list-style: none; }
+    .drawer-menu li { margin-bottom: 16px; }
+    .drawer-menu a {
+      text-decoration: none;
+      color: #202A3A;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+    .drawer-menu .divider {
+      height: 1px;
+      background-color: #edf2f7;
+      margin: 16px 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 200;
+      display: none;
+    }
+    .overlay.active { display: block; }
+
+    /* メインレイアウト */
+    .page-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 28px 16px 40px 16px;
+    }
+
+    /* ページヘッダー */
+    .header-section {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1f2b1a;
+      letter-spacing: 2px;
+    }
+
+    .page-sub {
+      font-size: 12px;
+      color: #718096;
+      margin-top: 4px;
+    }
+
+    /* エリア切替タブ */
+    .area-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 0;
+      text-align: center;
+      background-color: #ffffff;
+      border: 1px solid #e2ded0;
+      border-radius: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #718096;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background-color: #1e2d1d;
+      color: #ffffff;
+      border-color: #1e2d1d;
+    }
+
+    /* セクションヘッダー */
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #1e2d1d;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #e2ded0;
+    }
+
+    /* ルートカードリスト */
+    .route-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .route-card {
+      background-color: #ffffff;
+      border: 1px solid #e5e2d5;
+      border-radius: 10px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* 区間（出発地 ➔ 目的地） */
+    .route-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #202A3A;
+    }
+
+    .route-arrow {
+      color: #718096;
+      font-size: 12px;
+    }
+
+    /* 詳細情報（所要時間・料金） */
+    .route-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      background-color: #f7f6f0;
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+
+    .time-info {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .time-val {
+      font-weight: 700;
+      color: #202A3A;
+    }
+
+    .price-info {
+      text-align: right;
+    }
+
+    .price-local {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e2d1d;
+    }
+
+    .price-jpy {
+      font-size: 11px;
+      color: #718096;
+    }
+
+    /* ヒントカード */
+    .hint-card {
+      background-color: #f0f3eb;
+      border: 1px solid #d4dfc7;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 20px;
+    }
+
+    .hint-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e2d1d;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .hint-text {
+      font-size: 11px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* バックリンク */
+    .back-link {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .back-link a {
+      font-family: 'Cinzel', serif;
+      color: #718096;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+
+    /* 非表示コントロール */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  </header>
+
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
+
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <main class="page-container">
+
+    <div class="header-section">
+      <h1 class="page-title">TRANSPORTATION</h1>
+      <p class="page-sub">交通ガイド・タクシー料金目安</p>
+    </div>
+
+    <div class="area-tabs">
+      <button class="tab-btn active" onclick="switchTab('hk')">HONG KONG</button>
+      <button class="tab-btn" onclick="switchTab('sz')">SHENZHEN</button>
+    </div>
+
+    <div id="hk-routes" class="tab-content active">
+      <div class="section-title">HONG KONG ROUTES</div>
+      <div class="route-list">
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>皇岗</span>
+            <span class="route-arrow">➔</span>
+            <span>尖沙咀</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約30分</span></div>
+            <div class="price-info">
+              <div class="price-local">HK$ 400</div>
+              <div class="price-jpy">約 ¥9,200</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>中環</span>
+            <span class="route-arrow">➔</span>
+            <span>太平山頂</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約15分</span></div>
+            <div class="price-info">
+              <div class="price-local">HK$ 90</div>
+              <div class="price-jpy">約 ¥2,100</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>花園道</span>
+            <span class="route-arrow">➔</span>
+            <span>中環</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約5分</span></div>
+            <div class="price-info">
+              <div class="price-local">HK$ 35</div>
+              <div class="price-jpy">約 ¥800</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>花園道</span>
+            <span class="route-arrow">➔</span>
+            <span>旺角</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約25分</span></div>
+            <div class="price-info">
+              <div class="price-local">HK$ 120</div>
+              <div class="price-jpy">約 ¥2,800</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>旺角</span>
+            <span class="route-arrow">➔</span>
+            <span>皇岗</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約30分</span></div>
+            <div class="price-info">
+              <div class="price-local">HK$ 380</div>
+              <div class="price-jpy">約 ¥8,700</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="sz-routes" class="tab-content">
+      <div class="section-title">SHENZHEN ROUTES</div>
+      <div class="route-list">
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>宝安空港</span>
+            <span class="route-arrow">➔</span>
+            <span>逸扉酒店</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約40分</span></div>
+            <div class="price-info">
+              <div class="price-local">60 元</div>
+              <div class="price-jpy">約 ¥1,600</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>逸扉酒店</span>
+            <span class="route-arrow">➔</span>
+            <span>莲花山公园</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約10分</span></div>
+            <div class="price-info">
+              <div class="price-local">15 元</div>
+              <div class="price-jpy">約 ¥400</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>莲花山公园</span>
+            <span class="route-arrow">➔</span>
+            <span>陶陶居</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約10分</span></div>
+            <div class="price-info">
+              <div class="price-local">15 元</div>
+              <div class="price-jpy">約 ¥400</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>陶陶居</span>
+            <span class="route-arrow">➔</span>
+            <span>深圳湾公園</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約30分</span></div>
+            <div class="price-info">
+              <div class="price-local">30 元</div>
+              <div class="price-jpy">約 ¥800</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>深圳湾公園</span>
+            <span class="route-arrow">➔</span>
+            <span>海上世界</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約30分</span></div>
+            <div class="price-info">
+              <div class="price-local">50 元</div>
+              <div class="price-jpy">約 ¥1,350</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>海上世界</span>
+            <span class="route-arrow">➔</span>
+            <span>華強北</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約25分</span></div>
+            <div class="price-info">
+              <div class="price-local">80 元</div>
+              <div class="price-jpy">約 ¥2,200</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>逸扉酒店</span>
+            <span class="route-arrow">➔</span>
+            <span>海上世界</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約40分</span></div>
+            <div class="price-info">
+              <div class="price-local">50 元</div>
+              <div class="price-jpy">約 ¥1,350</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>海上世界</span>
+            <span class="route-arrow">➔</span>
+            <span>宝安空港</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約40分</span></div>
+            <div class="price-info">
+              <div class="price-local">70 元</div>
+              <div class="price-jpy">約 ¥1,900</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>華強北</span>
+            <span class="route-arrow">➔</span>
+            <span>东门老街</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約10分</span></div>
+            <div class="price-info">
+              <div class="price-local">25 元</div>
+              <div class="price-jpy">約 ¥700</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-header">
+            <span>东门老街</span>
+            <span class="route-arrow">➔</span>
+            <span>市民中心</span>
+          </div>
+          <div class="route-details">
+            <div class="time-info">所要時間: <span class="time-val">約20分</span></div>
+            <div class="price-info">
+              <div class="price-local">20 元</div>
+              <div class="price-jpy">約 ¥600</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="hint-card">
+      <div class="hint-title">TRAVEL TIPS</div>
+      <div class="hint-text">
+        ・表示金額および所要時間は目安です。交通状況や深夜時間帯により変動する場合があります。<br>
+        ・深圳側はAlipay（支付宝）やWeChat Pay（微信支付）の配車サービス（滴滴出行など）を利用するとスムーズです。
+      </div>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    /* ドロワーメニュー制御 */
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+
+    /* エリアタブ切り替え */
+    function switchTab(area) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => content.classList.remove('active'));
+
+      if (area === 'hk') {
+        tabs[0].classList.add('active');
+        document.getElementById('hk-routes').classList.add('active');
+      } else {
+        tabs[1].classList.add('active');
+        document.getElementById('sz-routes').classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
 
