@@ -50,16 +50,16 @@
       letter-spacing: 1px;
     }
 
-    /* ①〜⑤ 合計金額カード（高さ160px・白背景・青ライン・濃いネイビー文字） */
+    /* 合計金額カード（高さ約130px・青ライン維持・微細調整） */
     .total-box {
       background: #ffffff;
       border: 1px solid #e2e8f0;
-      border-top: 2px solid #0a84ff; /* 細い青ラインアクセント */
+      border-top: 2px solid #0a84ff; /* 青ライン維持 */
       border-radius: 16px;
-      height: 160px; /* 指定の高さ約160px */
+      height: 130px; /* 約15〜20%縮小（160px → 130px） */
       box-sizing: border-box;
       padding: 0 20px;
-      margin-bottom: 32px; /* 均等な下部余白 */
+      margin-bottom: 32px;
       
       display: flex;
       flex-direction: column;
@@ -68,21 +68,23 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     }
 
+    /* ESTIMATED TOTAL（ほんの少し小さく＆letter spacing微増） */
     .total-title {
-      font-size: 14px; /* 指定のサイズ */
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       color: #64748b;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
+    /* 金額（ほんの少し小さく 44px） */
     .total-amount {
-      font-size: 52px; /* 指定のサイズ */
+      font-size: 44px;
       font-weight: 800;
-      color: #1e293b; /* 濃いネイビー */
+      color: #1e293b; /* 濃いネイビー/チャコール */
       line-height: 1;
       display: inline-block;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
     }
 
     /* 数値変更時のふんわりアニメーション */
