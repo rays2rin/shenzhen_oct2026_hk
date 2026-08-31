@@ -121,7 +121,7 @@
     /* ページヘッダー */
     .header-section {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 8px; /* 余白を縮小 */
     }
 
     .page-title {
@@ -138,15 +138,15 @@
       margin-top: 4px;
     }
 
-    /* 控えめな路線図を見るボタン */
+    /* 控えめな路線図を見るボタン（タイトルとの間隔を短縮） */
     .map-link-container {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .map-btn {
       display: inline-block;
-      padding: 6px 14px;
+      padding: 5px 14px;
       font-size: 11px;
       color: #5b7083;
       background-color: #ffffff;
@@ -413,8 +413,9 @@
       line-height: 1.4;
     }
 
-    /* フッター固定ボタン */
+    /* フッター固定ボタン（初期状態非表示） */
     .sticky-footer {
+      display: none;
       position: fixed;
       bottom: 16px;
       left: 50%;
@@ -469,9 +470,10 @@
 
     <div class="header-section">
       <h1 class="page-title">TRANSPORTATION</h1>
+      <p class="page-sub">移動手段を選択して、所要時間や料金の目安を確認できます。</p>
     </div>
 
-    <!-- 路線図を見るボタン -->
+    <!-- 路線図を見るボタン（補助情報として控えめに設置） -->
     <div class="map-link-container">
       <a href="https://www.mtr.com.hk/archive/en/services/maps/MTR_system_map.pdf" target="_blank" rel="noopener noreferrer" class="map-btn">路線図を見る ↗</a>
     </div>
@@ -484,10 +486,11 @@
           <select id="start-point" onchange="onFilterChange()">
             <optgroup label="香港">
               <option value="皇岗">皇岗</option>
+              <option value="尖沙咀">尖沙咀</option>
+              <option value="西九龍">西九龍</option>
               <option value="中環">中環</option>
               <option value="花園道">花園道</option>
               <option value="旺角">旺角</option>
-              <option value="尖沙咀">尖沙咀</option>
               <option value="太平山頂">太平山頂</option>
             </optgroup>
             <optgroup label="深圳">
@@ -496,6 +499,7 @@
               <option value="莲花山公园">莲花山公园</option>
               <option value="陶陶居">陶陶居</option>
               <option value="深圳湾公園">深圳湾公園</option>
+              <option value="深圳之眼">深圳之眼</option>
               <option value="海上世界">海上世界</option>
               <option value="華強北">華強北</option>
               <option value="东门老街">东门老街</option>
@@ -509,17 +513,19 @@
           <select id="end-point" onchange="onFilterChange()">
             <optgroup label="香港">
               <option value="尖沙咀" selected>尖沙咀</option>
-              <option value="太平山頂">太平山頂</option>
-              <option value="中環">中環</option>
-              <option value="旺角">旺角</option>
-              <option value="花園道">花園道</option>
               <option value="皇岗">皇岗</option>
+              <option value="西九龍">西九龍</option>
+              <option value="中環">中環</option>
+              <option value="花園道">花園道</option>
+              <option value="旺角">旺角</option>
+              <option value="太平山頂">太平山頂</option>
             </optgroup>
             <optgroup label="深圳">
               <option value="逸扉酒店">逸扉酒店</option>
               <option value="莲花山公园">莲花山公园</option>
               <option value="陶陶居">陶陶居</option>
               <option value="深圳湾公園">深圳湾公園</option>
+              <option value="深圳之眼">深圳之眼</option>
               <option value="海上世界">海上世界</option>
               <option value="華強北">華強北</option>
               <option value="宝安空港">宝安空港</option>
@@ -562,33 +568,35 @@
 
   </main>
 
-  <!-- フッター固定表示 -->
+  <!-- フッター固定表示（選択時のみ出現） -->
   <div class="sticky-footer" id="sticky-btn" onclick="scrollToTop()">
     選択したルートを見る (<span id="selected-count">0</span>件)
   </div>
 
   <script>
-    // 全ルートデータ
+    // 復元・更新された全ルートデータ
     const routesData = [
       // 香港ルート
       { id: 1, area: 'hk', from: '皇岗', to: '尖沙咀', time: 30, hkd: 400, jpy: 9200, type: 'タクシー', note: '皇岗口岸から尖沙咀まで直行', recommend: true },
-      { id: 2, area: 'hk', from: '中環', to: '太平山頂', time: 15, hkd: 90, jpy: 2100, type: 'タクシー', note: '山頂アクセス（山道経由）', recommend: false },
-      { id: 3, area: 'hk', from: '花園道', to: '中環', time: 5, hkd: 35, jpy: 800, type: 'タクシー', note: 'ピークトラム乗り場近くから', recommend: false },
-      { id: 4, area: 'hk', from: '花園道', to: '旺角', time: 25, hkd: 120, jpy: 2800, type: 'タクシー', note: '九龍エリアへ移動', recommend: false },
-      { id: 5, area: 'hk', from: '旺角', to: '皇岗', time: 30, hkd: 380, jpy: 8700, type: 'タクシー', note: '旺角から国境口岸へ', recommend: false },
+      { id: 2, area: 'hk', from: '西九龍', to: '尖沙咀', time: 10, hkd: 45, jpy: 1000, type: 'タクシー', note: '高速鉄道駅からのアクセス', recommend: false },
+      { id: 3, area: 'hk', from: '中環', to: '太平山頂', time: 15, hkd: 90, jpy: 2100, type: 'タクシー', note: '山頂アクセス（山道経由）', recommend: false },
+      { id: 4, area: 'hk', from: '花園道', to: '中環', time: 5, hkd: 35, jpy: 800, type: 'タクシー', note: 'ピークトラム乗り場近くから', recommend: false },
+      { id: 5, area: 'hk', from: '花園道', to: '旺角', time: 25, hkd: 120, jpy: 2800, type: 'タクシー', note: '九龍エリアへ移動', recommend: false },
+      { id: 6, area: 'hk', from: '旺角', to: '皇岗', time: 30, hkd: 380, jpy: 8700, type: 'タクシー', note: '旺角から国境口岸へ', recommend: false },
 
       // 深圳ルート
-      { id: 6, area: 'sz', from: '宝安空港', to: '逸扉酒店', time: 40, cny: 60, jpy: 1600, type: '配車/タクシー', note: '空港からのスムーズ移動', recommend: true },
-      { id: 7, area: 'sz', from: '逸扉酒店', to: '莲花山公园', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', note: '公園まで短時間アクセス', recommend: false },
-      { id: 8, area: 'sz', from: '莲花山公园', to: '陶陶居', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', note: '飲茶スポットへの移動', recommend: false },
-      { id: 9, area: 'sz', from: '陶陶居', to: '深圳湾公園', time: 30, cny: 30, jpy: 800, type: '配車/タクシー', note: 'ベイエリアへの移動', recommend: false },
-      { id: 10, area: 'sz', from: '深圳湾公園', to: '海上世界', time: 30, cny: 50, jpy: 1350, type: '配車/タクシー', note: '商業エリアへ移動', recommend: false },
-      { id: 11, area: 'sz', from: '海上世界', to: '華強北', time: 25, cny: 80, jpy: 2200, type: '配車/タクシー', note: '電気街への移動', recommend: false },
-      { id: 12, area: 'sz', from: '逸扉酒店', to: '海上世界', time: 40, cny: 50, jpy: 1350, type: '配車/タクシー', note: 'ホテルからダイレクト移動', recommend: false },
-      { id: 13, area: 'sz', from: '海上世界', to: '宝安空港', time: 40, cny: 70, jpy: 1900, type: '配車/タクシー', note: '空港への帰り', recommend: false },
-      { id: 14, area: 'sz', from: '華強北', to: '东门老街', time: 10, cny: 25, jpy: 700, type: '配車/タクシー', note: '老街繁華街へ', recommend: false },
-      { id: 15, area: 'sz', from: '东门老街', to: '市民中心', time: 20, cny: 20, jpy: 600, type: '配車/タクシー', note: '市民中心エリアへ', recommend: false },
-      { id: 16, area: 'sz', from: '華強北', to: '市民中心', time: 4, cny: 2, jpy: 40, type: '地下鉄 (2駅)', note: '地下鉄2号線・8号線で直通4分', recommend: true }
+      { id: 7, area: 'sz', from: '宝安空港', to: '逸扉酒店', time: 40, cny: 60, jpy: 1600, type: '配車/タクシー', note: '空港からのスムーズ移動', recommend: true },
+      { id: 8, area: 'sz', from: '逸扉酒店', to: '莲花山公园', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', note: '公園まで短時間アクセス', recommend: false },
+      { id: 9, area: 'sz', from: '莲花山公园', to: '陶陶居', time: 10, cny: 15, jpy: 400, type: '配車/タクシー', note: '飲茶スポットへの移動', recommend: false },
+      { id: 10, area: 'sz', from: '陶陶居', to: '深圳湾公園', time: 30, cny: 30, jpy: 800, type: '配車/タクシー', note: 'ベイエリアへの移動', recommend: false },
+      { id: 11, area: 'sz', from: '深圳湾公園', to: '深圳之眼', time: 20, cny: 30, jpy: 800, type: '配車/タクシー', note: 'ランドマーク間移動', recommend: false },
+      { id: 12, area: 'sz', from: '深圳湾公園', to: '海上世界', time: 30, cny: 50, jpy: 1350, type: '配車/タクシー', note: '商業エリアへ移動', recommend: false },
+      { id: 13, area: 'sz', from: '海上世界', to: '華強北', time: 25, cny: 80, jpy: 2200, type: '配車/タクシー', note: '電気街への移動', recommend: false },
+      { id: 14, area: 'sz', from: '逸扉酒店', to: '海上世界', time: 40, cny: 50, jpy: 1350, type: '配車/タクシー', note: 'ホテルからダイレクト移動', recommend: false },
+      { id: 15, area: 'sz', from: '海上世界', to: '宝安空港', time: 40, cny: 70, jpy: 1900, type: '配車/タクシー', note: '空港への帰り', recommend: false },
+      { id: 16, area: 'sz', from: '華強北', to: '东门老街', time: 10, cny: 25, jpy: 700, type: '配車/タクシー', note: '老街繁華街へ', recommend: false },
+      { id: 17, area: 'sz', from: '东门老街', to: '市民中心', time: 20, cny: 20, jpy: 600, type: '配車/タクシー', note: '市民中心エリアへ', recommend: false },
+      { id: 18, area: 'sz', from: '華強北', to: '市民中心', time: 4, cny: 2, jpy: 40, type: '地下鉄 (2駅)', note: '地下鉄2号線・8号線で直通4分', recommend: true }
     ];
 
     let selectedRouteIds = [];
@@ -693,12 +701,19 @@
     }
 
     function updateSummary() {
+      const stickyBtn = document.getElementById('sticky-btn');
+
       if (selectedRouteIds.length === 0) {
         document.getElementById('total-price').innerText = '¥--';
         document.getElementById('total-time').innerText = '--分';
         document.getElementById('selected-count').innerText = '0';
+        // 0件の時はフッターボタンを非表示
+        stickyBtn.style.display = 'none';
         return;
       }
+
+      // 1件以上選択されている場合はフッターボタンを表示
+      stickyBtn.style.display = 'block';
 
       let totalJpy = 0;
       let totalTime = 0;
