@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YAMCHA - Shenzhen & Hong Kong</title>
 
+  <!-- フォント読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -133,14 +134,14 @@
 
     .page-title {
       font-family: 'Cinzel', serif;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       color: #1f2b1a;
       letter-spacing: 2px;
     }
 
     .page-sub {
-      font-size: 12px;
+      font-size: 11px;
       color: #718096;
       margin-top: 4px;
     }
@@ -161,84 +162,128 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
-    /* 横長＆高さ7割に抑えた画像コンテナ */
-    .card-image-wrapper {
+    /* スライドショーコンテナ（高さ抑えめ） */
+    .carousel-container {
+      position: relative;
       width: 100%;
-      height: 180px; /* 高さを抑える */
+      height: 180px;
       overflow: hidden;
       background-color: #f0f0f0;
     }
 
-    .card-image-wrapper img {
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+    }
+
+    .carousel-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    /* カード本体コンテンツ */
-    .card-body {
-      padding: 16px;
+    /* スライド矢印ボタン */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #202A3A;
+      z-index: 10;
+    }
+    .carousel-arrow.prev { left: 8px; }
+    .carousel-arrow.next { right: 8px; }
+
+    /* スライドドット指示器 */
+    .carousel-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .dot.active {
+      background: #ffffff;
     }
 
-    /* 店名と支店名の横並びヘッダー */
+    /* カード本体コンテンツ */
+    .card-body {
+      padding: 14px 16px;
+    }
+
+    /* 店名と支店名ヘッダー */
     .shop-header {
       display: flex;
       align-items: baseline;
       gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
       border-bottom: 1px solid #f0ede0;
-      padding-bottom: 8px;
     }
 
     .shop-name {
-      font-size: 26px; /* 24〜28pxの中間 */
+      font-family: 'Shippori Mincho', serif;
+      font-size: 20px;
       font-weight: 700;
       color: #1e2d1d;
-      line-height: 1.2;
+      letter-spacing: 0.5px;
     }
 
     .branch-name {
-      font-size: 15px; /* 少し小さく同行に配置 */
-      color: #666666;
-      font-weight: 500;
+      font-size: 13px;
+      color: #718096;
+      font-weight: 400;
     }
 
-    /* 店舗詳細情報 */
+    /* 店舗詳細情報（エリア・営業時間のみ） */
     .shop-info-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      font-size: 12px;
+      gap: 4px;
+      font-size: 11px;
       color: #4a5568;
-      line-height: 1.5;
     }
 
     .info-item {
       display: flex;
-      gap: 6px;
+      gap: 8px;
     }
 
     .info-label {
-      font-weight: bold;
-      color: #202A3A;
-      min-width: 60px;
-    }
-
-    .shop-desc {
-      margin-top: 10px;
-      font-size: 11px;
-      color: #666;
-      background: #fcfcf9;
-      padding: 8px 10px;
-      border-radius: 6px;
-      line-height: 1.4;
+      font-weight: 500;
+      color: #718096;
+      min-width: 50px;
     }
   </style>
 </head>
 <body>
 
+  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -248,6 +293,7 @@
     <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
+  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -265,24 +311,35 @@
 
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
+  <!-- メインコンテンツ -->
   <main class="page-container">
     <a href="foods.html" class="back-link">← グルメ一覧（foods）に戻る</a>
 
     <div class="header-section">
       <h1 class="page-title">DIM SUM</h1>
-      <p class="page-sub">本場・深圳＆香港のおすすめ飲茶・点心スポット</p>
+      <p class="page-sub">おすすめの飲茶・点心スポット</p>
     </div>
 
     <div class="shop-list">
 
+      <!-- 店舗 1: 陶陶居 -->
       <div class="shop-card">
-        <div class="card-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80" alt="陶陶居">
+        <div class="carousel-container" id="carousel-1">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80" alt="陶陶居 1"></div>
+            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800&q=80" alt="陶陶居 2"></div>
+          </div>
+          <button class="carousel-arrow prev" onclick="moveSlide('carousel-1', -1)">❮</button>
+          <button class="carousel-arrow next" onclick="moveSlide('carousel-1', 1)">❯</button>
+          <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </div>
         </div>
         <div class="card-body">
           <div class="shop-header">
             <span class="shop-name">陶陶居</span>
-            <span class="branch-name">（卓悦中心店）</span>
+            <span class="branch-name">卓悦中心店</span>
           </div>
           <div class="shop-info-list">
             <div class="info-item">
@@ -293,25 +350,28 @@
               <span class="info-label">営業時間</span>
               <span>10:00 - 21:30</span>
             </div>
-            <div class="info-item">
-              <span class="info-label">予算</span>
-              <span>約 100〜150 元 / 人</span>
-            </div>
-          </div>
-          <div class="shop-desc">
-            清朝創業の老舗広東料理店。サクサクの「陶陶居大蝦餃（エビ蒸し餃子）」やチャーシュー包が絶品で、現地でも行列が絶えない人気店です。
           </div>
         </div>
       </div>
 
+      <!-- 店舗 2: 点都徳 -->
       <div class="shop-card">
-        <div class="card-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800&q=80" alt="点都徳">
+        <div class="carousel-container" id="carousel-2">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800&q=80" alt="点都徳 1"></div>
+            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80" alt="点都徳 2"></div>
+          </div>
+          <button class="carousel-arrow prev" onclick="moveSlide('carousel-2', -1)">❮</button>
+          <button class="carousel-arrow next" onclick="moveSlide('carousel-2', 1)">❯</button>
+          <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </div>
         </div>
         <div class="card-body">
           <div class="shop-header">
             <span class="shop-name">点都徳</span>
-            <span class="branch-name">（華強北店）</span>
+            <span class="branch-name">華強北店</span>
           </div>
           <div class="shop-info-list">
             <div class="info-item">
@@ -322,25 +382,28 @@
               <span class="info-label">営業時間</span>
               <span>08:00 - 22:00</span>
             </div>
-            <div class="info-item">
-              <span class="info-label">予算</span>
-              <span>約 90〜120 元 / 人</span>
-            </div>
-          </div>
-          <div class="shop-desc">
-            広州発祥の大人気全日飲茶チェーン。伝統的な手作り点心にこだわり、赤米の腸粉（金沙海鮮紅米腸）や特製カスタードまんが名物。
           </div>
         </div>
       </div>
 
+      <!-- 店舗 3: 蘩楼 -->
       <div class="shop-card">
-        <div class="card-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80" alt="蘩楼">
+        <div class="carousel-container" id="carousel-3">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80" alt="蘩楼 1"></div>
+            <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80" alt="蘩楼 2"></div>
+          </div>
+          <button class="carousel-arrow prev" onclick="moveSlide('carousel-3', -1)">❮</button>
+          <button class="carousel-arrow next" onclick="moveSlide('carousel-3', 1)">❯</button>
+          <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </div>
         </div>
         <div class="card-body">
           <div class="shop-header">
             <span class="shop-name">蘩楼</span>
-            <span class="branch-name">（華強北本店）</span>
+            <span class="branch-name">華強北本店</span>
           </div>
           <div class="shop-info-list">
             <div class="info-item">
@@ -351,13 +414,6 @@
               <span class="info-label">営業時間</span>
               <span>08:00 - 22:00</span>
             </div>
-            <div class="info-item">
-              <span class="info-label">予算</span>
-              <span>約 100〜130 元 / 人</span>
-            </div>
-          </div>
-          <div class="shop-desc">
-            レトロで落ち着いた西関風のインテリアで味わう手作り点心。エビのプリプリ感が際立つ点心や上品なお茶のラインナップが魅力です。
           </div>
         </div>
       </div>
@@ -369,6 +425,36 @@
     function toggleMenu() {
       document.getElementById('drawerMenu').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
+    }
+
+    /* スライドショー操作JS */
+    const slideState = {};
+
+    function moveSlide(containerId, direction) {
+      const container = document.getElementById(containerId);
+      const track = container.querySelector('.carousel-track');
+      const slides = container.querySelectorAll('.carousel-slide');
+      const dots = container.querySelectorAll('.dot');
+      
+      if (!(containerId in slideState)) {
+        slideState[containerId] = 0;
+      }
+
+      let currentIndex = slideState[containerId];
+      currentIndex += direction;
+
+      if (currentIndex < 0) {
+        currentIndex = slides.length - 1;
+      } else if (currentIndex >= slides.length) {
+        currentIndex = 0;
+      }
+
+      slideState[containerId] = currentIndex;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
     }
   </script>
 </body>
