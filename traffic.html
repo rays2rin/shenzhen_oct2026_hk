@@ -138,7 +138,7 @@
       margin-top: 4px;
     }
 
-    /* 控えめな路線図を見るボタン */
+    /* 路線図を見るボタン */
     .map-link-container {
       text-align: center;
       margin-bottom: 16px;
@@ -473,7 +473,7 @@
       <p class="page-sub">移動手段を選択して、所要時間や料金の目安を確認できます。</p>
     </div>
 
-    <!-- 路線図を見るボタン（routemap.htmlに変更） -->
+    <!-- 路線図を見るボタン -->
     <div class="map-link-container">
       <a href="routemap.html" class="map-btn">路線図を見る ↗</a>
     </div>
@@ -484,6 +484,7 @@
         <div class="select-item">
           <label>出発地</label>
           <select id="start-point" onchange="onFilterChange()">
+            <option value="" selected>選択してください</option>
             <optgroup label="香港">
               <option value="西九龍">西九龍</option>
               <option value="尖沙咀">尖沙咀</option>
@@ -511,8 +512,9 @@
         <div class="select-item">
           <label>目的地</label>
           <select id="end-point" onchange="onFilterChange()">
+            <option value="" selected>選択してください</option>
             <optgroup label="香港">
-              <option value="尖沙咀" selected>尖沙咀</option>
+              <option value="尖沙咀">尖沙咀</option>
               <option value="西九龍">西九龍</option>
               <option value="中環">中環</option>
               <option value="太平山頂">太平山頂</option>
@@ -542,7 +544,7 @@
         <div class="t-tab" onclick="setTab(this, 'sz')">深圳</div>
       </div>
 
-      <!-- 合計金額・時間表示（選択時のみ表示） -->
+      <!-- 合計金額・時間表示 -->
       <div class="summary-box">
         <div>
           <div class="summary-label">選択ルートの目安金額</div>
@@ -554,7 +556,7 @@
 
     <div class="section-label">おすすめルート一覧</div>
 
-    <!-- ルート一覧（JSで動的表示） -->
+    <!-- ルート一覧 -->
     <div class="route-cards-container" id="routes-list"></div>
 
     <!-- 移動のヒント -->
@@ -574,7 +576,6 @@
   </div>
 
   <script>
-    // ルートデータ（深圳宝安国際空港および华强北表記に統一）
     const routesData = [
       // 香港ルート
       { id: 1, area: 'hk', from: '皇岗', to: '尖沙咀', time: 30, hkd: 400, jpy: 9200, type: 'タクシー', note: '皇岗口岸から尖沙咀まで直行', recommend: true },
@@ -614,7 +615,6 @@
       onFilterChange();
     }
 
-    // 出発地と目的地の入れ替え機能
     function swapLocations() {
       const startSelect = document.getElementById('start-point');
       const endSelect = document.getElementById('end-point');
@@ -628,23 +628,32 @@
       const start = document.getElementById('start-point').value;
       const end = document.getElementById('end-point').value;
 
+      if (!start || !end) {
+        renderRoutes([], start, end, true);
+        updateSummary();
+        return;
+      }
+
       const filtered = routesData.filter(r => {
         const matchArea = r.area === currentAreaFilter;
-        
-        // 順方向または逆方向どちらの選択でも一致するように判定
         const isDirectMatch = (r.from === start && r.to === end);
         const isReverseMatch = (r.from === end && r.to === start);
 
         return matchArea && (isDirectMatch || isReverseMatch);
       });
 
-      renderRoutes(filtered, start, end);
+      renderRoutes(filtered, start, end, false);
       updateSummary();
     }
 
-    function renderRoutes(routes, currentStart, currentEnd) {
+    function renderRoutes(routes, currentStart, currentEnd, isUnselected) {
       const container = document.getElementById('routes-list');
       container.innerHTML = '';
+
+      if (isUnselected) {
+        container.innerHTML = '<div style="text-align:center; padding:30px; color:#718096; font-size:12px;">出発地と目的地を選択してください</div>';
+        return;
+      }
 
       if (routes.length === 0) {
         container.innerHTML = '<div style="text-align:center; padding:30px; color:#718096; font-size:12px;">該当するルートが見つかりませんでした</div>';
@@ -731,7 +740,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 初期起動
+    // 初期状態は未選択スタート
     onFilterChange();
   </script>
 </body>
