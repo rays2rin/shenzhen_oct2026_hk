@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DAY 2 - Shenzhen & Hong Kong</title>
+
+  <!-- フォントの軽量読み込み (必要なウェイトのみ指定) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
@@ -17,7 +20,7 @@
     body {
       background-color: #f6f8fb;
       color: #202A3A; /* 基本文字：濃いネイビー */
-      font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+      font-family: 'Noto Sans JP', sans-serif; /* 日本語本文 */
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -50,7 +53,7 @@
     }
 
     .site-title {
-      font-family: 'Cinzel', serif;
+      font-family: 'Cinzel', serif; /* 英字タイトル: Serif */
       font-weight: 700;
       font-size: 13px;
       letter-spacing: 1.5px;
@@ -86,8 +89,9 @@
     .drawer-menu a {
       text-decoration: none;
       color: #202A3A;
+      font-family: 'Cinzel', serif;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       letter-spacing: 1px;
     }
     .drawer-menu .divider {
@@ -137,6 +141,7 @@
     }
 
     .schedule-date {
+      font-family: 'Cinzel', serif; /* 数字・英字 */
       font-size: 13px;
       font-weight: 500;
       color: rgba(32, 42, 58, 0.65);
@@ -146,18 +151,18 @@
     /* タイムラインコンテナ */
     .timeline-container {
       position: relative;
-      padding-left: 24px;
+      padding-left: 22px;
     }
 
     /* 左側の縦線 */
     .timeline-container::before {
       content: '';
       position: absolute;
-      left: 3px;
+      left: 2px;
       top: 14px;
       bottom: 16px;
       width: 1px;
-      background-color: #cbd5e1;
+      background-color: #e2e8f0;
     }
 
     /* タイムラインカード */
@@ -166,43 +171,45 @@
       margin-bottom: 10px;
     }
 
-    /* 小さくした丸いノード (70~80%サイズ) */
+    /* 極小化した丸ノード (5px) */
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -24px;
-      top: 15px;
-      width: 7px;
-      height: 7px;
+      left: -22px;
+      top: 16px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background-color: #ffffff;
-      border: 2px solid #3B6998;
+      border: 1.5px solid #2c5282;
       z-index: 2;
     }
 
-    /* カード（パディングと余白を詰めたデザイン） */
+    /* カード（薄い枠線） */
     .card {
       background: #ffffff;
       border-radius: 12px;
       padding: 10px 16px;
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(226, 232, 240, 0.5); /* 枠線を極薄に変更 */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.015);
     }
 
-    /* 時刻：基本ネイビーの薄め */
+    /* 時刻：数字Serif / ネイビー薄め */
     .time {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: rgba(32, 42, 58, 0.65);
+      font-family: 'Cinzel', serif; /* 数字: Serif */
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: rgba(32, 42, 58, 0.6);
       display: block;
       margin-bottom: 2px;
     }
 
-    /* リンク：落ち着いたくすみブルー */
+    /* リンク：落ち着いたミッドナイトブルー */
     .place-link {
       font-size: 14.5px;
       font-weight: 700;
-      color: #3B6998;
+      color: #2c5282; /* さらに落ち着いたブルー */
       text-decoration: none;
       display: inline-block;
       line-height: 1.35;
@@ -212,16 +219,16 @@
       text-decoration: underline;
     }
 
-    /* 基本テキスト（行動）：濃いネイビー */
+    /* 行動テキスト（基本ネイビー） */
     .action-text {
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
       color: #202A3A;
       display: block;
       line-height: 1.35;
     }
 
-    /* 補足テキスト：ライトグレー */
+    /* 補足テキスト（ライトグレー） */
     .note-text {
       font-size: 11px;
       color: #718096;
@@ -233,7 +240,7 @@
     /* MEMOフォーム */
     .memo-card {
       background: #f0f4f8;
-      border: 1px solid #e2e8f0;
+      border: 1px solid rgba(226, 232, 240, 0.6);
       border-radius: 14px;
       padding: 16px;
       margin-top: 28px;
@@ -244,7 +251,7 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1.5px;
-      color: #3B6998;
+      color: #2c5282;
       margin-bottom: 4px;
     }
 
@@ -275,12 +282,12 @@
     }
 
     .memo-input:focus {
-      border-color: #3B6998;
+      border-color: #2c5282;
     }
 
     .memo-btn {
       align-self: flex-end;
-      background-color: #3B6998;
+      background-color: #2c5282;
       color: #ffffff;
       border: none;
       border-radius: 6px;
@@ -292,7 +299,7 @@
     }
 
     .memo-btn:hover {
-      background-color: #2d5278;
+      background-color: #1a365d;
     }
 
     /* バックリンク */
@@ -302,11 +309,12 @@
     }
 
     .back-link a {
+      font-family: 'Cinzel', serif;
       color: #718096;
       text-decoration: none;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
   </style>
 </head>
