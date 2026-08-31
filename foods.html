@@ -1,1 +1,698 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOOD GUIDE - Shenzhen & Hong Kong</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fcfcf9; /* 画像通りの温かみのある生成り系ホワイト */
+      color: #202A3A;
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ナビゲーションバー */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #edf2f7;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .bar {
+      width: 20px;
+      height: 2px;
+      background-color: #202A3A;
+      border-radius: 2px;
+    }
+
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #202A3A;
+    }
+
+    /* ドロワーメニュー */
+    .drawer-menu {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 300;
+      transition: left 0.3s ease;
+      padding: 24px;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    }
+
+    .drawer-menu.active { left: 0; }
+
+    .close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 20px;
+      color: #718096;
+    }
+
+    .drawer-menu ul { list-style: none; }
+    .drawer-menu li { margin-bottom: 16px; }
+    .drawer-menu a {
+      text-decoration: none;
+      color: #202A3A;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+    .drawer-menu .divider {
+      height: 1px;
+      background-color: #edf2f7;
+      margin: 16px 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 200;
+      display: none;
+    }
+    .overlay.active { display: block; }
+
+    /* メインレイアウト */
+    .page-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 28px 16px 40px 16px;
+    }
+
+    /* ページメインヘッダー */
+    .food-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .food-sub {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    .food-title {
+      font-family: 'Cinzel', serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #1f2b1a; /* 深みのあるダークグリーン調ネイビー */
+      letter-spacing: 2px;
+    }
+
+    .food-desc {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* 2カラムレイアウト（PC・タブレットで左右分割、スマホで1カラム） */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* エリアカラム */
+    .area-column {
+      background: #f7f6f0;
+      border: 1px solid #e5e2d5;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .area-header {
+      background-color: #1e2d1d; /* 画像の上部ダークグリーン */
+      color: #ffffff;
+      text-align: center;
+      padding: 12px 16px;
+    }
+
+    .area-title {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+
+    .area-sub {
+      font-size: 10px;
+      opacity: 0.8;
+      letter-spacing: 1px;
+    }
+
+    .column-content {
+      padding: 16px;
+    }
+
+    /* セクション見出し */
+    .section-divider-title {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #1e2d1d;
+      margin: 16px 0 12px 0;
+      position: relative;
+    }
+
+    .section-divider-title::before,
+    .section-divider-title::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: #ccc;
+      vertical-align: middle;
+      margin: 0 8px;
+    }
+
+    /* 2x2のグリッド（WHAT TO EAT等） */
+    .item-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .food-card {
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 8px;
+      border: 1px solid #e2ded0;
+    }
+
+    .food-img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      background-color: #eee;
+    }
+
+    .food-card-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #202A3A;
+      margin-bottom: 4px;
+    }
+
+    .food-card-text {
+      font-size: 10px;
+      color: #666;
+      line-height: 1.3;
+    }
+
+    /* おすすめレストランカード */
+    .restaurant-card {
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 10px;
+      border: 1px solid #e2ded0;
+      margin-bottom: 12px;
+    }
+
+    .res-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      font-weight: 700;
+      color: #718096;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .res-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #202A3A;
+    }
+
+    .res-desc {
+      font-size: 10.5px;
+      color: #555;
+      margin: 2px 0 6px 0;
+      line-height: 1.3;
+    }
+
+    .res-location {
+      font-size: 10px;
+      color: #3d617c;
+      font-weight: 500;
+    }
+
+    /* タイムライン風・ステップ（深セン側） */
+    .time-flow {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #e2ded0;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .flow-item {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .flow-time {
+      font-size: 9px;
+      color: #718096;
+      display: block;
+    }
+
+    .flow-arrow {
+      color: #a0aec0;
+      font-size: 12px;
+    }
+
+    /* リスト形式レストラン */
+    .res-list-group {
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 10px;
+      border: 1px solid #e2ded0;
+      margin-bottom: 10px;
+    }
+
+    .res-list-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e2d1d;
+      border-bottom: 1px solid #edf2f7;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+
+    .res-list-item {
+      margin-bottom: 6px;
+    }
+
+    .res-list-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .res-list-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #202A3A;
+    }
+
+    .res-list-sub {
+      font-size: 9.5px;
+      color: #666;
+    }
+
+    /* ローカルチップス */
+    .local-tip {
+      background: #f0f3eb;
+      border: 1px solid #d4dfc7;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 16px;
+    }
+
+    .tip-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e2d1d;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .tip-list {
+      list-style: none;
+      font-size: 10.5px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .tip-list li {
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 3px;
+    }
+
+    .tip-list li::before {
+      content: '○';
+      position: absolute;
+      left: 0;
+      font-size: 9px;
+      color: #1e2d1d;
+    }
+
+    /* MEMOフォーム */
+    .memo-card {
+      background: #ffffff;
+      border: 1px solid #e2ded0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 24px;
+    }
+
+    .memo-title {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #3d617c;
+      margin-bottom: 4px;
+    }
+
+    .memo-desc {
+      font-size: 11px;
+      color: #718096;
+      margin-bottom: 12px;
+    }
+
+    .memo-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .memo-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      resize: vertical;
+      min-height: 50px;
+      background: #ffffff;
+      color: #202A3A;
+    }
+
+    .memo-btn {
+      align-self: flex-end;
+      background-color: #3d617c;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* フッターバックリンク */
+    .back-link {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .back-link a {
+      font-family: 'Cinzel', serif;
+      color: #718096;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+  </header>
+
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
+
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <main class="page-container">
+
+    <div class="food-header">
+      <p class="food-sub">深圳・香港で食べたいもの</p>
+      <h1 class="food-title">FOOD GUIDE</h1>
+      <p class="food-desc">ローカルの味から名店まで、グルメの街を楽しもう。</p>
+    </div>
+
+    <div class="two-column-grid">
+
+      <div class="area-column">
+        <div class="area-header">
+          <div class="area-title">HONG KONG</div>
+          <div class="area-sub">香港で食べたいもの</div>
+        </div>
+
+        <div class="column-content">
+          <div class="section-divider-title">WHAT TO EAT</div>
+
+          <div class="item-grid">
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=300&q=80" alt="香港麺" class="food-img">
+              <div class="food-card-title">香港麺</div>
+              <div class="food-card-text">雲呑麺や蝦子撈麺など、シンプルながら奥深いローカルのソウルフード。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=300&q=80" alt="茶餐廳カルチャー" class="food-img">
+              <div class="food-card-title">茶餐廳カルチャー</div>
+              <div class="food-card-text">香港らしいミルクティーや菠蘿包、エッグタルトは外せない定番。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=300&q=80" alt="焼味（シウメイ）" class="food-img">
+              <div class="food-card-title">焼味（シウメイ）</div>
+              <div class="food-card-text">焼鴨や焼豚、白切鶏など、香ばしくジューシーなローカルの味。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80" alt="広東料理" class="food-img">
+              <div class="food-card-title">広東料理</div>
+              <div class="food-card-text">蒸し魚や海鮮料理など、素材の味を活かした繊細な広東料理。</div>
+            </div>
+          </div>
+
+          <div class="section-divider-title">RECOMMENDED RESTAURANTS</div>
+
+          <div class="restaurant-card">
+            <div class="res-tag">ICONIC / 一度は行きたい</div>
+            <div class="res-name">MOTT 32</div>
+            <div class="res-desc">モダンチャイニーズの代表格。洗練された空間で特別な時間を。</div>
+            <div class="res-location">📍 中環</div>
+          </div>
+
+          <div class="restaurant-card">
+            <div class="res-tag">CLASSIC / 香港らしさを感じる</div>
+            <div class="res-name">Australia Dairy Company</div>
+            <div class="res-desc">ローカルに愛される茶餐廳の名店。ふわふわスクランブルエッグが名物。</div>
+            <div class="res-location">📍 佐敦</div>
+          </div>
+
+          <div class="restaurant-card">
+            <div class="res-tag">NOODLE / 麺を楽しむなら</div>
+            <div class="res-name">Lau Sum Kee</div>
+            <div class="res-desc">雲呑麺の名店。スープと麺のバランスが絶妙。</div>
+            <div class="res-location">📍 中環</div>
+          </div>
+
+          <div class="restaurant-card">
+            <div class="res-tag">FINE DINING / きちんとした広東料理</div>
+            <div class="res-name">香宮 (Shang Palace)</div>
+            <div class="res-desc">格式ある広東料理の名店。接待や特別な食事におすすめ。</div>
+            <div class="res-location">📍 中環 (シャングリ・ラ ホテル内)</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="area-column">
+        <div class="area-header">
+          <div class="area-title">SHENZHEN</div>
+          <div class="area-sub">深圳で食べたいもの</div>
+        </div>
+
+        <div class="column-content">
+          <div class="section-divider-title">WHAT TO EAT</div>
+
+          <div class="item-grid">
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=300&q=80" alt="朝飲茶" class="food-img">
+              <div class="food-card-title">朝飲茶（確定！）</div>
+              <div class="food-card-text">深圳スタイルの点心を朝から楽しもう。腸粉や焼売もぜひ。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=300&q=80" alt="腸粉" class="food-img">
+              <div class="food-card-title">腸粉（チョンファン）</div>
+              <div class="food-card-text">つるっとした食感がクセになる、庶民に愛される定番メニュー。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=300&q=80" alt="広東・潮州料理" class="food-img">
+              <div class="food-card-title">広東・潮州料理</div>
+              <div class="food-card-text">素材の味を活かした広東料理や、潮州の繊細な味付けを楽しんで。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80" alt="生簀海鮮" class="food-img">
+              <div class="food-card-title">生簀海鮮（海鮮料理）</div>
+              <div class="food-card-text">生簀から好きな海鮮を選んで調理。深圳ならではの醍醐味！</div>
+            </div>
+          </div>
+
+          <div class="section-divider-title">RECOMMENDED RESTAURANTS</div>
+
+          <div class="time-flow">
+            <div class="flow-item">
+              <span class="flow-time">朝（確定）</span>
+              飲茶
+            </div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-item">
+              <span class="flow-time">昼</span>
+              広東・潮州料理
+            </div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-item">
+              <span class="flow-time">夜</span>
+              海鮮料理
+            </div>
+          </div>
+
+          <div class="res-list-group">
+            <div class="res-list-title">飲茶・点心</div>
+            <div class="res-list-item">
+              <div class="res-list-name">• 點都德 (Dian Dou De)</div>
+              <div class="res-list-sub">ローカルに大人気の飲茶チェーン（福田 / 羅湖エリアなど）</div>
+            </div>
+            <div class="res-list-item">
+              <div class="res-list-name">• 皇庭広場酒家</div>
+              <div class="res-list-sub">老舗の飲茶レストラン</div>
+            </div>
+          </div>
+
+          <div class="res-list-group">
+            <div class="res-list-title">広東・潮州料理</div>
+            <div class="res-list-item">
+              <div class="res-list-name">• 潮汕牛肉火鍋 (八合里)</div>
+              <div class="res-list-sub">新鮮な牛肉と手作りの味（南山 / 福田エリアなど）</div>
+            </div>
+            <div class="res-list-item">
+              <div class="res-list-name">• 客語客家菜</div>
+              <div class="res-list-sub">客家料理の名店</div>
+            </div>
+          </div>
+
+          <div class="res-list-group">
+            <div class="res-list-title">海鮮料理</div>
+            <div class="res-list-item">
+              <div class="res-list-name">• 春風海鮮酒家</div>
+              <div class="res-list-sub">生簀海鮮が人気の有名店（南山エリア / 蛇口など）</div>
+            </div>
+            <div class="res-list-item">
+              <div class="res-list-name">• 漁語海鮮姿造</div>
+              <div class="res-list-sub">新鮮な海鮮をシンプルに</div>
+            </div>
+          </div>
+
+          <div class="local-tip">
+            <div class="tip-title">LOCAL TIP</div>
+            <ul class="tip-list">
+              <li>お店の入口の生簀で海鮮を選ぶのが深圳スタイル！</li>
+              <li>海鮮は「清蒸（蒸し）」「椒塩（塩コショウ）」「蒜蓉（ニンニク蒸し）」がおすすめ。</li>
+              <li>腸粉は醤油ベースのタレでどうぞ。</li>
+              <li>飲茶は混雑することが多いので、早めの時間がおすすめ。</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="memo-card">
+      <div class="memo-title">PLAN MEMO</div>
+      <p class="memo-desc">行きたいお店や食べたいものを自由にメモしておこう。</p>
+      <form class="memo-form" action="https://formspree.io/f/your_form_id" method="POST">
+        <textarea class="memo-input" name="message" placeholder="メモを入力..." required></textarea>
+        <button type="submit" class="memo-btn">送信する</button>
+      </form>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
 
