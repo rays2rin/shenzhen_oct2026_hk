@@ -3,298 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EXPENSES - SHENZHEN & HONG KONG</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
+  <title>EXPENSES - Shenzhen & Hong Kong</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    /* 全体リセット & ダークモード基調 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #0d0d0d !important;
-      color: #ffffff !important;
-      font-family: 'Montserrat', -apple-system, sans-serif !important;
-      min-height: 100vh;
-      padding: 20px 20px 40px 20px;
-    }
-
-    /* ヘッダー */
-    .page-header {
+    /* 1行レイアウト用調整 */
+    .expense-card-inline {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      max-width: 440px;
-      margin: 0 auto 28px auto;
+      width: 100%;
+      padding: 14px 16px;
+      gap: 12px;
     }
-
-    .back-link {
-      color: #8e8e93;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .back-link:hover {
-      color: #0a84ff; /* 青アクセント */
-    }
-
-    .page-title {
-      font-family: 'Cinzel', serif;
-      font-size: 18px;
-      letter-spacing: 2px;
-      color: #ffffff;
-    }
-
-    /* メインコンテナ */
-    .expenses-container {
-      max-width: 440px;
-      margin: 0 auto;
+    .expense-label-group {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      flex: 1;
+      min-width: 0;
+    }
+    .expense-select-inline {
+      width: auto;
+      min-width: 130px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2d3748;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      outline: none;
+      cursor: pointer;
+      text-align: right;
+    }
+    .expense-select-inline:focus {
+      border-color: #0a84ff; /* 青アクセント線 */
+      background-color: #ffffff;
     }
 
-    /* 1. 青カード廃止・ダークガラス調の合計金額エリア */
-    .total-display-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 28px 20px 20px 20px;
+    /* 1. 青カード廃止・背景を白地ベースに変更 */
+    .total-box {
+      background: #ffffff;
+      color: #1a202c;
+      padding: 24px 20px;
+      border-radius: 16px;
+      margin-bottom: 24px;
       text-align: center;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     }
 
-    /* 3. ESTIMATED TOTAL（小さく控えめに） */
-    .estimated-label {
+    /* 3. ESTIMATED TOTAL は小さく控えめに */
+    .total-title {
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 3px;
-      color: #8e8e93;
-      display: block;
+      letter-spacing: 2px;
+      color: #a0aec0;
       margin-bottom: 6px;
     }
 
-    /* 2. 合計金額（ページの視覚的主役・特大化） */
-    .total-amount-box {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 4px;
-      margin-bottom: 20px;
-    }
-
-    .currency-symbol {
-      font-size: 28px;
-      font-weight: 600;
-      color: #0a84ff; /* 青アクセント */
-    }
-
+    /* 2. 合計金額をページの視覚的主役に (特大化 & 青アクセント) */
     .total-amount {
-      font-size: 48px; /* 主役サイズ */
+      font-size: 44px;
       font-weight: 800;
-      letter-spacing: -1px;
-      color: #ffffff;
+      color: #0a84ff; /* 青文字アクセント */
+      line-height: 1.1;
       display: inline-block;
     }
 
-    /* 4. 金額変更時の数字ポップアニメーション */
+    /* 4. 金額変更時の軽めのアニメーション */
     .total-amount.pop-anim {
-      animation: numPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: numPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     @keyframes numPop {
       0% {
-        opacity: 0.3;
-        transform: scale(0.92) translateY(4px);
+        opacity: 0.4;
+        transform: scale(0.95);
       }
       100% {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: scale(1);
       }
     }
 
-    /* 5. 通貨トグル（青はテキスト・薄枠線などのアクセントに限定） */
-    .currency-toggle {
-      display: inline-flex;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 4px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      gap: 4px;
-    }
-
-    .toggle-btn {
-      background: transparent;
-      border: none;
-      color: #8e8e93;
-      padding: 8px 16px;
-      font-size: 11px;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .toggle-btn.active {
-      color: #0a84ff; /* 青テキスト */
-      background: rgba(10, 132, 255, 0.12); /* 青アクセント背景 */
-      border: 1px solid rgba(10, 132, 255, 0.3); /* 青線 */
-    }
-
-    /* BREAKDOWN 明細リスト */
-    .expenses-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .section-subtitle {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #8e8e93;
-      margin: 0 0 4px 4px;
-    }
-
-    .expense-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 16px 18px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .item-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .item-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .item-sub {
-      font-size: 11px;
-      color: #6c6c70;
-    }
-
-    .item-price {
+    .expense-fixed-amount {
       font-size: 15px;
       font-weight: 700;
-      color: #ffffff;
+      color: #2d3748;
+      white-space: nowrap;
+    }
+    .item-desc {
+      font-size: 10px;
+      color: #718096;
+      margin-top: 2px;
     }
   </style>
 </head>
-<body class="expenses-page">
+<body>
 
-  <header class="page-header">
-    <a href="index.html" class="back-link">← TOP</a>
-    <h1 class="page-title">EXPENSES</h1>
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <main class="expenses-container">
+  <!-- ドロワーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
 
-    <section class="total-display-card">
-      <span class="estimated-label">ESTIMATED TOTAL</span>
-      <div class="total-amount-box">
-        <span class="currency-symbol" id="currencySymbol">¥</span>
-        <span class="total-amount" id="totalAmount">39,500</span>
-      </div>
-      
-      <div class="currency-toggle">
-        <button class="toggle-btn active" id="btnJPY" onclick="switchCurrency('JPY')">JPY (¥)</button>
-        <button class="toggle-btn" id="btnHKD" onclick="switchCurrency('HKD')">HKD ($)</button>
-        <button class="toggle-btn" id="btnCNY" onclick="switchCurrency('CNY')">CNY (¥)</button>
-      </div>
-    </section>
+  <!-- バックドロップ -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <section class="expenses-list">
-      <h2 class="section-subtitle">BREAKDOWN</h2>
-      
-      <div class="expense-item">
-        <div class="item-info">
-          <span class="item-title">交通費（MTR・フェリー等）</span>
-          <span class="item-sub">交通カード・移動費合計</span>
+  <!-- メインコンテンツ -->
+  <main class="page-container">
+    
+    <!-- タイトルヘッダー -->
+    <div class="schedule-header">
+      <p class="schedule-sub">ESTIMATED BUDGET</p>
+      <h1 class="schedule-title">EXPENSES</h1>
+    </div>
+
+    <!-- 合計金額表示エリア -->
+    <div class="total-box">
+      <div class="total-title">ESTIMATED TOTAL</div>
+      <div class="total-amount" id="totalAmount">¥0</div>
+    </div>
+
+    <!-- 費用項目リスト -->
+    <div class="schedule-list">
+
+      <!-- 飛行機代 (1行表示) -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">FLIGHT</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">飛行機代</span>
         </div>
-        <div class="item-price" data-jpy="8500" data-hkd="425" data-cny="400">¥8,500</div>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="129455">129,455</span></div>
       </div>
 
-      <div class="expense-item">
-        <div class="item-info">
-          <span class="item-title">食費（飲茶・ローカルフード）</span>
-          <span class="item-sub">全日程の食事概算</span>
+      <!-- ホテル代 (1行表示) -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">HOTEL</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">ホテル代</span>
         </div>
-        <div class="item-price" data-jpy="15000" data-hkd="750" data-cny="700">¥15,000</div>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="62477">62,477</span></div>
       </div>
 
-      <div class="expense-item">
-        <div class="item-info">
-          <span class="item-title">観光・入場料</span>
-          <span class="item-sub">施設利用料など</span>
+      <!-- eSIM（1行表示 & ¥700修正） -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">eSIM / INTERNET</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">eSIM（通信費）</span>
         </div>
-        <div class="item-price" data-jpy="6000" data-hkd="300" data-cny="280">¥6,000</div>
+        <select class="expense-select-inline calc-select" id="esimSelect" onchange="calculateTotal()">
+          <option value="700" selected>番号なし (¥700)</option>
+          <option value="2500">電話番号付帯 (¥2,500)</option>
+        </select>
       </div>
 
-      <div class="expense-item">
-        <div class="item-info">
-          <span class="item-title">予備費・お土産</span>
-          <span class="item-sub">ショッピング・その他</span>
+      <!-- 海外旅行保険 (1行表示) -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">INSURANCE</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">海外旅行保険</span>
         </div>
-        <div class="item-price" data-jpy="10000" data-hkd="500" data-cny="470">¥10,000</div>
+        <select class="expense-select-inline calc-select" id="insuranceSelect" onchange="calculateTotal()">
+          <option value="2000" selected>基本 (¥2,000)</option>
+          <option value="4000">キャンセル保証付 (¥4,000)</option>
+        </select>
       </div>
-    </section>
+
+      <!-- 食事 (深圳) (1行表示) -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">FOOD - SHENZHEN</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">食事（深圳）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="foodShenzhen" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <!-- 食事 (香港) (1行表示) -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">FOOD - HONG KONG</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">食事（香港）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="foodHongKong" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <!-- タクシー (深圳) (1行表示) -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">TAXI - SHENZHEN</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">タクシー（深圳）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="taxiShenzhen" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <!-- タクシー (香港) (1行表示) -->
+      <div class="schedule-card expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time" style="font-size: 11px; color: #718096;">TAXI - HONG KONG</span>
+          <span class="text" style="font-weight: 600; font-size: 14px;">タクシー（香港）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="taxiHongKong" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
 
   </main>
 
   <script>
-    let currentCurrency = 'JPY';
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
 
+    // 自動計算機能
     function calculateTotal() {
-      const items = document.querySelectorAll('.item-price');
       let total = 0;
 
-      items.forEach(item => {
-        const val = parseFloat(item.getAttribute(`data-${currentCurrency.toLowerCase()}`)) || 0;
-        total += val;
-        
-        const symbol = currentCurrency === 'HKD' ? '$' : '¥';
-        item.textContent = symbol + val.toLocaleString();
+      // 固定金額の合算
+      const fixedItems = document.querySelectorAll('.calc-item');
+      fixedItems.forEach(item => {
+        total += parseInt(item.getAttribute('data-value'), 10) || 0;
       });
 
-      const totalEl = document.getElementById('totalAmount');
-      const symbolEl = document.getElementById('currencySymbol');
-      
-      symbolEl.textContent = currentCurrency === 'HKD' ? '$' : '¥';
-      totalEl.textContent = total.toLocaleString();
+      // 選択式金額の合算
+      const selectItems = document.querySelectorAll('.calc-select');
+      selectItems.forEach(select => {
+        total += parseInt(select.value, 10) || 0;
+      });
 
-      // 数字のアニメーションリセット
+      // 3桁カンマ区切りで表示
+      const totalEl = document.getElementById('totalAmount');
+      totalEl.textContent = '¥' + total.toLocaleString();
+
+      // 数字のアニメーションリセット＆発動
       totalEl.classList.remove('pop-anim');
-      void totalEl.offsetWidth;
+      void totalEl.offsetWidth; // リフロー発生
       totalEl.classList.add('pop-anim');
     }
 
-    function switchCurrency(type) {
-      currentCurrency = type;
-      document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(`btn${type}`).classList.add('active');
-      calculateTotal();
-    }
-
-    window.addEventListener('DOMContentLoaded', calculateTotal);
+    // ページ読み込み時に初期計算を実行
+    document.addEventListener('DOMContentLoaded', calculateTotal);
   </script>
 </body>
 </html>
