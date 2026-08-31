@@ -152,27 +152,26 @@
     .top-day-nav {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-top: 12px;
+      gap: 16px;
+      margin-top: 10px;
     }
 
     .top-day-btn {
       font-family: 'Cinzel', serif;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 1px;
       color: #3d617c;
       text-decoration: none;
-      padding: 4px 10px;
-      background-color: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      border-radius: 12px;
-      transition: all 0.2s;
+      padding: 2px 8px;
+      background-color: transparent;
+      border: 1px solid rgba(226, 232, 240, 0.4);
+      border-radius: 4px;
+      transition: all 0.2s ease;
     }
 
     .top-day-btn:hover {
-      background-color: #3d617c;
-      color: #ffffff;
+      border-color: #3d617c;
     }
 
     /* タイムラインコンテナ */
@@ -382,7 +381,7 @@
       <h1 class="schedule-title">DAY 1</h1>
       <p class="schedule-date">October 2026</p>
       
-      <!-- 上部の目立たない他日程遷移ボタン -->
+      <!-- 上部の小さめの他日程ナビボタン -->
       <div class="top-day-nav">
         <a href="day2.html" class="top-day-btn">DAY 2 →</a>
         <a href="day3.html" class="top-day-btn">DAY 3 →</a>
