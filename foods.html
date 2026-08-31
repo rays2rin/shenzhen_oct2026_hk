@@ -117,7 +117,7 @@
       padding: 28px 16px 40px 16px;
     }
 
-    /* ① 簡略化したヘッダー */
+    /* タイトル */
     .food-header {
       text-align: center;
       margin-bottom: 24px;
@@ -131,7 +131,7 @@
       letter-spacing: 2px;
     }
 
-    /* 2カラムレイアウト（PCで左右分割、スマホで1カラム） */
+    /* 2カラムレイアウト */
     .two-column-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -153,7 +153,7 @@
       overflow: hidden;
     }
 
-    /* ⑦ アコーディオンヘッダー（タップで開閉可能） */
+    /* アコーディオンヘッダー */
     .area-header {
       background-color: #1e2d1d;
       color: #ffffff;
@@ -174,7 +174,6 @@
       letter-spacing: 1.5px;
     }
 
-    /* 開閉インジケータ（▲▼アイコン） */
     .accordion-icon {
       position: absolute;
       right: 16px;
@@ -186,7 +185,6 @@
       transform: rotate(180deg);
     }
 
-    /* 開閉コンテンツエリア */
     .column-content {
       padding: 12px 16px 16px 16px;
       transition: max-height 0.3s ease;
@@ -196,7 +194,6 @@
       display: none;
     }
 
-    /* ③⑤ WHAT TO EAT 位置を上に変更 */
     .section-divider-title {
       text-align: center;
       font-family: 'Cinzel', serif;
@@ -477,7 +474,6 @@
   <!-- メインコンテンツ -->
   <main class="page-container">
 
-    <!-- ① FOOD GUIDEタイトルのみに変更 -->
     <div class="food-header">
       <h1 class="food-title">FOOD GUIDE</h1>
     </div>
@@ -487,39 +483,38 @@
 
       <!-- 左カラム: HONG KONG -->
       <div class="area-column" id="hk-column">
-        <!-- ②④ 補助テキスト削除、⑦ タップでトグルできるヘッダー -->
         <div class="area-header" onclick="toggleAccordion('hk-column')">
           <div class="area-title">HONG KONG</div>
           <span class="accordion-icon">▲</span>
         </div>
 
         <div class="column-content">
-          <!-- ③ WHAT TO EAT をヘッダー直下に上詰め -->
           <div class="section-divider-title">WHAT TO EAT</div>
 
+          <!-- ご指定に合わせて更新されたカテゴリと画像 -->
           <div class="item-grid">
             <div class="food-card">
-              <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=300&q=80" alt="香港麺" class="food-img">
+              <img src="IMG_3177.jpeg" alt="広東料理" class="food-img">
+              <div class="food-card-title">広東料理</div>
+              <div class="food-card-text">蒸し魚や海鮮料理など、素材の味を活かした繊細な広東料理。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="IMG_3184.jpeg" alt="焼味(Siu Mei)" class="food-img">
+              <div class="food-card-title">焼味 (Siu Mei)</div>
+              <div class="food-card-text">焼鴨や焼豚、白切鶏など、香ばしくジューシーなローカルの味。</div>
+            </div>
+
+            <div class="food-card">
+              <img src="IMG_3185.jpeg" alt="香港麺" class="food-img">
               <div class="food-card-title">香港麺</div>
               <div class="food-card-text">雲呑麺や蝦子撈麺など、シンプルながら奥深いローカルのソウルフード。</div>
             </div>
 
             <div class="food-card">
-              <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=300&q=80" alt="茶餐廳カルチャー" class="food-img">
+              <img src="IMG_3186.jpeg" alt="茶餐廳" class="food-img">
               <div class="food-card-title">茶餐廳</div>
-              <div class="food-card-text">西多士、菠蘿包、沙爹牛肉公仔麵は定番。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=300&q=80" alt="焼味（シウメイ）" class="food-img">
-              <div class="food-card-title">焼味（シウメイ）</div>
-              <div class="food-card-text">焼鴨や焼豚、白切鶏など、香ばしくジューシーなローカルの味。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80" alt="広東料理" class="food-img">
-              <div class="food-card-title">広東料理</div>
-              <div class="food-card-text">蒸し魚や海鮮料理など、素材の味を活かした繊細な広東料理。</div>
+              <div class="food-card-text">香港らしいミルクティーや菠蘿包、エッグタルトは外せない定番。</div>
             </div>
           </div>
 
@@ -558,26 +553,24 @@
 
       <!-- 右カラム: SHENZHEN -->
       <div class="area-column" id="sz-column">
-        <!-- ②④ 補助テキスト削除、⑦ タップでトグルできるヘッダー -->
         <div class="area-header" onclick="toggleAccordion('sz-column')">
           <div class="area-title">SHENZHEN</div>
           <span class="accordion-icon">▲</span>
         </div>
 
         <div class="column-content">
-          <!-- ⑤ WHAT TO EAT をヘッダー直下に上詰め -->
           <div class="section-divider-title">WHAT TO EAT</div>
 
           <div class="item-grid">
             <div class="food-card">
               <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=300&q=80" alt="朝飲茶" class="food-img">
-              <div class="food-card-title">飲茶</div>
-              <div class="food-card-text">飲茶は朝から夕方まで。腸粉や焼売もぜひ。</div>
+              <div class="food-card-title">朝飲茶（確定！）</div>
+              <div class="food-card-text">深圳スタイルの点心を朝から楽しもう。腸粉や焼売もぜひ。</div>
             </div>
 
             <div class="food-card">
               <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=300&q=80" alt="腸粉" class="food-img">
-              <div class="food-card-title">腸粉</div>
+              <div class="food-card-title">腸粉（チョンファン）</div>
               <div class="food-card-text">つるっとした食感がクセになる、庶民に愛される定番メニュー。</div>
             </div>
 
@@ -589,12 +582,11 @@
 
             <div class="food-card">
               <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80" alt="生簀海鮮" class="food-img">
-              <div class="food-card-title">いけす海鮮（海鮮料理）</div>
-              <div class="food-card-text">いけすから好きな海鮮を選んで調理。沿岸地域ならではの醍醐味！</div>
+              <div class="food-card-title">生簀海鮮（海鮮料理）</div>
+              <div class="food-card-text">生簀から好きな海鮮を選んで調理。深圳ならではの醍醐味！</div>
             </div>
           </div>
 
-          <!-- ⑥ 朝昼夜のフローを削除し、直接RECOMMENDED RESTAURANTSに配置 -->
           <div class="section-divider-title second">RECOMMENDED RESTAURANTS</div>
 
           <div class="res-list-group">
@@ -633,7 +625,6 @@
             </div>
           </div>
 
-          <!-- LOCAL TIP -->
           <div class="local-tip">
             <div class="tip-title">LOCAL TIP</div>
             <ul class="tip-list">
@@ -672,7 +663,6 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    /* ⑦ アコーディオン開閉制御スクリプト */
     function toggleAccordion(columnId) {
       const targetColumn = document.getElementById(columnId);
       targetColumn.classList.toggle('closed');
