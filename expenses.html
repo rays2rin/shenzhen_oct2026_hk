@@ -1,566 +1,331 @@
-```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shenzhen Hong Kong Travel Itinerary</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXPENSES - Shenzhen & Hong Kong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* リセット & 基本スタイル */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
-            background-color: #080b10;
-            color: #ffffff;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-family: 'Montserrat', -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 24px 16px 40px 16px;
+    }
 
-        /* Mobile Viewport Container */
-        .app-container {
-            position: relative;
-            width: 100%;
-            max-width: 430px;
-            height: 100vh;
-            max-height: 932px;
-            background: url('https://images.unsplash.com/photo-1506970846876-ac3117409228?q=80&w=1000&auto=format&fit=crop') center center / cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-        }
+    /* メインコンテナ */
+    .page-container {
+      max-width: 440px;
+      margin: 0 auto;
+    }
 
-        /* Dark Gradient Overlay */
-        .app-container::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                180deg, 
-                rgba(5, 8, 15, 0.45) 0%, 
-                rgba(5, 8, 15, 0.65) 40%, 
-                rgba(5, 8, 15, 0.88) 75%, 
-                rgba(5, 8, 15, 0.98) 100%
-            );
-            z-index: 1;
-        }
+    /* タイトルヘッダー */
+    .schedule-header {
+      margin-bottom: 32px;
+      text-align: left;
+    }
 
-        /* Content Layer */
-        .main-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 50px 24px 30px 24px;
-            justify-content: flex-start;
-        }
+    .schedule-sub {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
 
-        /* Header Section */
-        .header-section {
-            text-align: center;
-            margin-top: 35px;
-        }
+    .schedule-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: 1px;
+    }
 
-        .title-main {
-            font-family: 'Cinzel', serif;
-            font-size: 38px;
-            font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-transform: uppercase;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-        }
+    /* ①〜⑤ 合計金額カード（高さ160px・白背景・青ライン・濃いネイビー文字） */
+    .total-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-top: 2px solid #0a84ff; /* 細い青ラインアクセント */
+      border-radius: 16px;
+      height: 160px; /* 指定の高さ約160px */
+      box-sizing: border-box;
+      padding: 0 20px;
+      margin-bottom: 32px; /* 均等な下部余白 */
+      
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
 
-        .title-main span {
-            display: block;
-        }
+    .total-title {
+      font-size: 14px; /* 指定のサイズ */
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
 
-        /* Subtitle */
-        .title-sub {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 5px;
-            color: rgba(255, 255, 255, 0.85);
-            margin-top: 18px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-        }
+    .total-amount {
+      font-size: 52px; /* 指定のサイズ */
+      font-weight: 800;
+      color: #1e293b; /* 濃いネイビー */
+      line-height: 1;
+      display: inline-block;
+      letter-spacing: -1px;
+    }
 
-        /* Button Grid Layout */
-        .navigation-grid {
-            margin-top: 210px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            width: 100%;
-        }
+    /* 数値変更時のふんわりアニメーション */
+    .total-amount.pop-anim {
+      animation: numPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-        /* Row 1: Day Buttons */
-        .days-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
+    @keyframes numPop {
+      0% {
+        opacity: 0.4;
+        transform: scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
 
-        .btn-day {
-            background-color: #ffffff;
-            color: #0f172a;
-            border: none;
-            border-radius: 14px;
-            padding: 16px 0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-            transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-            text-align: center;
-        }
+    /* 費用項目リスト */
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-        .btn-day:active {
-            transform: scale(0.96);
-            background-color: #f1f5f9;
-        }
+    .expense-card-inline {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
 
-        /* Sub Category Rows (Glassmorphism) */
-        .sub-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
+    .expense-label-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
 
-        .btn-glass {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 14px;
-            padding: 16px 0;
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-        }
+    .expense-label-group .time {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
 
-        .btn-glass:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
+    .expense-label-group .text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+    }
 
-        /* Bottom Detail Drawer / Modal */
-        .modal-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
+    .expense-fixed-amount {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      white-space: nowrap;
+    }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+    .expense-select-inline {
+      width: auto;
+      min-width: 140px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      outline: none;
+      cursor: pointer;
+      text-align: right;
+    }
 
-        .modal-sheet {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #121824;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 28px 28px 0 0;
-            padding: 24px 20px 36px 20px;
-            z-index: 11;
-            max-height: 82vh;
-            overflow-y: auto;
-            transform: translateY(100%);
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-        }
+    .expense-select-inline:focus {
+      border-color: #0a84ff;
+      background-color: #ffffff;
+    }
 
-        .modal-overlay.active .modal-sheet {
-            transform: translateY(0);
-        }
+    /* バックリンク */
+    .back-link {
+      margin-top: 32px;
+      text-align: center;
+    }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    .back-link a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
 
-        .modal-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 19px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #38bdf8;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .close-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: #ffffff;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        /* Total Summary Card - Height fixed strictly to 150px - 160px */
-        .total-summary-card {
-            height: 155px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(129, 140, 248, 0.15) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .total-summary-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 120px;
-            height: 120px;
-            background: rgba(56, 189, 248, 0.15);
-            border-radius: 50%;
-            filter: blur(25px);
-            pointer-events: none;
-        }
-
-        .total-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .total-card-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #93c5fd;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .total-card-badge {
-            background: rgba(56, 189, 248, 0.25);
-            color: #38bdf8;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-        }
-
-        .total-amount-display {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        .total-subtext {
-            font-size: 11px;
-            color: #cbd5e1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px dashed rgba(255, 255, 255, 0.15);
-            padding-top: 8px;
-        }
-
-        /* Modal Body Items */
-        .info-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .info-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .info-card h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: #f8fafc;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .amount-tag {
-            font-size: 14px;
-            font-weight: 800;
-            color: #38bdf8;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .info-card p {
-            font-size: 12px;
-            color: #94a3b8;
-            line-height: 1.4;
-        }
-
-        .tag {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.2);
-            color: #38bdf8;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            width: fit-content;
-        }
-
-        /* Scrollbar styling for sheet */
-        .modal-sheet::-webkit-scrollbar {
-            width: 4px;
-        }
-        .modal-sheet::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-    </style>
+    .back-link a:hover {
+      color: #0a84ff;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="main-content">
-            <!-- Header Section -->
-            <div class="header-section">
-                <h1 class="title-main">
-                    <span>SHENZHEN</span>
-                    <span>HONG KONG</span>
-                </h1>
-                <div class="title-sub">TRAVEL ITINERARY</div>
-            </div>
-
-            <!-- Navigation Grid Buttons -->
-            <div class="navigation-grid">
-                <!-- Day 1, 2, 3 Buttons -->
-                <div class="days-row">
-                    <button class="btn-day" onclick="openModal('day1')">DAY 1</button>
-                    <button class="btn-day" onclick="openModal('day2')">DAY 2</button>
-                    <button class="btn-day" onclick="openModal('day3')">DAY 3</button>
-                </div>
-
-                <!-- TODO & EXPENSES Buttons -->
-                <div class="sub-row">
-                    <button class="btn-glass" onclick="openModal('todo')">TODO</button>
-                    <button class="btn-glass" onclick="openModal('expenses')">EXPENSES</button>
-                </div>
-
-                <!-- FOODS & TRAFFIC Buttons -->
-                <div class="sub-row">
-                    <button class="btn-glass" onclick="openModal('foods')">FOODS</button>
-                    <button class="btn-glass" onclick="openModal('traffic')">TRAFFIC</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Detail Modal Sheet -->
-        <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-            <div class="modal-sheet" onclick="event.stopPropagation()">
-                <div class="modal-header">
-                    <div class="modal-title" id="modalTitle">
-                        <i class="fa-solid fa-calendar-days"></i> TITLE
-                    </div>
-                    <button class="close-btn" onclick="closeModalDirect()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div id="modalContent">
-                    <!-- Content will be injected dynamically -->
-                </div>
-            </div>
-        </div>
+  <main class="page-container">
+    
+    <div class="schedule-header">
+      <p class="schedule-sub">ESTIMATED BUDGET</p>
+      <h1 class="schedule-title">EXPENSES</h1>
     </div>
 
-    <script>
-        const contentData = {
-            day1: {
-                title: "DAY 1 - SHENZHEN TECH & CITY",
-                icon: "fa-solid fa-city",
-                items: [
-                    { time: "09:00", name: "平安金融中心 (Ping An Finance Centre)", desc: "深圳一の超高層ビル展望台（599m）からハイテク都市を一望。" },
-                    { time: "12:00", name: "華強北 (Huaqiangbei)", desc: "世界最大の電子街散策。最新ガジェットや電子部品のマーケット。" },
-                    { time: "15:00", name: "華僑城LOFT (OCT LOFT)", desc: "工場跡地をリノベーションしたアートカルチャーエリア。カフェで一息。" },
-                    { time: "19:00", name: "人才公園 (Talent Park) 夜景", desc: "深圳湾の摩天楼群とライトアップショーを堪能。" }
-                ]
-            },
-            day2: {
-                title: "DAY 2 - SHENZHEN TO HONG KONG",
-                icon: "fa-solid fa-train-subway",
-                items: [
-                    { time: "09:30", name: "広深港高速鉄道で香港へ移動", desc: "福田駅/深圳北駅から西九竜駅までわずか14分で移動。" },
-                    { time: "11:30", name: "尖沙咀 (Tsim Sha Tsui)", desc: "ハーバーシティ散策、ヴィクトリアハーバーの絶景フォトスポット。" },
-                    { time: "15:00", name: "スターフェリー (Star Ferry)", desc: "伝統のフェリーで香港島・中環（Central）へ移動。" },
-                    { time: "18:30", name: "ヴィクトリア・ピーク (Victoria Peak)", desc: "ピークトラムに乗車し、100万ドルの夜景を鑑賞。" }
-                ]
-            },
-            day3: {
-                title: "DAY 3 - HONG KONG ISLAND EXPLORE",
-                icon: "fa-solid fa-building-user",
-                items: [
-                    { time: "10:00", name: "中環・上環 (Central & Sheung Wan)", desc: "壁画アート街散策、香港トラム（2階建て路面電車）体験。" },
-                    { time: "13:00", name: "モンスターマンション (Yick Cheong Building)", desc: "鰂魚涌（Quarry Bay）のインスタ映え超高密度住宅。" },
-                    { time: "17:00", name: "K11 MUSEA & アベニュー・オブ・スターズ", desc: "ブルース・リー像と星光大道で九龍側の夜景を満喫。" }
-                ]
-            },
-            todo: {
-                title: "TODO LIST",
-                icon: "fa-solid fa-list-check",
-                items: [
-                    { time: "準備", name: "パスポート＆中国ビザ確認", desc: "有効期限6ヶ月以上あることを事前に確認。" },
-                    { time: "決済", name: "WeChat Pay / AlipayHK 設定", desc: "クレジットカード連携を日本国内で完了させておく。" },
-                    { time: "交通", name: "オクトパスカード (Octopus Card)", desc: "Apple Payに香港オクトパスカードを追加しチャージ。" },
-                    { time: "通信", name: "eSIM / 大陸・香港共通SIM", desc: "GFW（金盾）回避可能なHK/Mainland両用eSIMの準備。" }
-                ]
-            },
-            expenses: {
-                title: "EXPENSES & BUDGET",
-                icon: "fa-solid fa-wallet",
-                totalAmount: "約 ¥118,200",
-                items: [
-                    { name: "飛行機", amount: "¥45,000", desc: "東京 (成田/羽田) ↔ 香港・深圳 往復航空券" },
-                    { name: "ホテル", amount: "¥32,000", desc: "深圳・香港 2泊分宿泊料金 (1室目安)" },
-                    { name: "eSIM", amount: "¥3,000", desc: "電話番号付帯 データ通信共通eSIM" },
-                    { name: "海外旅行保険", amount: "¥1,400", desc: "基本補償プラン (3日間)" },
-                    { name: "タクシー (香港)", amount: "¥6,800", desc: "MTR・市街地タクシー移動費用目安 (約 HKD 350)" },
-                    { name: "タクシー (深圳)", amount: "¥4,500", desc: "DiDi (滴滴出行) 配車＆タクシー移動費用 (約 RMB 210)" },
-                    { name: "食事 (香港)", amount: "¥15,000", desc: "ミシュラン飲茶・港式カフェ・名物グルメ (約 HKD 780)" },
-                    { name: "食事 (深圳)", amount: "¥10,500", desc: "ココナッツチキン火鍋・深セン話題カフェ (約 RMB 500)" }
-                ]
-            },
-            foods: {
-                title: "FOODS & GOURMET",
-                icon: "fa-solid fa-utensils",
-                items: [
-                    { time: "深圳", name: "椰子鶏 (Yejizi) & 火鍋", desc: "ココナッツスープの絶品チキン火鍋。" },
-                    { time: "香港", name: "添好運 (Tim Ho Wan) 飲茶", desc: "世界一リーズナブルなミシュラン点心。チャーシューパオが絶品。" },
-                    { time: "香港", name: "港式奶茶 (香港式ミルクティー)", desc: "濃厚な紅茶とエバミルクの本格ミルクティー＆エッグタルト。" }
-                ]
-            },
-            traffic: {
-                title: "TRAFFIC GUIDE",
-                icon: "fa-solid fa-compass",
-                items: [
-                    { time: "国境", name: "イミグレーション (口岸)", desc: "高速鉄道西九竜駅の一地両検、または羅湖/落馬洲口岸を利用。" },
-                    { time: "タクシー", name: "滴滴出行 (DiDi)", desc: "深圳市内はDiDiアプリで配車。香港内は赤タクシー利用。" }
-                ]
-            }
-        };
+    <div class="total-box">
+      <div class="total-title">ESTIMATED TOTAL</div>
+      <div class="total-amount" id="totalAmount">¥0</div>
+    </div>
 
-        function openModal(key) {
-            const data = contentData[key];
-            if (!data) return;
+    <div class="schedule-list">
 
-            document.getElementById('modalTitle').innerHTML = `<i class="${data.icon}"></i> ${data.title}`;
-            const contentContainer = document.getElementById('modalContent');
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">FLIGHT</span>
+          <span class="text">飛行機代</span>
+        </div>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="129455">129,455</span></div>
+      </div>
 
-            if (key === 'expenses') {
-                // EXPENSES Layout with strictly 150-160px Height Summary Card
-                contentContainer.innerHTML = `
-                    <div class="total-summary-card">
-                        <div class="total-card-header">
-                            <span class="total-card-title">ESTIMATED TOTAL</span>
-                            <span class="total-card-badge">3 DAYS</span>
-                        </div>
-                        <div class="total-amount-display">${data.totalAmount}</div>
-                        <div class="total-subtext">
-                            <span>内訳全8項目 (概算合計)</span>
-                            <i class="fa-solid fa-circle-info"></i>
-                        </div>
-                    </div>
-                    ${data.items.map(item => `
-                        <div class="info-card">
-                            <div class="info-card-header">
-                                <h4><i class="fa-solid fa-angle-right" style="color: #38bdf8; font-size: 12px;"></i> ${item.name}</h4>
-                                <span class="amount-tag">${item.amount}</span>
-                            </div>
-                            <p>${item.desc}</p>
-                        </div>
-                    `).join('')}
-                `;
-            } else {
-                // Standard Layout
-                contentContainer.innerHTML = data.items.map(item => `
-                    <div class="info-card">
-                        <span class="tag">${item.time}</span>
-                        <h4>${item.name}</h4>
-                        <p>${item.desc}</p>
-                    </div>
-                `).join('');
-            }
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">HOTEL</span>
+          <span class="text">ホテル代</span>
+        </div>
+        <div class="expense-fixed-amount">¥<span class="calc-item" data-value="62477">62,477</span></div>
+      </div>
 
-            document.getElementById('modalOverlay').classList.add('active');
-        }
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">eSIM / INTERNET</span>
+          <span class="text">eSIM（通信費）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="esimSelect" onchange="calculateTotal()">
+          <option value="700" selected>番号なし (¥700)</option>
+          <option value="3000">電話番号付帯 (¥3,000)</option>
+        </select>
+      </div>
 
-        function closeModal(event) {
-            if (event.target.id === 'modalOverlay') {
-                document.getElementById('modalOverlay').classList.remove('active');
-            }
-        }
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">INSURANCE</span>
+          <span class="text">海外旅行保険</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="insuranceSelect" onchange="calculateTotal()">
+          <option value="1400" selected>基本 (¥1,400)</option>
+          <option value="4000">キャンセル保証付 (¥4,000)</option>
+        </select>
+      </div>
 
-        function closeModalDirect() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
-    </script>
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">TAXI - HONG KONG</span>
+          <span class="text">タクシー（香港）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="taxiHongKong" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">TAXI - SHENZHEN</span>
+          <span class="text">タクシー（深圳）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="taxiShenzhen" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">FOOD - HONG KONG</span>
+          <span class="text">食事（香港）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="foodHongKong" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+      <div class="expense-card-inline">
+        <div class="expense-label-group">
+          <span class="time">FOOD - SHENZHEN</span>
+          <span class="text">食事（深圳）</span>
+        </div>
+        <select class="expense-select-inline calc-select" id="foodShenzhen" onchange="calculateTotal()">
+          <option value="10000" selected>¥10,000</option>
+          <option value="15000">¥15,000</option>
+          <option value="20000">¥20,000</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    // 自動計算機能
+    function calculateTotal() {
+      let total = 0;
+
+      // 固定金額の合算
+      const fixedItems = document.querySelectorAll('.calc-item');
+      fixedItems.forEach(item => {
+        total += parseInt(item.getAttribute('data-value'), 10) || 0;
+      });
+
+      // 選択式金額の合算
+      const selectItems = document.querySelectorAll('.calc-select');
+      selectItems.forEach(select => {
+        total += parseInt(select.value, 10) || 0;
+      });
+
+      // 3桁カンマ区切り表示
+      const totalEl = document.getElementById('totalAmount');
+      totalEl.textContent = '¥' + total.toLocaleString();
+
+      // 数字のアニメーションリセット＆適用
+      totalEl.classList.remove('pop-anim');
+      void totalEl.offsetWidth; // リフロー発生
+      totalEl.classList.add('pop-anim');
+    }
+
+    // 初期実行
+    document.addEventListener('DOMContentLoaded', calculateTotal);
+  </script>
 </body>
 </html>
-
-```
