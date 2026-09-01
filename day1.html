@@ -294,7 +294,7 @@
       line-height: 1.4;
     }
 
-    /* ★補足と同じサイズ・色で、改行してリンクにしたい場合用 */
+    /* 補足と同じサイズ・カラーのリンク（改行用） */
     .note-link {
       font-size: 11px;
       font-weight: 400;
@@ -311,14 +311,6 @@
     .note-link:hover {
       color: #2b475d;
       text-decoration-color: rgba(43, 71, 93, 0.8);
-    }
-
-    /* 混在する場合のインラインテキスト調整 */
-    .inline-group {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 6px;
     }
 
     /* MEMOフォーム */
@@ -480,7 +472,6 @@
         <div class="timeline-content">
           <span class="time">15:30 - 16:30</span>
           <a class="place-link" href="https://www.hyatt.com/en-US/hotel/china/urcove-shenzhen-futian-cbd/uc031" target="_blank">UrCove Hotel</a>
-          <!-- チェックインを補足と同じサイズ・カラーにし、改行して配置 -->
           <span class="note-text">チェックイン</span>
         </div>
       </div>
@@ -509,14 +500,12 @@
         </div>
       </div>
 
+      <!-- 中環エリアとディナータイムのリンクを改行して配置 -->
       <div class="timeline-item">
         <div class="timeline-content">
           <span class="time">19:30 - 20:30</span>
-          <div class="inline-group">
-            <span class="action-text">中環エリア</span>
-            <!-- ディナータイム表記に変更し、便名カラーとサイズに合わせたリンクとして独立・改行 -->
-            <a class="note-link" href="foods.html">食事</a>
-          </div>
+          <span class="action-text">中環エリア</span>
+          <a class="note-link" href="foods.html">ディナータイム</a>
         </div>
       </div>
 
