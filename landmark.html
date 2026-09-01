@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LANDMARK - Shenzhen & Hong Kong</title>
 
-  <!-- フォント読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -185,7 +184,7 @@
       display: block;
     }
 
-    /* カードグリッド（画像通り2列〜3列対応） */
+    /* カードグリッド */
     .grid-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -283,7 +282,6 @@
 </head>
 <body>
 
-  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -293,7 +291,6 @@
     <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -312,7 +309,6 @@
 
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- メインコンテンツ -->
   <main class="page-container">
 
     <div class="header-section">
@@ -320,7 +316,6 @@
       <p class="page-sub">観光名所やお勧めスポットをエリア別にご紹介します。</p>
     </div>
 
-    <!-- 香港エリア -->
     <div class="accordion-section active">
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <h2>HONG KONG</h2>
@@ -329,24 +324,10 @@
       <div class="accordion-content">
         <div class="grid-container">
 
-          <!-- 01 ビクトリア・ハーバー -->
           <div class="spot-card">
             <div class="card-image-box">
               <span class="badge-num">01</span>
-              <img src="https://images.unsplash.com/photo-1506318137071-a8e068b4bec0?auto=format&fit=crop&w=600&q=80" alt="ビクトリア・ハーバー">
-            </div>
-            <div class="card-body">
-              <div class="spot-title">ビクトリア・ハーバー</div>
-              <div class="spot-desc">香港の象徴的な景色。スターフェリーからの眺めや夜景は必見です。</div>
-              <div class="spot-location">📍 中環 / 尖沙咀</div>
-            </div>
-          </div>
-
-          <!-- 02 ヴィクトリア・ピーク -->
-          <div class="spot-card">
-            <div class="card-image-box">
-              <span class="badge-num">02</span>
-              <img src="https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&w=600&q=80" alt="ヴィクトリア・ピーク">
+              <img src="IMG_3214.jpeg" alt="ヴィクトリア・ピーク">
             </div>
             <div class="card-body">
               <div class="spot-title">ヴィクトリア・ピーク</div>
@@ -355,11 +336,10 @@
             </div>
           </div>
 
-          <!-- 03 男人街 -->
           <div class="spot-card">
             <div class="card-image-box">
-              <span class="badge-num">03</span>
-              <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=80" alt="男人街">
+              <span class="badge-num">02</span>
+              <img src="IMG_3216.webp" alt="男人街">
             </div>
             <div class="card-body">
               <div class="spot-title">男人街（テンプルストリート）</div>
@@ -368,11 +348,10 @@
             </div>
           </div>
 
-          <!-- 04 SOHO -->
           <div class="spot-card">
             <div class="card-image-box">
-              <span class="badge-num">04</span>
-              <img src="https://images.unsplash.com/photo-1570191947183-d4d61598c20f?auto=format&fit=crop&w=600&q=80" alt="SOHO">
+              <span class="badge-num">03</span>
+              <img src="IMG_3215.jpeg" alt="SOHO">
             </div>
             <div class="card-body">
               <div class="spot-title">SOHO（ソーホー）</div>
@@ -381,10 +360,9 @@
             </div>
           </div>
 
-          <!-- 05 K11 -->
           <div class="spot-card">
             <div class="card-image-box">
-              <span class="badge-num">05</span>
+              <span class="badge-num">04</span>
               <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="K11">
             </div>
             <div class="card-body">
@@ -394,24 +372,10 @@
             </div>
           </div>
 
-          <!-- 06 南丫島 -->
-          <div class="spot-card">
-            <div class="card-image-box">
-              <span class="badge-num">06</span>
-              <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80" alt="南丫島">
-            </div>
-            <div class="card-body">
-              <div class="spot-title">南丫島（ラマ島）</div>
-              <div class="spot-desc">のどかな離島ビーチと新鮮な海鮮料理が楽しめる癒しのリゾート。</div>
-              <div class="spot-location">📍 離島区</div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
 
-    <!-- 深圳エリア -->
     <div class="accordion-section active">
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <h2>SHENZHEN</h2>
@@ -420,11 +384,10 @@
       <div class="accordion-content">
         <div class="grid-container">
 
-          <!-- 01 深圳湾公園 -->
           <div class="spot-card">
             <div class="card-image-box">
               <span class="badge-num">01</span>
-              <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=600&q=80" alt="深圳湾公園">
+              <img src="IMG_3217.jpeg" alt="深圳湾公園">
             </div>
             <div class="card-body">
               <div class="spot-title">深圳湾公園</div>
@@ -433,7 +396,6 @@
             </div>
           </div>
 
-          <!-- 02 華強北 -->
           <div class="spot-card">
             <div class="card-image-box">
               <span class="badge-num">02</span>
@@ -446,24 +408,22 @@
             </div>
           </div>
 
-          <!-- 03 巨大展 -->
           <div class="spot-card">
             <div class="card-image-box">
               <span class="badge-num">03</span>
-              <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="巨大展">
+              <img src="F0FFC33E-225D-4E06-BCE6-C41816B133D5.png" alt="巨人展">
             </div>
             <div class="card-body">
-              <div class="spot-title">深圳之眼（巨大展）</div>
+              <div class="spot-title">巨人展</div>
               <div class="spot-desc">未来的な建築デザインが目を引く巨大展示＆ランドマーク空間。</div>
               <div class="spot-location">📍 福田区 / 宝安区</div>
             </div>
           </div>
 
-          <!-- 04 海上世界 -->
           <div class="spot-card">
             <div class="card-image-box">
               <span class="badge-num">04</span>
-              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="海上世界">
+              <img src="IMG_3219.jpeg" alt="海上世界">
             </div>
             <div class="card-body">
               <div class="spot-title">海上世界</div>
@@ -472,11 +432,10 @@
             </div>
           </div>
 
-          <!-- 05 东门老街 -->
           <div class="spot-card">
             <div class="card-image-box">
               <span class="badge-num">05</span>
-              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="东门老街">
+              <img src="IMG_3220.jpeg" alt="东门老街">
             </div>
             <div class="card-body">
               <div class="spot-title">东门老街</div>
@@ -485,14 +444,13 @@
             </div>
           </div>
 
-          <!-- 06 甘坑客家小鎮 -->
           <div class="spot-card">
             <div class="card-image-box">
               <span class="badge-num">06</span>
-              <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=600&q=80" alt="甘坑客家小鎮">
+              <img src="EF27F623-36E9-49B6-8221-C2A75B550FC7.png" alt="甘坑古鎮">
             </div>
             <div class="card-body">
-              <div class="spot-title">甘坑客家小鎮</div>
+              <div class="spot-title">甘坑古鎮</div>
               <div class="spot-desc">客家文化を感じられる観光エリア。夜はライトアップが幻想的。</div>
               <div class="spot-location">📍 龍崗区</div>
             </div>
@@ -530,4 +488,3 @@
   </script>
 </body>
 </html>
-
