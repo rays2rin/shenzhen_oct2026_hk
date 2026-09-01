@@ -20,7 +20,7 @@
       background-color: #f6f8fb;
       color: #202A3A;
       font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 300; /* 日本語全体を今より一段細く */
+      font-weight: 300;
       min-height: 100vh;
       padding-bottom: 60px;
       -webkit-font-smoothing: antialiased;
@@ -53,9 +53,9 @@
       border-radius: 2px;
     }
 
-    /* 他のページとフォント（Montserrat）および右寄せ位置を揃える */
+    /* 右寄せタイトル (Cinzelフォントに統一) */
     .site-title {
-      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
       letter-spacing: 2px;
@@ -91,10 +91,11 @@
     .drawer-menu ul { list-style: none; }
     .drawer-menu li { margin-bottom: 16px; }
     
+    /* メニュー項目 (Cinzelフォントに統一) */
     .drawer-menu a {
       text-decoration: none;
       color: #202A3A;
-      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
       letter-spacing: 2px;
@@ -140,7 +141,7 @@
       margin-bottom: 16px;
     }
 
-    /* DIM SUM (セリフ体 / Regular / 32px / font-weight: 400 / letter-spacing: 0.05em) */
+    /* DIM SUM */
     .page-title {
       font-family: 'Cinzel', serif;
       font-size: 30px;
@@ -246,7 +247,7 @@
       border-radius: 4px;
     }
 
-    /* カード本体コンテンツ（少しサイズ・余白を縮小） */
+    /* カード本体コンテンツ */
     .card-body {
       padding: 12px 14px;
     }
@@ -262,16 +263,16 @@
       padding-bottom: 6px;
     }
 
-    /* 店名 (明朝体 Noto Serif JP / Medium 500 / 25px) */
+    /* 店名 (フォントサイズを 20px に変更) */
     .shop-name {
       font-family: 'Noto Serif JP', serif;
-      font-size: 25px;
+      font-size: 20px;
       font-weight: 500;
       color: #202A3A;
       line-height: 1.2;
     }
 
-    /* 店舗支店名 (Noto Serif JP / Regular 400 / 16px / グレー) */
+    /* 店舗支店名 */
     .branch-name {
       font-family: 'Noto Serif JP', serif;
       font-size: 16px;
@@ -293,7 +294,6 @@
       align-items: flex-start;
     }
 
-    /* 営業時間・アクセスのラベル (ゴシック体 Noto Sans JP / 16px / Medium 500) */
     .info-label {
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 16px;
@@ -303,7 +303,6 @@
       letter-spacing: 0.2px;
     }
 
-    /* 営業時間・アクセスの内容 (時間、距離：ゴシック体 Noto Sans JP / 16px / Regular 400) */
     .info-value {
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 16px;
@@ -429,7 +428,6 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // スライドショー制御ロジック
     const slideIndexes = {
       slider1: 0,
       slider2: 0
