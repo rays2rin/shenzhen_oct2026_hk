@@ -3,20 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YUM CHA - Shenzhen & Hong Kong</title>
-  <link rel="stylesheet" href="style.css">
-  
-  <!-- フォント調整・カードレイアウト用スタイル -->
+  <title>YAMCHA - Shenzhen & Hong Kong</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
-    /* 画像を横長＆高さを従来の約7割（180px程度）に調整 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fcfcf9;
+      color: #202A3A;
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ナビゲーションバー */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #edf2f7;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .bar {
+      width: 20px;
+      height: 2px;
+      background-color: #202A3A;
+      border-radius: 2px;
+    }
+
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #202A3A;
+    }
+
+    /* ドロワーメニュー */
+    .drawer-menu {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 300;
+      transition: left 0.3s ease;
+      padding: 24px;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    }
+
+    .drawer-menu.active { left: 0; }
+
+    .close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 20px;
+      color: #718096;
+    }
+
+    .drawer-menu ul { list-style: none; }
+    .drawer-menu li { margin-bottom: 16px; }
+    .drawer-menu a {
+      text-decoration: none;
+      color: #202A3A;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+    .drawer-menu .divider {
+      height: 1px;
+      background-color: #edf2f7;
+      margin: 16px 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 200;
+      display: none;
+    }
+    .overlay.active { display: block; }
+
+    /* メインレイアウト */
+    .page-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* 戻るボタン */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: #718096;
+      text-decoration: none;
+    }
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1f2b1a;
+      letter-spacing: 2px;
+    }
+
+    .page-sub {
+      font-size: 12px;
+      color: #718096;
+      margin-top: 4px;
+    }
+
+    /* 店舗カードコンテナ */
+    .shop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* 店舗ごとのカード */
+    .shop-card {
+      background: #ffffff;
+      border: 1px solid #e5e2d5;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    /* スライドショーコンテナ */
     .slider-container {
       position: relative;
       width: 100%;
-      height: 180px;
+      height: 180px; /* 高さを抑える */
       overflow: hidden;
       background-color: #f0f0f0;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
     }
 
     .slider-wrapper {
@@ -40,48 +191,118 @@
       opacity: 1;
     }
 
-    /* 店舗カード調整 */
-    .yumcha-card {
-      background: #ffffff;
-      border: 1px solid #e5e2d5;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    /* 矢印ボタン */
+    .prev-btn, .next-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.3);
+      color: #ffffff;
+      border: none;
+      font-size: 18px;
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 10;
+      user-select: none;
     }
 
-    .yumcha-info {
+    .prev-btn { left: 8px; }
+    .next-btn { right: 8px; }
+
+    .prev-btn:hover, .next-btn:hover {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    /* ドットナビゲーション */
+    .dots-container {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .dot.active {
+      background: #ffffff;
+      width: 14px;
+      border-radius: 4px;
+    }
+
+    /* カード本体コンテンツ */
+    .card-body {
       padding: 16px;
     }
 
-    /* 店名・支店名のレイアウト（店名20px、支店名を同じ行に配置） */
-    .yumcha-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: #1e2d1d;
-      margin-bottom: 8px;
+    /* 店名と支店名の横並びヘッダー */
+    .shop-header {
       display: flex;
       align-items: baseline;
-      gap: 6px;
+      gap: 8px;
       flex-wrap: wrap;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #f0ede0;
+      padding-bottom: 8px;
+    }
+
+    .shop-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e2d1d;
+      line-height: 1.2;
     }
 
     .branch-name {
-      font-size: 13px;
-      color: #718096;
-      font-weight: normal;
+      font-size: 14px;
+      color: #666666;
+      font-weight: 500;
     }
 
-    .yumcha-meta p {
+    /* 店舗詳細情報 */
+    .shop-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       font-size: 12px;
       color: #4a5568;
-      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 6px;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #202A3A;
+      min-width: 70px;
+    }
+
+    .shop-desc {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #666;
+      background: #fcfcf9;
+      padding: 8px 10px;
+      border-radius: 6px;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
 
-  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -91,7 +312,6 @@
     <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -107,28 +327,25 @@
     </ul>
   </nav>
 
-  <!-- バックドロップ -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- メインコンテンツ -->
   <main class="page-container">
-    
-    <!-- タイトルヘッダー -->
-    <div class="schedule-header">
-      <p class="schedule-sub">DAY 1 BREAKFAST / LUNCH</p>
-      <h1 class="schedule-title">DIM SUM SPOT</h1>
+    <a href="foods.html" class="back-link">← グルメ一覧（foods）に戻る</a>
+
+    <div class="header-section">
+      <h1 class="page-title">DIM SUM</h1>
+      <p class="page-sub">本場・深圳＆香港のおすすめ飲茶・点心スポット</p>
     </div>
 
-    <div class="yumcha-list">
+    <div class="shop-list">
 
-      <!-- 店舗1：利宝阁 -->
-      <article class="yumcha-card">
-        <!-- スライドショー -->
+      <!-- 店舗1：陶陶居酒家 -->
+      <div class="shop-card">
         <div class="slider-container" id="slider1">
           <div class="slider-wrapper">
-            <img src="images/li_bao_ge_1.jpg" alt="利宝阁 1" class="slide active">
-            <img src="images/li_bao_ge_2.jpg" alt="利宝阁 2" class="slide">
-            <img src="images/li_bao_ge_3.jpg" alt="利宝阁 3" class="slide">
+            <img src="IMG_3123.jpeg" alt="陶陶居 1" class="slide active">
+            <img src="IMG_3121.jpeg" alt="陶陶居 2" class="slide">
+            <img src="IMG_3124.jpeg" alt="陶陶居 3" class="slide">
           </div>
           <button class="prev-btn" onclick="moveSlide('slider1', -1)">‹</button>
           <button class="next-btn" onclick="moveSlide('slider1', 1)">›</button>
@@ -138,27 +355,31 @@
             <span class="dot" onclick="setSlide('slider1', 2)"></span>
           </div>
         </div>
-
-        <!-- 詳細情報 -->
-        <div class="yumcha-info">
-          <h2 class="yumcha-name">
-            利宝阁 <span class="branch-name">嘉里建設広場店</span>
-          </h2>
-          <div class="yumcha-meta">
-            <p><strong>営業時間：</strong>9:00〜</p>
-            <p><strong>アクセス：</strong>ホテルから徒歩23分 (1.3km)</p>
+        <div class="card-body">
+          <div class="shop-header">
+            <span class="shop-name">陶陶居酒家</span>
+            <span class="branch-name">（卓悦中心店）</span>
+          </div>
+          <div class="shop-info-list">
+            <div class="info-item">
+              <span class="info-label">営業時間</span>
+              <span>10:00〜</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">アクセス</span>
+              <span>ホテルから徒歩30分 (1.8km)</span>
+            </div>
           </div>
         </div>
-      </article>
+      </div>
 
-      <!-- 店舗2：陶陶居酒家 -->
-      <article class="yumcha-card">
-        <!-- スライドショー -->
+      <!-- 店舗2：利宝阁 -->
+      <div class="shop-card">
         <div class="slider-container" id="slider2">
           <div class="slider-wrapper">
-            <img src="images/tao_tao_ju_1.jpg" alt="陶陶居 1" class="slide active">
-            <img src="images/tao_tao_ju_2.jpg" alt="陶陶居 2" class="slide">
-            <img src="images/tao_tao_ju_3.jpg" alt="陶陶居 3" class="slide">
+            <img src="IMG_3126.jpeg" alt="利宝阁 1" class="slide active">
+            <img src="IMG_3125.jpeg" alt="利宝阁 2" class="slide">
+            <img src="IMG_3127.jpeg" alt="利宝阁 3" class="slide">
           </div>
           <button class="prev-btn" onclick="moveSlide('slider2', -1)">‹</button>
           <button class="next-btn" onclick="moveSlide('slider2', 1)">›</button>
@@ -168,25 +389,25 @@
             <span class="dot" onclick="setSlide('slider2', 2)"></span>
           </div>
         </div>
-
-        <!-- 詳細情報 -->
-        <div class="yumcha-info">
-          <h2 class="yumcha-name">
-            陶陶居酒家 <span class="branch-name">卓悦中心店</span>
-          </h2>
-          <div class="yumcha-meta">
-            <p><strong>営業時間：</strong>10:00〜</p>
-            <p><strong>アクセス：</strong>ホテルから徒歩30分 (1.8km)</p>
+        <div class="card-body">
+          <div class="shop-header">
+            <span class="shop-name">利宝阁</span>
+            <span class="branch-name">（嘉里建設広場店）</span>
+          </div>
+          <div class="shop-info-list">
+            <div class="info-item">
+              <span class="info-label">営業時間</span>
+              <span>9:00〜</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">アクセス</span>
+              <span>ホテルから徒歩23分 (1.3km)</span>
+            </div>
           </div>
         </div>
-      </article>
+      </div>
 
     </div>
-
-    <div class="back-link">
-      <a href="day1.html">← BACK TO DAY 1</a>
-    </div>
-
   </main>
 
   <script>
@@ -195,7 +416,7 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // スライドショー制御用ロジック
+    // スライドショー制御ロジック
     const slideIndexes = {
       slider1: 0,
       slider2: 0
