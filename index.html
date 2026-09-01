@@ -10,35 +10,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   
   <style>
-    /* ナビゲーション全体の縦ギャップ調整 */
+    /* ④ メニューボタン群をアニメーションなしで常時表示 */
+    .top-nav,
+    .top-nav * {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
+
     .top-nav {
       display: flex;
       flex-direction: column;
-      gap: 14px; /* 段同士の縦間隔を少し広げました */
     }
 
+    /* ① DAY 1 / 2 / 3 を20〜30px下げる */
     .primary-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
+      margin-top: 25px;
+      margin-bottom: 14px;
     }
 
-    /* 2段目：FOOD / SIGHTS / TRANSIT (高さ10〜15%小さく) */
+    /* ② FOOD / SIGHTS / TRANSIT の高さをさらに5〜10%小さく */
     .secondary-row-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
+      /* ③ 3段目との縦間隔を15〜20px広げる */
+      margin-bottom: 18px;
     }
 
     .secondary-row-3 .btn-secondary {
-      padding-top: 8px !important;
-      padding-bottom: 8px !important;
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
       min-height: unset !important;
-      font-size: 11px; /* 短縮文字が綺麗に収まる調整 */
+      font-size: 11px;
       letter-spacing: 0.5px;
+      line-height: 1.2;
     }
 
-    /* 3段目：TODO / EXPENSES (通常のサイズ感維持) */
+    /* 3段目：TODO / EXPENSES */
     .secondary-row-2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -67,21 +81,21 @@
 
       <!-- ボタン群 -->
       <nav class="top-nav">
-        <!-- 1段目：DAY選択タブ -->
+        <!-- 1段目：DAY選択タブ (位置下げ) -->
         <div class="nav-row primary-row">
           <a href="day1.html" class="btn btn-primary active">DAY 1</a>
           <a href="day2.html" class="btn btn-primary">DAY 2</a>
           <a href="day3.html" class="btn btn-primary">DAY 3</a>
         </div>
 
-        <!-- 2段目：FOOD / SIGHTS / TRANSIT (高さ約10〜15%縮小・文字数減) -->
+        <!-- 2段目：FOOD / SIGHTS / TRANSIT (高さ縮小) -->
         <div class="secondary-row-3">
           <a href="foods.html" class="btn btn-secondary">FOOD</a>
           <a href="landmark.html" class="btn btn-secondary">SIGHTS</a>
           <a href="traffic.html" class="btn btn-secondary">TRANSIT</a>
         </div>
 
-        <!-- 3段目：TODO / EXPENSES (現状サイズ維持) -->
+        <!-- 3段目：TODO / EXPENSES (縦間隔広げる) -->
         <div class="secondary-row-2">
           <a href="todo.html" class="btn btn-secondary">TODO</a>
           <a href="expenses.html" class="btn btn-secondary">EXPENSES</a>
