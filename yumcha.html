@@ -122,10 +122,10 @@
       padding: 24px 16px 40px;
     }
 
-    /* 戻るボタン */
+    /* 戻るボタン (13〜15px -> 14px) */
     .back-link {
       display: inline-block;
-      font-size: 12px;
+      font-size: 14px;
       color: #718096;
       text-decoration: none;
       font-weight: 500;
@@ -134,15 +134,14 @@
 
     .header-section {
       text-align: center;
-      /* ヘッダーに食い込まないよう上部に余白を確保 */
-      margin-top: 36px; 
-      margin-bottom: 32px;
+      margin-top: 28px; 
+      margin-bottom: 24px;
     }
 
-    /* DIM SUM (セリフ体 / 44〜48px / Medium) */
+    /* DIM SUM (セリフ体 / 36〜40px -> 38px / Medium) */
     .page-title {
       font-family: 'Cinzel', serif;
-      font-size: 46px;
+      font-size: 38px;
       font-weight: 500;
       color: #202A3A;
       letter-spacing: 2px;
@@ -153,7 +152,7 @@
     .shop-list {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
     /* 店舗ごとのカード */
@@ -245,9 +244,9 @@
       border-radius: 4px;
     }
 
-    /* カード本体コンテンツ（余白を広めに） */
+    /* カード本体コンテンツ（上下余白を少し減らす） */
     .card-body {
-      padding: 24px 20px;
+      padding: 16px 20px;
     }
 
     /* 店名と支店名の横並びヘッダー */
@@ -256,22 +255,22 @@
       align-items: baseline;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       border-bottom: 1px solid #edf2f7;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
     }
 
-    /* 店名 (28〜30px / Bold / 濃紺) */
+    /* 店名 (24〜26px -> 25px / Bold / 濃紺) */
     .shop-name {
-      font-size: 28px;
+      font-size: 25px;
       font-weight: 700;
       color: #202A3A;
       line-height: 1.2;
     }
 
-    /* 店舗名 (17〜19px / Regular / グレー) */
+    /* 店舗名 (16〜17px -> 16px / Regular / グレー) */
     .branch-name {
-      font-size: 18px;
+      font-size: 16px;
       color: #718096;
       font-weight: 400;
     }
@@ -280,8 +279,8 @@
     .shop-info-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      line-height: 1.5;
+      gap: 6px;
+      line-height: 1.4;
     }
 
     .info-item {
@@ -290,7 +289,7 @@
       align-items: flex-start;
     }
 
-    /* ラベル (15〜16px / Bold) */
+    /* ラベル (15px / Bold) */
     .info-label {
       font-size: 15px;
       font-weight: 700;
@@ -299,9 +298,9 @@
       letter-spacing: 0.5px;
     }
 
-    /* 内容 (16〜18px / Regular) */
+    /* 内容 (16px / Regular) */
     .info-value {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 400;
       color: #202A3A;
     }
