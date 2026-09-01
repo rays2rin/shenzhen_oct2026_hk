@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DAY 1 - Shenzhen & Hong Kong</title>
 
-  <!-- フォント読み込み（Cinzel, Noto Sans JP） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -23,6 +22,8 @@
       font-family: 'Noto Sans JP', sans-serif;
       font-weight: 300;
       min-height: 100vh;
+      overflow-x: hidden;
+      width: 100%;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -37,6 +38,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      width: 100%;
     }
 
     .menu-icon {
@@ -117,9 +119,10 @@
     }
     .overlay.active { display: block; }
 
-    /* メインレイアウト（上下の余白を少し増やす） */
+    /* メインレイアウト */
     .page-container {
       max-width: 420px;
+      width: 100%;
       margin: 0 auto;
       padding: 40px 20px 60px 20px;
     }
@@ -156,7 +159,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* 上部の他日程ナビボタン（さらにシンプルに、影なし・細めセリフ） */
+    /* 上部の他日程ナビボタン */
     .top-day-nav {
       display: flex;
       justify-content: center;
@@ -183,29 +186,34 @@
       background-color: #f8fafc;
     }
 
-    /* タイムラインコンテナ */
+    /* タイムラインコンテナ（左端を left: 52px 程度に固定） */
     .timeline-container {
       position: relative;
-      padding-left: 20px;
+      padding-left: 52px;
+      width: 100%;
     }
 
-    /* 左側の縦線（今より細く・淡く） */
+    /* タイムラインの縦線（1px・淡く） */
     .timeline-container::before {
       content: '';
       position: absolute;
-      left: 3px;
-      top: 8px;
-      bottom: 8px;
-      width: 0.5px;
+      left: 32px;
+      top: 10px;
+      bottom: 10px;
+      width: 1px;
       background-color: #cbd5e1;
     }
 
-    /* タイムライン項目（予定と予定の間隔・区切り） */
+    /* 各予定（上下に28〜32pxの余白、下に1pxの薄い区切り線） */
     .timeline-item {
       position: relative;
-      padding-bottom: 24px;
-      margin-bottom: 4px;
-      border-bottom: 0.5px solid rgba(226, 232, 240, 0.6);
+      padding-top: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    }
+
+    .timeline-item:first-child {
+      padding-top: 0;
     }
 
     .timeline-item:last-child {
@@ -213,63 +221,86 @@
       border-bottom: none;
     }
 
-    /* 丸いポイント（小さく） */
+    /* タイムラインの丸（約8px） */
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -20px;
-      top: 5px;
-      width: 4px;
-      height: 4px;
+      left: -20px; /* 52pxのpadding内から線位置へ調整 (-20px == 32px - 52px + 4px) */
+      top: 34px;   /* 最初の要素の上下余白に合わせて調整 */
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background-color: #ffffff;
       border: 1px solid #3d617c;
       z-index: 2;
     }
 
-    /* 時刻（セリフ体・Regular） */
+    .timeline-item:first-child::before {
+      top: 4px;
+    }
+
+    /* コンテンツ全体のラッパー（タイムラインから右に40px配置） */
+    .timeline-content {
+      /* padding-leftを無くし、timeline-container自体のpadding-left: 52pxと合わせることで右側に配置 */
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* 時刻（18px / Regular / グレー）※デザイン指示に合わせ少し調整、Cinzelフォント */
     .time {
       font-family: 'Cinzel', serif;
-      font-size: 11.5px;
+      font-size: 15px;
       font-weight: 400;
       letter-spacing: 0.5px;
       color: #64748b;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
-    /* 予定名リンク（Medium程度） */
+    /* 予定名：通常のテキスト（20px / font-weight: 600 / 現在の色） */
+    .action-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: #202A3A;
+      display: block;
+      line-height: 1.35;
+    }
+
+    /* 予定名：リンクの場合（ネイビー＋text-decoration: underline、下線不透明度調整） */
     .place-link {
-      font-size: 14.5px;
-      font-weight: 500;
+      font-size: 18px;
+      font-weight: 600;
       color: #3d617c;
-      text-decoration: none;
+      text-decoration: underline;
+      text-decoration-color: rgba(61, 97, 124, 0.4);
+      text-underline-offset: 3px;
       display: inline-block;
-      line-height: 1.4;
-      transition: color 0.2s;
+      line-height: 1.35;
+      transition: color 0.2s, text-decoration-color 0.2s;
     }
 
     .place-link:hover {
-      text-decoration: underline;
+      color: #2b475d;
+      text-decoration-color: rgba(43, 71, 93, 0.8);
     }
 
-    /* 行動テキスト（Medium程度） */
-    .action-text {
-      font-size: 14.5px;
-      font-weight: 500;
-      color: #202A3A;
+    /* 補足（16px / Regular / グレー） */
+    .note-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: #64748b;
+      margin-top: 4px;
       display: block;
       line-height: 1.4;
     }
 
-    /* 補足テキスト（Regular・淡め） */
-    .note-text {
-      font-size: 11.5px;
-      font-weight: 300;
-      color: #64748b;
-      margin-top: 3px;
-      display: block;
-      line-height: 1.35;
+    /* 混在する場合のインラインテキスト調整 */
+    .inline-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px;
     }
 
     /* MEMOフォーム */
@@ -279,6 +310,7 @@
       border-radius: 12px;
       padding: 20px;
       margin-top: 40px;
+      width: 100%;
     }
 
     .memo-title {
@@ -343,6 +375,7 @@
     .back-link {
       margin-top: 36px;
       text-align: center;
+      width: 100%;
     }
 
     .back-link a {
@@ -361,7 +394,6 @@
 </head>
 <body>
 
-  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -371,7 +403,6 @@
     <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -388,99 +419,110 @@
     </ul>
   </nav>
 
-  <!-- バックドロップ -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- メインコンテンツ -->
   <main class="page-container">
     
-    <!-- タイトルヘッダー -->
     <div class="schedule-header">
       <p class="schedule-sub">TRAVEL SCHEDULE</p>
       <h1 class="schedule-title">DAY 1</h1>
       <p class="schedule-date">October 2026</p>
       
-      <!-- 上部の他日程ナビボタン -->
       <div class="top-day-nav">
         <a href="day2.html" class="top-day-btn">DAY 2 →</a>
         <a href="day3.html" class="top-day-btn">DAY 3 →</a>
       </div>
     </div>
 
-    <!-- タイムラインエリア -->
     <div class="timeline-container">
 
-      <!-- 1. 羽田空港 -->
       <div class="timeline-item">
-        <span class="time">08:30</span>
-        <span class="action-text">羽田空港</span>
+        <div class="timeline-content">
+          <span class="time">08:30</span>
+          <span class="action-text">羽田空港</span>
+        </div>
       </div>
 
-      <!-- 2. 搭乗 -->
       <div class="timeline-item">
-        <span class="time">11:10</span>
-        <span class="action-text">搭乗</span>
-        <span class="note-text">便名: NH965</span>
+        <div class="timeline-content">
+          <span class="time">11:10</span>
+          <span class="action-text">搭乗</span>
+          <span class="note-text">便名: NH965</span>
+        </div>
       </div>
 
-      <!-- 3. 深圳空港 -->
       <div class="timeline-item">
-        <span class="time">15:10</span>
-        <span class="action-text">深圳宝安国際空港</span>
+        <div class="timeline-content">
+          <span class="time">15:10</span>
+          <span class="action-text">深圳宝安国際空港</span>
+        </div>
       </div>
 
-      <!-- 4. ホテル -->
       <div class="timeline-item">
-        <span class="time">15:30 - 16:30</span>
-        <a class="place-link" href="https://www.hyatt.com/en-US/hotel/china/urcove-shenzhen-futian-cbd/uc031" target="_blank">UrCove Hotel</a>
-        <span class="action-text" style="margin-top:2px;">チェックイン</span>
+        <div class="timeline-content">
+          <span class="time">15:30 - 16:30</span>
+          <a class="place-link" href="https://www.hyatt.com/en-US/hotel/china/urcove-shenzhen-futian-cbd/uc031" target="_blank">UrCove Hotel</a>
+          <span class="action-text" style="margin-top:2px;">チェックイン</span>
+        </div>
       </div>
 
-      <!-- 5. 香港へ移動 -->
       <div class="timeline-item">
-        <span class="time">16:30 - 17:30</span>
-        <span class="action-text">香港へ移動</span>
+        <div class="timeline-content">
+          <span class="time">16:30 - 17:30</span>
+          <span class="action-text">香港へ移動</span>
+        </div>
       </div>
 
-      <!-- 6. 尖沙咀 K11 -->
       <div class="timeline-item">
-        <span class="time">17:30 - 18:30</span>
-        <span class="action-text">尖沙咀 <a class="place-link" href="landmark.html#k11" style="display:inline; margin-left:4px;">K11 MUSEA</a></span>
+        <div class="timeline-content">
+          <span class="time">17:30 - 18:30</span>
+          <div class="inline-group">
+            <span class="action-text">尖沙咀</span>
+            <a class="place-link" href="landmark.html#k11">K11 MUSEA</a>
+          </div>
+        </div>
       </div>
 
-      <!-- 7. スターフェリー -->
       <div class="timeline-item">
-        <span class="time">18:30 - 19:00</span>
-        <a class="place-link" href="https://www.starferry.com.hk/" target="_blank">スターフェリー</a>
+        <div class="timeline-content">
+          <span class="time">18:30 - 19:00</span>
+          <a class="place-link" href="https://www.starferry.com.hk/" target="_blank">スターフェリー</a>
+        </div>
       </div>
 
-      <!-- 8. 食事 -->
       <div class="timeline-item">
-        <span class="time">19:30 - 20:30</span>
-        <span class="action-text">中環エリア <a class="place-link" href="foods.html" style="display:inline; margin-left:4px;">食事</a></span>
+        <div class="timeline-content">
+          <span class="time">19:30 - 20:30</span>
+          <div class="inline-group">
+            <span class="action-text">中環エリア</span>
+            <a class="place-link" href="foods.html">食事</a>
+          </div>
+        </div>
       </div>
 
-      <!-- 9. ヴィクトリアピーク -->
       <div class="timeline-item">
-        <span class="time">21:00 - 22:00</span>
-        <a class="place-link" href="landmark.html#victoria-peak">ヴィクトリアピーク</a>
+        <div class="timeline-content">
+          <span class="time">21:00 - 22:00</span>
+          <a class="place-link" href="landmark.html#victoria-peak">ヴィクトリアピーク</a>
+        </div>
       </div>
 
-      <!-- 10. 男人街 -->
       <div class="timeline-item">
-        <span class="time">22:00 - 23:00</span>
-        <a class="place-link" href="landmark.html#temple-street">男人街</a>
+        <div class="timeline-content">
+          <span class="time">22:00 - 23:00</span>
+          <a class="place-link" href="landmark.html#temple-street">男人街</a>
+        </div>
       </div>
 
-      <!-- 11. 深圳へ -->
       <div class="timeline-item">
-        <span class="time">23:00 -</span>
-        <span class="action-text">深圳へ</span>
+        <div class="timeline-content">
+          <span class="time">23:00 -</span>
+          <span class="action-text">深圳へ</span>
+        </div>
       </div>
 
     </div>
 
-    <!-- MEMO送信フォーム -->
     <div class="memo-card">
       <div class="memo-title">MEMO</div>
       <p class="memo-desc">行きたいお店やリンクを自由にメモとして送ろう。</p>
@@ -490,7 +532,6 @@
       </form>
     </div>
 
-    <!-- バックリンク -->
     <div class="back-link">
       <a href="index.html">← TOP PAGE</a>
     </div>
