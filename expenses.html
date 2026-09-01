@@ -6,7 +6,7 @@
   <title>EXPENSES - Shenzhen & Hong Kong</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     /* リセット & 基本スタイル */
     * {
@@ -118,7 +118,7 @@
     }
     .overlay.active { display: block; }
 
-    /* メインコンテナ（他ページと統一感のあるパディングに調整） */
+    /* メインコンテナ */
     .page-container {
       max-width: 420px;
       width: 100%;
@@ -126,23 +126,23 @@
       padding: 40px 20px 60px 20px;
     }
 
-    /* タイトルヘッダー（他ページと同程度に上下余白を縮小） */
+    /* タイトルヘッダー */
     .schedule-header {
       margin-bottom: 24px;
       text-align: left;
     }
 
     .schedule-sub {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 9.5px; /* 現在より約10〜15%小さく変更 (11px → 9.5px) */
+      font-weight: 600;  /* 少しすっきりしたウェイトに調整 */
       letter-spacing: 2px;
       color: #64748b;
       margin-bottom: 4px;
     }
 
     .schedule-title {
-      font-size: 23.5px; /* 現在より約10%小さく調整 */
-      font-weight: 800;
+      font-size: 23.5px; /* サイズ変更なしを維持 */
+      font-weight: 800;   /* フォント・太さを維持 */
       color: #0f172a;
       letter-spacing: 1px;
     }
@@ -226,9 +226,10 @@
 
     .expense-label-group .time {
       font-size: 11px;
-      font-weight: 700;
-      color: #64748b;
+      font-weight: 500; /* 現在より少し細いウェイトに調整 (700 → 500) */
+      color: #64748b;   /* ブルーグレーの色味を維持 */
       margin-bottom: 2px;
+      letter-spacing: 0.5px;
     }
 
     .expense-label-group .text {
