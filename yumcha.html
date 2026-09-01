@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -259,17 +259,19 @@
       padding-bottom: 6px;
     }
 
-    /* 店名 (23px / Medium 500) */
+    /* 店名 (ゴシック体 / 23px / Semibold 600) */
     .shop-name {
+      font-family: 'Noto Sans JP', sans-serif;
       font-size: 23px;
-      font-weight: 500;
+      font-weight: 600;
       color: #202A3A;
       line-height: 1.2;
     }
 
-    /* 店舗名 (15px / Regular 400) */
+    /* 店舗支店名 (16px / Regular 400 / グレー) */
     .branch-name {
-      font-size: 15px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 16px;
       color: #718096;
       font-weight: 400;
     }
@@ -446,7 +448,7 @@
     }
 
     function moveSlide(sliderId, step) {
-      showSlide(sliderId, slideIndexes[sliderId] + step);
+      showSlide(sliderId, step);
     }
 
     function setSlide(sliderId, index) {
