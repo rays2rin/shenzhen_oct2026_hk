@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LANDMARK - Shenzhen & Hong Kong</title>
 
+  <!-- フォント読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -200,6 +201,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
       display: flex;
       flex-direction: column;
+      scroll-margin-top: 80px; /* 固定ヘッダー対策のズレ補正 */
     }
 
     /* 画像エリアと番号バッジ */
@@ -282,6 +284,7 @@
 </head>
 <body>
 
+  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -291,6 +294,7 @@
     <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
+  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -309,12 +313,15 @@
 
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
+  <!-- メインコンテンツ -->
   <main class="page-container">
 
     <div class="header-section">
       <h1 class="page-title">SIGHTSEEING GUIDE</h1>
+      <p class="page-sub">観光名所やお勧めスポットをエリア別にご紹介します。</p>
     </div>
 
+    <!-- 香港エリア -->
     <div class="accordion-section active">
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <h2>HONG KONG</h2>
@@ -323,7 +330,8 @@
       <div class="accordion-content">
         <div class="grid-container">
 
-          <div class="spot-card">
+          <!-- 01 ヴィクトリア・ピーク -->
+          <div class="spot-card" id="victoria-peak">
             <div class="card-image-box">
               <span class="badge-num">01</span>
               <img src="IMG_3214.jpeg" alt="ヴィクトリア・ピーク">
@@ -335,7 +343,8 @@
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 02 男人街 -->
+          <div class="spot-card" id="temple-street">
             <div class="card-image-box">
               <span class="badge-num">02</span>
               <img src="IMG_3216.webp" alt="男人街">
@@ -347,7 +356,8 @@
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 03 SOHO -->
+          <div class="spot-card" id="soho">
             <div class="card-image-box">
               <span class="badge-num">03</span>
               <img src="IMG_3215.jpeg" alt="SOHO">
@@ -359,7 +369,8 @@
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 04 K11 -->
+          <div class="spot-card" id="k11">
             <div class="card-image-box">
               <span class="badge-num">04</span>
               <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="K11">
@@ -375,6 +386,7 @@
       </div>
     </div>
 
+    <!-- 深圳エリア -->
     <div class="accordion-section active">
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <h2>SHENZHEN</h2>
@@ -383,7 +395,8 @@
       <div class="accordion-content">
         <div class="grid-container">
 
-          <div class="spot-card">
+          <!-- 01 深圳湾公園 -->
+          <div class="spot-card" id="shenzhen-bay">
             <div class="card-image-box">
               <span class="badge-num">01</span>
               <img src="IMG_3217.jpeg" alt="深圳湾公園">
@@ -395,19 +408,21 @@
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 02 華強北 -->
+          <div class="spot-card" id="huaqiangbei">
             <div class="card-image-box">
               <span class="badge-num">02</span>
               <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=600&q=80" alt="華強北">
             </div>
             <div class="card-body">
               <div class="spot-title">華強北</div>
-              <div class="spot-desc">中国最大級の電気街。ガジェットや電子部品の宝庫</div>
+              <div class="spot-desc">中国最大級の電気街。ガジェットや電子部品の宝庫！</div>
               <div class="spot-location">📍 福田区</div>
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 03 巨人展 -->
+          <div class="spot-card" id="kyojinten">
             <div class="card-image-box">
               <span class="badge-num">03</span>
               <img src="F0FFC33E-225D-4E06-BCE6-C41816B133D5.png" alt="巨人展">
@@ -419,7 +434,8 @@
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 04 海上世界 -->
+          <div class="spot-card" id="sea-world">
             <div class="card-image-box">
               <span class="badge-num">04</span>
               <img src="IMG_3219.jpeg" alt="海上世界">
@@ -431,7 +447,8 @@
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 05 东门老街 -->
+          <div class="spot-card" id="dongmen">
             <div class="card-image-box">
               <span class="badge-num">05</span>
               <img src="IMG_3220.jpeg" alt="东门老街">
@@ -443,7 +460,8 @@
             </div>
           </div>
 
-          <div class="spot-card">
+          <!-- 06 甘坑古鎮 -->
+          <div class="spot-card" id="gankeng">
             <div class="card-image-box">
               <span class="badge-num">06</span>
               <img src="EF27F623-36E9-49B6-8221-C2A75B550FC7.png" alt="甘坑古鎮">
@@ -459,7 +477,9 @@
       </div>
     </div>
 
-
+    <div class="bottom-hint">
+      💡 タップすると詳細情報やアクセス方法をご覧いただけます。
+    </div>
 
   </main>
 
@@ -482,6 +502,27 @@
         icon.innerText = '▼';
       }
     }
+
+    /* ハッシュ（#〇〇）指定で遷移してきた場合の自動スクロール＆展開処理 */
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          // 親のアコーディオンを開く
+          const accordionSection = targetElement.closest('.accordion-section');
+          if (accordionSection && !accordionSection.classList.contains('active')) {
+            accordionSection.classList.add('active');
+            const icon = accordionSection.querySelector('.accordion-icon');
+            if (icon) icon.innerText = '▲';
+          }
+          // 少し遅延を入れて指定要素へスムーススクロール
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      }
+    });
   </script>
 </body>
 </html>
