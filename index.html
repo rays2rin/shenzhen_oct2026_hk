@@ -31,7 +31,34 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 25px;
-      margin-bottom: 22px; /* 1段目と2段目の間をほんの少し広げました (+8px) */
+    }
+
+    /* 左右線付きテキストラベル（TRIP / PLAN） */
+    .nav-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      margin: 14px 0;
+    }
+
+    .nav-divider::before,
+    .nav-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .nav-divider::before {
+      margin-right: 12px;
+    }
+
+    .nav-divider::after {
+      margin-left: 12px;
     }
 
     /* 2段目：FOOD / SIGHTS / TRANSIT */
@@ -39,7 +66,6 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 18px; /* 2段目と3段目の縦間隔 */
     }
 
     .secondary-row-3 .btn-secondary {
@@ -87,12 +113,18 @@
           <a href="day3.html" class="btn btn-primary">DAY 3</a>
         </div>
 
+        <!-- TRIP 区切り線 -->
+        <div class="nav-divider">TRIP</div>
+
         <!-- 2段目：FOOD / SIGHTS / TRANSIT -->
         <div class="secondary-row-3">
           <a href="foods.html" class="btn btn-secondary">FOOD</a>
           <a href="landmark.html" class="btn btn-secondary">SIGHTS</a>
           <a href="traffic.html" class="btn btn-secondary">TRANSIT</a>
         </div>
+
+        <!-- PLAN 区切り線 -->
+        <div class="nav-divider">PLAN</div>
 
         <!-- 3段目：TODO / EXPENSES -->
         <div class="secondary-row-2">
