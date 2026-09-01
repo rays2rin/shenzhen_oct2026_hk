@@ -10,14 +10,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   
   <style>
-    /* 追加ボタンレイアウト調整用スタイル */
+    /* ナビゲーション全体の縦ギャップ調整 */
+    .top-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 14px; /* 段同士の縦間隔を少し広げました */
+    }
+
+    .primary-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    /* 2段目：FOOD / SIGHTS / TRANSIT (高さ10〜15%小さく) */
     .secondary-row-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 10px;
     }
 
+    .secondary-row-3 .btn-secondary {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+      min-height: unset !important;
+      font-size: 11px; /* 短縮文字が綺麗に収まる調整 */
+      letter-spacing: 0.5px;
+    }
+
+    /* 3段目：TODO / EXPENSES (通常のサイズ感維持) */
     .secondary-row-2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -53,14 +74,14 @@
           <a href="day3.html" class="btn btn-primary">DAY 3</a>
         </div>
 
-        <!-- 2段目：FOOD / SIGHTSEEING / TRANSPORTATION -->
+        <!-- 2段目：FOOD / SIGHTS / TRANSIT (高さ約10〜15%縮小・文字数減) -->
         <div class="secondary-row-3">
           <a href="foods.html" class="btn btn-secondary">FOOD</a>
-          <a href="landmark.html" class="btn btn-secondary">SIGHTSEEING</a>
-          <a href="traffic.html" class="btn btn-secondary">TRANSPORTATION</a>
+          <a href="landmark.html" class="btn btn-secondary">SIGHTS</a>
+          <a href="traffic.html" class="btn btn-secondary">TRANSIT</a>
         </div>
 
-        <!-- 3段目：TODO / EXPENSES -->
+        <!-- 3段目：TODO / EXPENSES (現状サイズ維持) -->
         <div class="secondary-row-2">
           <a href="todo.html" class="btn btn-secondary">TODO</a>
           <a href="expenses.html" class="btn btn-secondary">EXPENSES</a>
