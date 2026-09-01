@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TODO & PACKING - Shenzhen & Hong Kong</title>
   
-  <!-- Cinzel などのフォント追加読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -19,7 +18,7 @@
       justify-content: space-between;
     }
     
-    /* 右寄せタイトル (Cinzelフォント & 他のページと完全統一) */
+    /* 右寄せタイトル (Day1と完全同一の 1.5px に指定) */
     .site-title {
       margin-left: auto;
       text-align: right;
@@ -29,26 +28,24 @@
       font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: #202A3A;
       text-decoration: none;
     }
 
-    /* ハンバーガーメニュー内リンク (Cinzelフォント & 他のページと完全統一) */
+    /* ハンバーガーメニュー内リンク (Day1と完全同一の 1px に指定) */
     .drawer-menu a {
       text-decoration: none;
       color: #202A3A;
       font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      letter-spacing: 1px;
     }
   </style>
 </head>
 <body>
 
-  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -58,7 +55,6 @@
     <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -74,19 +70,15 @@
     </ul>
   </nav>
 
-  <!-- バックドロップ -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- メインコンテンツ -->
   <main class="page-container">
     
-    <!-- タイトルヘッダー -->
     <div class="schedule-header">
       <p class="schedule-sub">CHECKLIST</p>
       <h1 class="schedule-title">TO DO & PACKING</h1>
     </div>
 
-    <!-- TODO ブロック（カバンの中の位置付け） -->
     <div class="checklist-card">
       <h2 class="checklist-title">TODO</h2>
       <div class="checklist-grid">
@@ -139,7 +131,6 @@
       </div>
     </div>
 
-    <!-- 持ち物 ブロック（キャリーケースの位置付け） -->
     <div class="checklist-card">
       <h2 class="checklist-title">持ち物</h2>
       <div class="checklist-grid">
