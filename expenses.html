@@ -34,7 +34,6 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      margin-bottom: 20px;
     }
 
     .menu-icon {
@@ -119,16 +118,17 @@
     }
     .overlay.active { display: block; }
 
-    /* メインコンテナ */
+    /* メインコンテナ（他ページと統一感のあるパディングに調整） */
     .page-container {
-      max-width: 440px;
+      max-width: 420px;
+      width: 100%;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 40px 20px 60px 20px;
     }
 
-    /* タイトルヘッダー */
+    /* タイトルヘッダー（他ページと同程度に上下余白を縮小） */
     .schedule-header {
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       text-align: left;
     }
 
@@ -137,11 +137,11 @@
       font-weight: 700;
       letter-spacing: 2px;
       color: #64748b;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .schedule-title {
-      font-size: 26px;
+      font-size: 23.5px; /* 現在より約10%小さく調整 */
       font-weight: 800;
       color: #0f172a;
       letter-spacing: 1px;
@@ -266,13 +266,13 @@
 
     /* バックリンク */
     .back-link {
-      margin-top: 32px;
+      margin-top: 36px;
       text-align: center;
     }
 
     .back-link a {
       font-family: 'Cinzel', serif;
-      color: #64748b;
+      color: #718096;
       text-decoration: none;
       font-size: 11px;
       font-weight: 700;
@@ -316,7 +316,7 @@
   <main class="page-container">
     
     <div class="schedule-header">
-      <p class="schedule-sub">ESTIMATED BUDGET</p>
+      <p class="schedule-sub">TRAVEL BUDGET</p>
       <h1 class="schedule-title">EXPENSES</h1>
     </div>
 
