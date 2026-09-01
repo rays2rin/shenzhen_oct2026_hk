@@ -53,15 +53,19 @@
       border-radius: 2px;
     }
 
-    /* 右寄せタイトル (Cinzelフォントに統一) */
+    /* 右寄せタイトル (Day1と完全同一の1.5px指定) */
     .site-title {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .site-title a {
       font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: #202A3A;
-      margin-left: auto;
-      text-align: right;
+      text-decoration: none;
     }
 
     /* ドロワーメニュー */
@@ -91,15 +95,14 @@
     .drawer-menu ul { list-style: none; }
     .drawer-menu li { margin-bottom: 16px; }
     
-    /* メニュー項目 (Cinzelフォントに統一) */
+    /* メニュー項目 (Day1と完全同一の1px指定) */
     .drawer-menu a {
       text-decoration: none;
       color: #202A3A;
       font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .drawer-menu .divider {
@@ -263,7 +266,7 @@
       padding-bottom: 6px;
     }
 
-    /* 店名 (フォントサイズを 20px に変更) */
+    /* 店名 */
     .shop-name {
       font-family: 'Noto Serif JP', serif;
       font-size: 20px;
@@ -313,17 +316,15 @@
 </head>
 <body>
 
-  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
-    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+    <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -339,7 +340,6 @@
     </ul>
   </nav>
 
-  <!-- バックドロップ -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <main class="page-container">
@@ -351,7 +351,6 @@
 
     <div class="shop-list">
 
-      <!-- 店舗1：陶陶居酒家 -->
       <div class="shop-card">
         <div class="slider-container" id="slider1">
           <div class="slider-wrapper">
@@ -385,7 +384,6 @@
         </div>
       </div>
 
-      <!-- 店舗2：利宝阁 -->
       <div class="shop-card">
         <div class="slider-container" id="slider2">
           <div class="slider-wrapper">
