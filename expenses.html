@@ -51,7 +51,7 @@
       border-radius: 2px;
     }
 
-    /* 右寄せタイトル (Cinzelフォント指定) */
+    /* 右寄せタイトル (Day1と完全に同じ 1.5px 指定) */
     .site-title {
       margin-left: auto;
       text-align: right;
@@ -61,7 +61,7 @@
       font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: #202A3A;
       text-decoration: none;
     }
@@ -93,15 +93,14 @@
     .drawer-menu ul { list-style: none; }
     .drawer-menu li { margin-bottom: 16px; }
     
-    /* ハンバーガーメニュー内リンク (Cinzelフォント指定) */
+    /* ハンバーガーメニュー内リンク (Day1と完全に同じ 1px 指定) */
     .drawer-menu a {
       text-decoration: none;
       color: #202A3A;
       font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .drawer-menu .divider {
@@ -148,7 +147,7 @@
       letter-spacing: 1px;
     }
 
-    /* 合計金額カード (Montserratに戻るよう明確化) */
+    /* 合計金額カード */
     .total-box {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -272,11 +271,12 @@
     }
 
     .back-link a {
+      font-family: 'Cinzel', serif;
       color: #64748b;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       transition: color 0.2s;
     }
 
@@ -422,39 +422,31 @@
   </main>
 
   <script>
-    // メニュー開閉制御
     function toggleMenu() {
       document.getElementById('drawerMenu').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // 自動計算機能
     function calculateTotal() {
       let total = 0;
-
-      // 固定金額の合算
       const fixedItems = document.querySelectorAll('.calc-item');
       fixedItems.forEach(item => {
         total += parseInt(item.getAttribute('data-value'), 10) || 0;
       });
 
-      // 選択式金額の合算
       const selectItems = document.querySelectorAll('.calc-select');
       selectItems.forEach(select => {
         total += parseInt(select.value, 10) || 0;
       });
 
-      // 3桁カンマ区切り表示
       const totalEl = document.getElementById('totalAmount');
       totalEl.textContent = '¥' + total.toLocaleString();
 
-      // 数字のアニメーションリセット＆適用
       totalEl.classList.remove('pop-anim');
-      void totalEl.offsetWidth; // リフロー発生
+      void totalEl.offsetWidth;
       totalEl.classList.add('pop-anim');
     }
 
-    // 初期実行
     document.addEventListener('DOMContentLoaded', calculateTotal);
   </script>
 </body>
