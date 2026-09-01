@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DAY 2 - Shenzhen & Hong Kong</title>
 
-  <!-- フォントの軽量読み込み (必要なウェイトのみ指定) -->
+  <!-- フォントの軽量読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -19,8 +19,8 @@
 
     body {
       background-color: #f6f8fb;
-      color: #202A3A; /* 基本文字：濃いネイビー */
-      font-family: 'Noto Sans JP', sans-serif; /* 日本語本文 */
+      color: #202A3A;
+      font-family: 'Noto Sans JP', sans-serif;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -53,7 +53,7 @@
     }
 
     .site-title {
-      font-family: 'Cinzel', serif; /* 英字タイトル: Serif */
+      font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 13px;
       letter-spacing: 1.5px;
@@ -141,7 +141,7 @@
     }
 
     .schedule-date {
-      font-family: 'Cinzel', serif; /* 数字・英字 */
+      font-family: 'Cinzel', serif;
       font-size: 13px;
       font-weight: 500;
       color: rgba(32, 42, 58, 0.65);
@@ -197,7 +197,7 @@
       margin-bottom: 10px;
     }
 
-    /* 極小化した丸ノード (5px) */
+    /* 丸ノード */
     .timeline-item::before {
       content: '';
       position: absolute;
@@ -211,7 +211,7 @@
       z-index: 2;
     }
 
-    /* カード（薄い枠線） */
+    /* カード */
     .card {
       background: #ffffff;
       border-radius: 12px;
@@ -220,9 +220,9 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.015);
     }
 
-    /* 時刻：数字Serif / ネイビー薄め */
+    /* 時刻 */
     .time {
-      font-family: 'Cinzel', serif; /* 数字: Serif */
+      font-family: 'Cinzel', serif;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.5px;
@@ -231,7 +231,7 @@
       margin-bottom: 2px;
     }
 
-    /* リンク：ブルーグレー (#3d617c) */
+    /* リンク */
     .place-link {
       font-size: 14.5px;
       font-weight: 700;
@@ -245,7 +245,7 @@
       text-decoration: underline;
     }
 
-    /* 行動テキスト（基本ネイビー） */
+    /* 行動テキスト */
     .action-text {
       font-size: 14px;
       font-weight: 500;
@@ -254,7 +254,7 @@
       line-height: 1.35;
     }
 
-    /* 補足テキスト（ライトグレー） */
+    /* 補足テキスト */
     .note-text {
       font-size: 11px;
       color: #718096;
@@ -369,6 +369,7 @@
       <li><a href="expenses.html">expenses</a></li>
       <li><a href="traffic.html">traffic</a></li>
       <li><a href="foods.html">foods</a></li>
+      <li><a href="landmark.html">landmark</a></li>
     </ul>
   </nav>
 
@@ -405,7 +406,7 @@
       <div class="timeline-item">
         <div class="card">
           <span class="time">10:00 - 11:30</span>
-          <a class="place-link" href="yumcha.html">飲茶店</a>
+          <a class="place-link" href="foods.html">飲茶店</a>
           <span class="note-text">※朝昼兼用ご飯</span>
         </div>
       </div>
@@ -414,7 +415,7 @@
       <div class="timeline-item">
         <div class="card">
           <span class="time">11:30 - 12:30</span>
-          <a class="place-link" href="https://jp.trip.com/guide/info/%E6%B7%B1%E5%9C%B3%E6%B9%BE%E5%85%AC%E5%9C%92.html" target="_blank">深圳湾公園</a>
+          <a class="place-link" href="landmark.html">深圳湾公園</a>
           <span class="note-text">※ドローンデリバリーで飲み物を購入</span>
         </div>
       </div>
@@ -427,45 +428,44 @@
         </div>
       </div>
 
-      <!-- 5.深圳之眼 -->
+      <!-- 5. 華強北 電気街ビル -->
       <div class="timeline-item">
         <div class="card">
-          <span class="time">13:00 - 14:20</span>
-          <a class="place-link" href="https://ja.wikipedia.org/wiki/%E6%B5%B7%E4%B8%8A%E4%B8%96%E7%95%8C" target="_blank">深圳之眼</a>
+          <span class="time">13:00 - 14:40</span>
+          <a class="place-link" href="landmark.html">華強北 電気街ビル</a>
         </div>
       </div>
 
-      <!-- 6. 華強北 電気街ビル -->
+      <!-- 6. 甘坑古鎮 -->
       <div class="timeline-item">
         <div class="card">
-          <span class="time">14:30 - 16:00</span>
-          <a class="place-link" href="https://jp.trip.com/moments/detail/shenzhen-83-10825310/" target="_blank">華強北 電気街ビル</a>
+          <span class="time">15:30 - 18:20</span>
+          <a class="place-link" href="landmark.html">甘坑古鎮</a>
         </div>
       </div>
 
-      <!-- 7. 東門老街 マッサージ -->
+      <!-- 7. 东门老街 -->
       <div class="timeline-item">
         <div class="card">
-          <span class="time">16:20 - 18:00</span>
-          <a class="place-link" href="https://jp.trip.com/travel-guide/attraction/shenzhen/dongmen-pedestrian-street-10758156/" target="_blank">東門老街</a>
-          <span class="action-text">マッサージ</span>
-        </div>
-      </div>
-
-      <!-- 8. 市民中心でご飯 -->
-      <div class="timeline-item">
-        <div class="card">
-          <span class="time">18:30 - 20:00</span>
-          <a class="place-link" href="foods.html">市民中心</a>
+          <span class="time">19:00 - 20:30</span>
+          <a class="place-link" href="landmark.html">东门老街</a>
           <span class="action-text">食事</span>
         </div>
       </div>
 
-      <!-- 9. お土産等買い物 -->
+      <!-- 8. 市民中心 お土産等買い物 -->
       <div class="timeline-item">
         <div class="card">
-          <span class="time">20:30 - 21:30</span>
-          <span class="action-text">お土産等買い物</span>
+          <span class="time">20:50 - 21:30</span>
+          <span class="action-text">市民中心 お土産等買い物</span>
+        </div>
+      </div>
+
+      <!-- 9. 市民中心 マッサージ -->
+      <div class="timeline-item">
+        <div class="card">
+          <span class="time">21:30 - 22:30</span>
+          <span class="action-text">市民中心 マッサージ</span>
         </div>
       </div>
 
