@@ -51,15 +51,20 @@
       border-radius: 2px;
     }
 
-    /* 右寄せタイトル (Cinzelフォントに変更) */
+    /* 右寄せタイトル (Cinzelフォント & 強制上書き) */
     .site-title {
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 2px;
-      color: #202A3A;
       margin-left: auto;
       text-align: right;
+    }
+
+    .site-title a {
+      font-family: 'Cinzel', serif !important;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      letter-spacing: 2px !important;
+      color: #202A3A !important;
+      text-decoration: none !important;
+      display: inline-block;
     }
 
     /* ドロワーメニュー */
@@ -89,15 +94,16 @@
     .drawer-menu ul { list-style: none; }
     .drawer-menu li { margin-bottom: 16px; }
     
-    /* ハンバーガーメニュー内リンク (Cinzelフォントに変更) */
+    /* ハンバーガーメニュー内リンク (Cinzelフォント & 強制上書き) */
     .drawer-menu a {
-      text-decoration: none;
-      color: #202A3A;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      text-decoration: none !important;
+      color: #202A3A !important;
+      font-family: 'Cinzel', serif !important;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      letter-spacing: 2px !important;
+      text-transform: uppercase !important;
+      display: inline-block;
     }
 
     .drawer-menu .divider {
@@ -289,7 +295,7 @@
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
-    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+    <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
   </header>
 
   <!-- ドロワーメニュー -->
@@ -420,39 +426,32 @@
   </main>
 
   <script>
-    // メニュー開閉制御
     function toggleMenu() {
       document.getElementById('drawerMenu').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // 自動計算機能
     function calculateTotal() {
       let total = 0;
 
-      // 固定金額の合算
       const fixedItems = document.querySelectorAll('.calc-item');
       fixedItems.forEach(item => {
         total += parseInt(item.getAttribute('data-value'), 10) || 0;
       });
 
-      // 選択式金額の合算
       const selectItems = document.querySelectorAll('.calc-select');
       selectItems.forEach(select => {
         total += parseInt(select.value, 10) || 0;
       });
 
-      // 3桁カンマ区切り表示
       const totalEl = document.getElementById('totalAmount');
       totalEl.textContent = '¥' + total.toLocaleString();
 
-      // 数字のアニメーションリセット＆適用
       totalEl.classList.remove('pop-anim');
-      void totalEl.offsetWidth; // リフロー発生
+      void totalEl.offsetWidth;
       totalEl.classList.add('pop-anim');
     }
 
-    // 初期実行
     document.addEventListener('DOMContentLoaded', calculateTotal);
   </script>
 </body>
