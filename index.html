@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   
   <style>
-    /* ④ メニューボタン群をアニメーションなしで常時表示 */
+    /* メニューボタン群をアニメーションなしで常時表示 */
     .top-nav,
     .top-nav * {
       animation: none !important;
@@ -25,22 +25,21 @@
       flex-direction: column;
     }
 
-    /* ① DAY 1 / 2 / 3 を20〜30px下げる */
+    /* 1段目：DAY 1 / 2 / 3 */
     .primary-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 25px;
-      margin-bottom: 14px;
+      margin-bottom: 22px; /* 1段目と2段目の間をほんの少し広げました (+8px) */
     }
 
-    /* ② FOOD / SIGHTS / TRANSIT の高さをさらに5〜10%小さく */
+    /* 2段目：FOOD / SIGHTS / TRANSIT */
     .secondary-row-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      /* ③ 3段目との縦間隔を15〜20px広げる */
-      margin-bottom: 18px;
+      margin-bottom: 18px; /* 2段目と3段目の縦間隔 */
     }
 
     .secondary-row-3 .btn-secondary {
@@ -70,7 +69,7 @@
 
     <div class="hero-content">
       
-      <!-- タイトルグループ（位置を約40px上へ移動） -->
+      <!-- タイトルグループ -->
       <div class="hero-title-group">
         <h1 class="hero-title title-shenzhen">SHENZHEN</h1>
         <h1 class="hero-title title-hongkong">HONG KONG</h1>
@@ -81,21 +80,21 @@
 
       <!-- ボタン群 -->
       <nav class="top-nav">
-        <!-- 1段目：DAY選択タブ (位置下げ) -->
+        <!-- 1段目：DAY選択タブ -->
         <div class="nav-row primary-row">
           <a href="day1.html" class="btn btn-primary active">DAY 1</a>
           <a href="day2.html" class="btn btn-primary">DAY 2</a>
           <a href="day3.html" class="btn btn-primary">DAY 3</a>
         </div>
 
-        <!-- 2段目：FOOD / SIGHTS / TRANSIT (高さ縮小) -->
+        <!-- 2段目：FOOD / SIGHTS / TRANSIT -->
         <div class="secondary-row-3">
           <a href="foods.html" class="btn btn-secondary">FOOD</a>
           <a href="landmark.html" class="btn btn-secondary">SIGHTS</a>
           <a href="traffic.html" class="btn btn-secondary">TRANSIT</a>
         </div>
 
-        <!-- 3段目：TODO / EXPENSES (縦間隔広げる) -->
+        <!-- 3段目：TODO / EXPENSES -->
         <div class="secondary-row-2">
           <a href="todo.html" class="btn btn-secondary">TODO</a>
           <a href="expenses.html" class="btn btn-secondary">EXPENSES</a>
