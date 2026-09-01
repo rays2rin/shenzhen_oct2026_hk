@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TODO & PACKING - Shenzhen & Hong Kong</title>
+  
+  <!-- Cinzel などのフォント追加読み込み -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
   <style>
     /* navbar 内の要素を左右に振り分け、タイトルを右寄せにする指定 */
@@ -12,9 +18,31 @@
       align-items: center;
       justify-content: space-between;
     }
+    
+    /* 右寄せタイトル (Cinzelフォント & 他のページと完全統一) */
     .site-title {
       margin-left: auto;
       text-align: right;
+    }
+
+    .site-title a {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: #202A3A;
+      text-decoration: none;
+    }
+
+    /* ハンバーガーメニュー内リンク (Cinzelフォント & 他のページと完全統一) */
+    .drawer-menu a {
+      text-decoration: none;
+      color: #202A3A;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
   </style>
 </head>
@@ -27,7 +55,7 @@
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
-    <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
+    <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
   </header>
 
   <!-- ドロワーメニュー -->
@@ -68,7 +96,10 @@
           <span class="box"></span>
           <span class="label-text">
             eSIM (番号なし)<br>
-            <small><a href="https://esim.holafly.com/ja/" target="_blank">Holafly</a> [クーポンコード:<code>ONODA</code>]</small>
+            <small>
+              <a href="https://esim.holafly.com/ja/" target="_blank">Holafly</a><br>
+              クーポンコード: <code>ONODA</code>
+            </small>
           </span>
         </label>
 
