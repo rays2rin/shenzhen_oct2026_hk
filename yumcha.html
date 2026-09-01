@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -20,6 +20,7 @@
       background-color: #f6f8fb;
       color: #202A3A;
       font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300; /* 日本語全体を今より一段細く */
       min-height: 100vh;
       padding-bottom: 60px;
       -webkit-font-smoothing: antialiased;
@@ -52,13 +53,15 @@
       border-radius: 2px;
     }
 
-    /* 英字ラベル */
+    /* 他のページとフォント（Montserrat）および右寄せ位置を揃える */
     .site-title {
-      font-family: 'Noto Sans JP', sans-serif;
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
       font-weight: 700;
       font-size: 13px;
       letter-spacing: 2px;
       color: #202A3A;
+      margin-left: auto;
+      text-align: right;
     }
 
     /* ドロワーメニュー */
@@ -91,7 +94,7 @@
     .drawer-menu a {
       text-decoration: none;
       color: #202A3A;
-      font-family: 'Noto Sans JP', sans-serif;
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
       font-weight: 700;
       font-size: 13px;
       letter-spacing: 2px;
@@ -118,29 +121,29 @@
     .page-container {
       max-width: 500px;
       margin: 0 auto;
-      padding: 20px 16px 40px;
+      padding: 16px 16px 40px;
     }
 
     /* 戻るボタン */
     .back-link {
       display: inline-block;
-      font-size: 13.5px;
+      font-size: 12.5px;
       color: #718096;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: 0.3px;
     }
 
     .header-section {
       text-align: center;
-      margin-top: 20px; 
-      margin-bottom: 20px;
+      margin-top: 16px; 
+      margin-bottom: 16px;
     }
 
     /* DIM SUM (セリフ体 / Regular / 32px / font-weight: 400 / letter-spacing: 0.05em) */
     .page-title {
       font-family: 'Cinzel', serif;
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 400;
       color: #202A3A;
       letter-spacing: 0.05em;
@@ -167,7 +170,7 @@
     .slider-container {
       position: relative;
       width: 100%;
-      height: 190px; 
+      height: 180px; 
       overflow: hidden;
       background-color: #f0f4f8;
     }
@@ -201,8 +204,8 @@
       background: rgba(32, 42, 58, 0.4);
       color: #ffffff;
       border: none;
-      font-size: 16px;
-      padding: 6px 10px;
+      font-size: 15px;
+      padding: 5px 9px;
       cursor: pointer;
       border-radius: 6px;
       z-index: 10;
@@ -220,17 +223,17 @@
     /* ドットナビゲーション */
     .dots-container {
       position: absolute;
-      bottom: 10px;
+      bottom: 8px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 6px;
+      gap: 5px;
       z-index: 10;
     }
 
     .dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       background: rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       cursor: pointer;
@@ -239,13 +242,13 @@
 
     .dot.active {
       background: #ffffff;
-      width: 14px;
+      width: 12px;
       border-radius: 4px;
     }
 
-    /* カード本体コンテンツ */
+    /* カード本体コンテンツ（少しサイズ・余白を縮小） */
     .card-body {
-      padding: 14px 16px;
+      padding: 12px 14px;
     }
 
     /* 店名と支店名の横並びヘッダー */
@@ -259,18 +262,18 @@
       padding-bottom: 6px;
     }
 
-    /* 店名 (ゴシック体 / 23px / Semibold 600) */
+    /* 店名 (明朝体 Noto Serif JP / Medium 500 / 25px) */
     .shop-name {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 23px;
-      font-weight: 600;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 25px;
+      font-weight: 500;
       color: #202A3A;
       line-height: 1.2;
     }
 
-    /* 店舗支店名 (16px / Regular 400 / グレー) */
+    /* 店舗支店名 (Noto Serif JP / Regular 400 / 16px / グレー) */
     .branch-name {
-      font-family: 'Noto Sans JP', sans-serif;
+      font-family: 'Noto Serif JP', serif;
       font-size: 16px;
       color: #718096;
       font-weight: 400;
@@ -290,18 +293,20 @@
       align-items: flex-start;
     }
 
-    /* 営業時間・アクセスのラベル (15px / Bold) */
+    /* 営業時間・アクセスのラベル (ゴシック体 Noto Sans JP / 16px / Medium 500) */
     .info-label {
-      font-size: 15px;
-      font-weight: 700;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
       color: #202A3A;
-      min-width: 68px;
-      letter-spacing: 0.3px;
+      min-width: 76px;
+      letter-spacing: 0.2px;
     }
 
-    /* 営業時間・アクセスの内容 (15px / Regular) */
+    /* 営業時間・アクセスの内容 (時間、距離：ゴシック体 Noto Sans JP / 16px / Regular 400) */
     .info-value {
-      font-size: 15px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 16px;
       font-weight: 400;
       color: #202A3A;
     }
@@ -309,6 +314,7 @@
 </head>
 <body>
 
+  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -318,6 +324,7 @@
     <div class="site-title"><a href="index.html" style="text-decoration:none; color:inherit;">SHENZHEN & HONG KONG</a></div>
   </header>
 
+  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -333,6 +340,7 @@
     </ul>
   </nav>
 
+  <!-- バックドロップ -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <main class="page-container">
@@ -448,7 +456,7 @@
     }
 
     function moveSlide(sliderId, step) {
-      showSlide(sliderId, step);
+      showSlide(sliderId, slideIndexes[sliderId] + step);
     }
 
     function setSlide(sliderId, index) {
