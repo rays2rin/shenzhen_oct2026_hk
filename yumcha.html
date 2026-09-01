@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YAMCHA - Shenzhen & Hong Kong</title>
+  <title>DIM SUM - Shenzhen & Hong Kong</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
     }
 
     body {
-      background-color: #fcfcf9;
+      background-color: #f6f8fb;
       color: #202A3A;
       font-family: 'Noto Sans JP', sans-serif;
       min-height: 100vh;
@@ -52,11 +52,12 @@
       border-radius: 2px;
     }
 
+    /* 英字ラベル (Noto Sans + letter-spacing広め) */
     .site-title {
-      font-family: 'Cinzel', serif;
+      font-family: 'Noto Sans JP', sans-serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       color: #202A3A;
     }
 
@@ -86,14 +87,18 @@
 
     .drawer-menu ul { list-style: none; }
     .drawer-menu li { margin-bottom: 16px; }
+    
+    /* メニュー内の英字ラベル */
     .drawer-menu a {
       text-decoration: none;
       color: #202A3A;
-      font-family: 'Cinzel', serif;
+      font-family: 'Noto Sans JP', sans-serif;
       font-weight: 700;
       font-size: 13px;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
+
     .drawer-menu .divider {
       height: 1px;
       background-color: #edf2f7;
@@ -114,60 +119,59 @@
     .page-container {
       max-width: 500px;
       margin: 0 auto;
-      padding: 24px 16px;
+      padding: 24px 16px 40px;
     }
 
     /* 戻るボタン */
     .back-link {
       display: inline-block;
-      margin-bottom: 16px;
       font-size: 12px;
       color: #718096;
       text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
 
     .header-section {
       text-align: center;
-      margin-bottom: 24px;
+      /* ヘッダーに食い込まないよう上部に余白を確保 */
+      margin-top: 36px; 
+      margin-bottom: 32px;
     }
 
+    /* DIM SUM (セリフ体 / 44〜48px / Medium) */
     .page-title {
       font-family: 'Cinzel', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: #1f2b1a;
+      font-size: 46px;
+      font-weight: 500;
+      color: #202A3A;
       letter-spacing: 2px;
-    }
-
-    .page-sub {
-      font-size: 12px;
-      color: #718096;
-      margin-top: 4px;
+      line-height: 1.1;
     }
 
     /* 店舗カードコンテナ */
     .shop-list {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 24px;
     }
 
     /* 店舗ごとのカード */
     .shop-card {
       background: #ffffff;
-      border: 1px solid #e5e2d5;
+      border: 1px solid rgba(226, 232, 240, 0.7);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
 
     /* スライドショーコンテナ */
     .slider-container {
       position: relative;
       width: 100%;
-      height: 180px; /* 高さを抑える */
+      height: 200px; 
       overflow: hidden;
-      background-color: #f0f0f0;
+      background-color: #f0f4f8;
     }
 
     .slider-wrapper {
@@ -196,28 +200,29 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(32, 42, 58, 0.4);
       color: #ffffff;
       border: none;
       font-size: 18px;
-      padding: 6px 10px;
+      padding: 8px 12px;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 6px;
       z-index: 10;
       user-select: none;
+      transition: background 0.2s;
     }
 
     .prev-btn { left: 8px; }
     .next-btn { right: 8px; }
 
     .prev-btn:hover, .next-btn:hover {
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(32, 42, 58, 0.7);
     }
 
     /* ドットナビゲーション */
     .dots-container {
       position: absolute;
-      bottom: 8px;
+      bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -231,18 +236,18 @@
       background: rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .dot.active {
       background: #ffffff;
-      width: 14px;
+      width: 16px;
       border-radius: 4px;
     }
 
-    /* カード本体コンテンツ */
+    /* カード本体コンテンツ（余白を広めに） */
     .card-body {
-      padding: 16px;
+      padding: 24px 20px;
     }
 
     /* 店名と支店名の横並びヘッダー */
@@ -251,53 +256,54 @@
       align-items: baseline;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #f0ede0;
-      padding-bottom: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #edf2f7;
+      padding-bottom: 12px;
     }
 
+    /* 店名 (28〜30px / Bold / 濃紺) */
     .shop-name {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
-      color: #1e2d1d;
+      color: #202A3A;
       line-height: 1.2;
     }
 
+    /* 店舗名 (17〜19px / Regular / グレー) */
     .branch-name {
-      font-size: 14px;
-      color: #666666;
-      font-weight: 500;
+      font-size: 18px;
+      color: #718096;
+      font-weight: 400;
     }
 
-    /* 店舗詳細情報 */
+    /* 店舗詳細情報リスト */
     .shop-info-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      font-size: 12px;
-      color: #4a5568;
+      gap: 10px;
       line-height: 1.5;
     }
 
     .info-item {
       display: flex;
-      gap: 6px;
+      gap: 12px;
+      align-items: flex-start;
     }
 
+    /* ラベル (15〜16px / Bold) */
     .info-label {
-      font-weight: bold;
+      font-size: 15px;
+      font-weight: 700;
       color: #202A3A;
-      min-width: 70px;
+      min-width: 72px;
+      letter-spacing: 0.5px;
     }
 
-    .shop-desc {
-      margin-top: 10px;
-      font-size: 11px;
-      color: #666;
-      background: #fcfcf9;
-      padding: 8px 10px;
-      border-radius: 6px;
-      line-height: 1.4;
+    /* 内容 (16〜18px / Regular) */
+    .info-value {
+      font-size: 17px;
+      font-weight: 400;
+      color: #202A3A;
     }
   </style>
 </head>
@@ -334,7 +340,6 @@
 
     <div class="header-section">
       <h1 class="page-title">DIM SUM</h1>
-      <p class="page-sub">本場・深圳＆香港のおすすめ飲茶・点心スポット</p>
     </div>
 
     <div class="shop-list">
@@ -363,11 +368,11 @@
           <div class="shop-info-list">
             <div class="info-item">
               <span class="info-label">営業時間</span>
-              <span>10:00〜</span>
+              <span class="info-value">10:00〜</span>
             </div>
             <div class="info-item">
               <span class="info-label">アクセス</span>
-              <span>ホテルから徒歩30分 (1.8km)</span>
+              <span class="info-value">ホテルから徒歩30分 (1.8km)</span>
             </div>
           </div>
         </div>
@@ -397,11 +402,11 @@
           <div class="shop-info-list">
             <div class="info-item">
               <span class="info-label">営業時間</span>
-              <span>9:00〜</span>
+              <span class="info-value">9:00〜</span>
             </div>
             <div class="info-item">
               <span class="info-label">アクセス</span>
-              <span>ホテルから徒歩23分 (1.3km)</span>
+              <span class="info-value">ホテルから徒歩23分 (1.3km)</span>
             </div>
           </div>
         </div>
