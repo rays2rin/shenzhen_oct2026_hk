@@ -51,20 +51,19 @@
       border-radius: 2px;
     }
 
-    /* 右寄せタイトル (Cinzelフォント & 強制上書き) */
+    /* 右寄せタイトル (Cinzelフォント指定) */
     .site-title {
       margin-left: auto;
       text-align: right;
     }
 
     .site-title a {
-      font-family: 'Cinzel', serif !important;
-      font-weight: 700 !important;
-      font-size: 13px !important;
-      letter-spacing: 2px !important;
-      color: #202A3A !important;
-      text-decoration: none !important;
-      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: #202A3A;
+      text-decoration: none;
     }
 
     /* ドロワーメニュー */
@@ -94,16 +93,15 @@
     .drawer-menu ul { list-style: none; }
     .drawer-menu li { margin-bottom: 16px; }
     
-    /* ハンバーガーメニュー内リンク (Cinzelフォント & 強制上書き) */
+    /* ハンバーガーメニュー内リンク (Cinzelフォント指定) */
     .drawer-menu a {
-      text-decoration: none !important;
-      color: #202A3A !important;
-      font-family: 'Cinzel', serif !important;
-      font-weight: 700 !important;
-      font-size: 13px !important;
-      letter-spacing: 2px !important;
-      text-transform: uppercase !important;
-      display: inline-block;
+      text-decoration: none;
+      color: #202A3A;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
     .drawer-menu .divider {
@@ -150,7 +148,7 @@
       letter-spacing: 1px;
     }
 
-    /* 合計金額カード */
+    /* 合計金額カード (Montserratに戻るよう明確化) */
     .total-box {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -177,6 +175,7 @@
     }
 
     .total-amount {
+      font-family: 'Montserrat', sans-serif;
       font-size: 38px;
       font-weight: 800;
       color: #1e293b;
@@ -288,7 +287,6 @@
 </head>
 <body>
 
-  <!-- ナビゲーションバー -->
   <header class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">
       <span class="bar"></span>
@@ -298,7 +296,6 @@
     <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
   </header>
 
-  <!-- ドロワーメニュー -->
   <nav class="drawer-menu" id="drawerMenu">
     <div class="close-btn" onclick="toggleMenu()">✕</div>
     <ul>
@@ -314,7 +311,6 @@
     </ul>
   </nav>
 
-  <!-- バックドロップ -->
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <main class="page-container">
@@ -426,32 +422,39 @@
   </main>
 
   <script>
+    // メニュー開閉制御
     function toggleMenu() {
       document.getElementById('drawerMenu').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
     }
 
+    // 自動計算機能
     function calculateTotal() {
       let total = 0;
 
+      // 固定金額の合算
       const fixedItems = document.querySelectorAll('.calc-item');
       fixedItems.forEach(item => {
         total += parseInt(item.getAttribute('data-value'), 10) || 0;
       });
 
+      // 選択式金額の合算
       const selectItems = document.querySelectorAll('.calc-select');
       selectItems.forEach(select => {
         total += parseInt(select.value, 10) || 0;
       });
 
+      // 3桁カンマ区切り表示
       const totalEl = document.getElementById('totalAmount');
       totalEl.textContent = '¥' + total.toLocaleString();
 
+      // 数字のアニメーションリセット＆適用
       totalEl.classList.remove('pop-anim');
-      void totalEl.offsetWidth;
+      void totalEl.offsetWidth; // リフロー発生
       totalEl.classList.add('pop-anim');
     }
 
+    // 初期実行
     document.addEventListener('DOMContentLoaded', calculateTotal);
   </script>
 </body>
