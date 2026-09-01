@@ -127,7 +127,7 @@
       padding: 40px 20px 60px 20px;
     }
 
-    /* ヘッダー */
+    /* ヘッダー（そのまま維持） */
     .schedule-header {
       text-align: center;
       margin-bottom: 36px;
@@ -186,7 +186,7 @@
       background-color: #f8fafc;
     }
 
-    /* タイムラインコンテナ（左端を left: 52px 程度に固定） */
+    /* タイムラインコンテナ（横幅そのまま、左端52px固定） */
     .timeline-container {
       position: relative;
       padding-left: 52px;
@@ -204,11 +204,11 @@
       background-color: #cbd5e1;
     }
 
-    /* 各予定（上下に28〜32pxの余白、下に1pxの薄い区切り線） */
+    /* 各予定（上下余白を約20%減らしてコンパクトに） */
     .timeline-item {
       position: relative;
-      padding-top: 30px;
-      padding-bottom: 30px;
+      padding-top: 22px;
+      padding-bottom: 22px;
       border-bottom: 1px solid rgba(226, 232, 240, 0.6);
     }
 
@@ -221,14 +221,14 @@
       border-bottom: none;
     }
 
-    /* タイムラインの丸（約8px） */
+    /* タイムラインの丸（約7〜8px） */
     .timeline-item::before {
       content: '';
       position: absolute;
       left: -20px;
-      top: 34px;
-      width: 8px;
-      height: 8px;
+      top: 26px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background-color: #ffffff;
       border: 1px solid #3d617c;
@@ -239,36 +239,36 @@
       top: 4px;
     }
 
-    /* コンテンツ全体のラッパー（タイムラインから右に40px配置） */
+    /* コンテンツ全体のラッパー */
     .timeline-content {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
-    /* 時刻（15px / Regular / グレー） */
+    /* 時刻（約20%縮小：12px） */
     .time {
       font-family: 'Cinzel', serif;
-      font-size: 15px;
+      font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.5px;
       color: #64748b;
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
 
-    /* 予定名：通常のテキスト（18px / font-weight: 600 / 現在の色） */
+    /* 予定名：通常のテキスト（約20%縮小：14.5px） */
     .action-text {
-      font-size: 18px;
+      font-size: 14.5px;
       font-weight: 600;
       color: #202A3A;
       display: block;
       line-height: 1.35;
     }
 
-    /* 予定名：リンクの場合（ネイビー＋text-decoration: underline、下線不透明度調整） */
+    /* 予定名：リンクの場合（ネイビー＋下線で一目でわかるように維持） */
     .place-link {
-      font-size: 18px;
+      font-size: 14.5px;
       font-weight: 600;
       color: #3d617c;
       text-decoration: underline;
@@ -284,12 +284,12 @@
       text-decoration-color: rgba(43, 71, 93, 0.8);
     }
 
-    /* 補足（14px / Regular / グレー） */
+    /* 補足（約20%縮小：11px） */
     .note-text {
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 400;
       color: #64748b;
-      margin-top: 4px;
+      margin-top: 3px;
       display: block;
       line-height: 1.4;
     }
