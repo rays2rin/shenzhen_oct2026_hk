@@ -150,6 +150,7 @@
       border: 1px solid #e5e2d5;
       border-radius: 8px;
       overflow: hidden;
+      margin-top: 10px; /* アンカー用の余白調整 */
     }
 
     /* アコーディオンヘッダー */
@@ -446,140 +447,148 @@
 
     <div class="two-column-grid">
 
-      <div class="area-column" id="hk-column">
-        <div class="area-header" onclick="toggleAccordion('hk-column')">
-          <div class="area-title">HONG KONG</div>
-          <span class="accordion-icon">▲</span>
-        </div>
-
-        <div class="column-content">
-          <div class="section-divider-title">WHAT TO EAT</div>
-
-          <div class="item-grid">
-            <div class="food-card">
-              <img src="IMG_3177.jpeg" alt="広東料理" class="food-img">
-              <div class="food-card-title">広東料理</div>
-              <div class="food-card-text">蒸し魚や海鮮料理など、素材の味を活かした繊細な広東料理。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="IMG_3184.jpeg" alt="焼味(Siu Mei)" class="food-img">
-              <div class="food-card-title">焼味 (Siu Mei)</div>
-              <div class="food-card-text">焼鴨や焼豚、白切鶏など、香ばしくジューシーなローカルの味。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="IMG_3185.jpeg" alt="香港麺" class="food-img">
-              <div class="food-card-title">香港麺</div>
-              <div class="food-card-text">雲呑麺や蝦子撈麺など、シンプルながら奥深いローカルのソウルフード。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="IMG_3186.jpeg" alt="茶餐廳" class="food-img">
-              <div class="food-card-title">茶餐廳</div>
-              <div class="food-card-text">香港らしいミルクティーや菠蘿包、エッグタルトは外せない定番。</div>
-            </div>
+      <!-- 香港エリア -->
+      <div>
+        <div id="hk" style="position: relative; top: -70px; visibility: hidden;"></div>
+        <div class="area-column" id="hk-column">
+          <div class="area-header" onclick="toggleAccordion('hk-column')">
+            <div class="area-title">HONG KONG</div>
+            <span class="accordion-icon">▲</span>
           </div>
 
-          <div class="section-divider-title second">RECOMMENDED RESTAURANTS</div>
+          <div class="column-content">
+            <div class="section-divider-title">WHAT TO EAT</div>
 
-          <div class="restaurant-card">
-            <div class="res-tag">ICONIC / 一度は行きたい</div>
-            <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=MOTT+32+Hong+Kong" target="_blank" rel="noopener noreferrer">MOTT 32</a></div>
-            <div class="res-desc">モダンチャイニーズの代表格。洗練された空間で特別な時間を。</div>
-            <div class="res-location">📍 中環</div>
+            <div class="item-grid">
+              <div class="food-card">
+                <img src="IMG_3177.jpeg" alt="広東料理" class="food-img">
+                <div class="food-card-title">広東料理</div>
+                <div class="food-card-text">蒸し魚や海鮮料理など、素材の味を活かした繊細な広東料理。</div>
+              </div>
+
+              <div class="food-card">
+                <img src="IMG_3184.jpeg" alt="焼味(Siu Mei)" class="food-img">
+                <div class="food-card-title">焼味 (Siu Mei)</div>
+                <div class="food-card-text">焼鴨や焼豚、白切鶏など、香ばしくジューシーなローカルの味。</div>
+              </div>
+
+              <div class="food-card">
+                <img src="IMG_3185.jpeg" alt="香港麺" class="food-img">
+                <div class="food-card-title">香港麺</div>
+                <div class="food-card-text">雲呑麺や蝦子撈麺など、シンプルながら奥深いローカルのソウルフード。</div>
+              </div>
+
+              <div class="food-card">
+                <img src="IMG_3186.jpeg" alt="茶餐廳" class="food-img">
+                <div class="food-card-title">茶餐廳</div>
+                <div class="food-card-text">香港らしいミルクティーや菠蘿包、エッグタルトは外せない定番。</div>
+              </div>
+            </div>
+
+            <div class="section-divider-title second">RECOMMENDED RESTAURANTS</div>
+
+            <div class="restaurant-card">
+              <div class="res-tag">ICONIC / 一度は行きたい</div>
+              <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=MOTT+32+Hong+Kong" target="_blank" rel="noopener noreferrer">MOTT 32</a></div>
+              <div class="res-desc">モダンチャイニーズの代表格。洗練された空間で特別な時間を。</div>
+              <div class="res-location">📍 中環</div>
+            </div>
+
+            <div class="restaurant-card">
+              <div class="res-tag">NOODLE / 麺を楽しむなら</div>
+              <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=Lau+Sum+Kee+Noodle+Hong+Kong" target="_blank" rel="noopener noreferrer">Lau Sum Kee</a></div>
+              <div class="res-desc">雲呑麺の名店。スープと麺のバランスが絶妙。</div>
+              <div class="res-location">📍 中環</div>
+            </div>
+
+            <div class="restaurant-card">
+              <div class="res-tag">FINE DINING / きちんとした広東料理</div>
+              <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=Shang+Palace+Kowloon+Shangri-La+Hong+Kong" target="_blank" rel="noopener noreferrer">香宮 (Shang Palace)</a></div>
+              <div class="res-desc">格式ある広東料理の名店。接待や特別な食事におすすめ。</div>
+              <div class="res-location">📍 中環 (シャングリ・ラ ホテル内)</div>
+            </div>
+
           </div>
-
-          <div class="restaurant-card">
-            <div class="res-tag">NOODLE / 麺を楽しむなら</div>
-            <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=Lau+Sum+Kee+Noodle+Hong+Kong" target="_blank" rel="noopener noreferrer">Lau Sum Kee</a></div>
-            <div class="res-desc">雲呑麺の名店。スープと麺のバランスが絶妙。</div>
-            <div class="res-location">📍 中環</div>
-          </div>
-
-          <div class="restaurant-card">
-            <div class="res-tag">FINE DINING / きちんとした広東料理</div>
-            <div class="res-name"><a href="https://www.google.com/maps/search/?api=1&query=Shang+Palace+Kowloon+Shangri-La+Hong+Kong" target="_blank" rel="noopener noreferrer">香宮 (Shang Palace)</a></div>
-            <div class="res-desc">格式ある広東料理の名店。接待や特別な食事におすすめ。</div>
-            <div class="res-location">📍 中環 (シャングリ・ラ ホテル内)</div>
-          </div>
-
         </div>
       </div>
 
-      <div class="area-column" id="shenzhen">
-        <div class="area-header" onclick="toggleAccordion('shenzhen')">
-          <div class="area-title">SHENZHEN</div>
-          <span class="accordion-icon">▲</span>
-        </div>
-
-        <div class="column-content">
-          <div class="section-divider-title">WHAT TO EAT</div>
-
-          <div class="item-grid">
-            <div class="food-card">
-              <img src="67FE697E-8E10-4297-82ED-F2DDE60D6BE5.png" alt="飲茶" class="food-img">
-              <div class="food-card-title">飲茶</div>
-              <div class="food-card-text">本格的な点心を朝から楽しもう。ハーガオや焼売も定番。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="EA46485F-4E17-4923-85BE-26A0771D1417.png" alt="腸粉" class="food-img">
-              <div class="food-card-title">腸粉</div>
-              <div class="food-card-text">つるっとした食感がクセになる、ツルツルの米粉生地が魅力。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="99B3896F-9AEE-4D48-BCB8-205A10E4A786.png" alt="潮州料理" class="food-img">
-              <div class="food-card-title">潮州料理</div>
-              <div class="food-card-text">素材の味を活かした潮州の繊細な味付けや牛肉火鍋を堪能。</div>
-            </div>
-
-            <div class="food-card">
-              <img src="DAC792B3-02F8-4A54-83D2-4EC4F9604A07.png" alt="海鮮料理" class="food-img">
-              <div class="food-card-title">海鮮料理</div>
-              <div class="food-card-text">生簀から好きな海鮮を選んで調理する深圳スタイルの醍醐味！</div>
-            </div>
+      <!-- 深圳エリア -->
+      <div>
+        <div id="shenzhen" style="position: relative; top: -70px; visibility: hidden;"></div>
+        <div class="area-column" id="shenzhen-column">
+          <div class="area-header" onclick="toggleAccordion('shenzhen-column')">
+            <div class="area-title">SHENZHEN</div>
+            <span class="accordion-icon">▲</span>
           </div>
 
-          <div class="section-divider-title second">RECOMMENDED RESTAURANTS</div>
+          <div class="column-content">
+            <div class="section-divider-title">WHAT TO EAT</div>
 
-          <div class="res-list-group">
-            <div class="res-list-title">飲茶・点心</div>
-            <div class="res-list-item">
-              <div class="res-list-name">• 點都德 (Dian Dou De)</div>
-              <div class="res-list-sub">ローカルに大人気の飲茶チェーン（福田 / 羅湖エリアなど）</div>
+            <div class="item-grid">
+              <div class="food-card">
+                <img src="67FE697E-8E10-4297-82ED-F2DDE60D6BE5.png" alt="飲茶" class="food-img">
+                <div class="food-card-title">飲茶</div>
+                <div class="food-card-text">本格的な点心を朝から楽しもう。ハーガオや焼売も定番。</div>
+              </div>
+
+              <div class="food-card">
+                <img src="EA46485F-4E17-4923-85BE-26A0771D1417.png" alt="腸粉" class="food-img">
+                <div class="food-card-title">腸粉</div>
+                <div class="food-card-text">つるっとした食感がクセになる、ツルツルの米粉生地が魅力。</div>
+              </div>
+
+              <div class="food-card">
+                <img src="99B3896F-9AEE-4D48-BCB8-205A10E4A786.png" alt="潮州料理" class="food-img">
+                <div class="food-card-title">潮州料理</div>
+                <div class="food-card-text">素材の味を活かした潮州の繊細な味付けや牛肉火鍋を堪能。</div>
+              </div>
+
+              <div class="food-card">
+                <img src="DAC792B3-02F8-4A54-83D2-4EC4F9604A07.png" alt="海鮮料理" class="food-img">
+                <div class="food-card-title">海鮮料理</div>
+                <div class="food-card-text">生簀から好きな海鮮を選んで調理する深圳スタイルの醍醐味！</div>
+              </div>
             </div>
-            <div class="res-list-item">
-              <div class="res-list-name">• 皇庭広場酒家</div>
-              <div class="res-list-sub">老舗の飲茶レストラン</div>
+
+            <div class="section-divider-title second">RECOMMENDED RESTAURANTS</div>
+
+            <div class="res-list-group">
+              <div class="res-list-title">飲茶・点心</div>
+              <div class="res-list-item">
+                <div class="res-list-name">• 點都德 (Dian Dou De)</div>
+                <div class="res-list-sub">ローカルに大人気の飲茶チェーン（福田 / 羅湖エリアなど）</div>
+              </div>
+              <div class="res-list-item">
+                <div class="res-list-name">• 皇庭広場酒家</div>
+                <div class="res-list-sub">老舗の飲茶レストラン</div>
+              </div>
             </div>
+
+            <div class="res-list-group">
+              <div class="res-list-title">広東・潮州料理</div>
+              <div class="res-list-item">
+                <div class="res-list-name">• 潮汕牛肉火鍋 (八合里)</div>
+                <div class="res-list-sub">新鮮な牛肉と手作りの味（南山 / 福田エリアなど）</div>
+              </div>
+              <div class="res-list-item">
+                <div class="res-list-name">• 客語客家菜</div>
+                <div class="res-list-sub">客家料理の名店</div>
+              </div>
+            </div>
+
+            <div class="res-list-group">
+              <div class="res-list-title">海鮮料理</div>
+              <div class="res-list-item">
+                <div class="res-list-name">• 春風海鮮酒家</div>
+                <div class="res-list-sub">生簀海鮮が人気の有名店（南山エリア / 蛇口など）</div>
+              </div>
+              <div class="res-list-item">
+                <div class="res-list-name">• 漁語海鮮姿造</div>
+                <div class="res-list-sub">新鮮な海鮮をシンプルに</div>
+              </div>
+            </div>
+
           </div>
-
-          <div class="res-list-group">
-            <div class="res-list-title">広東・潮州料理</div>
-            <div class="res-list-item">
-              <div class="res-list-name">• 潮汕牛肉火鍋 (八合里)</div>
-              <div class="res-list-sub">新鮮な牛肉と手作りの味（南山 / 福田エリアなど）</div>
-            </div>
-            <div class="res-list-item">
-              <div class="res-list-name">• 客語客家菜</div>
-              <div class="res-list-sub">客家料理の名店</div>
-            </div>
-          </div>
-
-          <div class="res-list-group">
-            <div class="res-list-title">海鮮料理</div>
-            <div class="res-list-item">
-              <div class="res-list-name">• 春風海鮮酒家</div>
-              <div class="res-list-sub">生簀海鮮が人気の有名店（南山エリア / 蛇口など）</div>
-            </div>
-            <div class="res-list-item">
-              <div class="res-list-name">• 漁語海鮮姿造</div>
-              <div class="res-list-sub">新鮮な海鮮をシンプルに</div>
-            </div>
-          </div>
-
         </div>
       </div>
 
