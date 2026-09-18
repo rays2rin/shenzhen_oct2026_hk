@@ -452,10 +452,7 @@
           <select id="start-point" onchange="onFilterChange()">
             <option value="" selected>選択してください</option>
             <optgroup label="深圳">
-              <option value="大梅沙京基洲际酒店">大梅沙京基洲际酒店</option>
               <option value="UrCove">UrCove</option>
-              <option value="大梅沙">大梅沙</option>
-              <option value="小梅沙">小梅沙</option>
               <option value="深业上城">深业上城</option>
               <option value="宝安空港">宝安空港</option>
               <option value="海上世界">海上世界</option>
@@ -465,7 +462,6 @@
               <option value="COCO Park">COCO Park</option>
               <option value="Riad">Riad</option>
               <option value="深圳宝安国際空港">深圳宝安国際空港</option>
-              <option value="大梅沙洲际">大梅沙洲际</option>
               <option value="逸扉酒店">逸扉酒店</option>
               <option value="深圳湾公園">深圳湾公園</option>
               <option value="华强北">华强北</option>
@@ -474,6 +470,8 @@
               <option value="东门老街">东门老街</option>
               <option value="深圳之眼">深圳之眼</option>
               <option value="陶陶居">陶陶居</option>
+              <option value="大梅沙">大梅沙</option>
+              <option value="小梅沙">小梅沙</option>
             </optgroup>
             <optgroup label="香港">
               <option value="西九龍">西九龍</option>
@@ -492,10 +490,7 @@
           <select id="end-point" onchange="onFilterChange()">
             <option value="" selected>選択してください</option>
             <optgroup label="深圳">
-              <option value="大梅沙京基洲际酒店">大梅沙京基洲际酒店</option>
               <option value="UrCove">UrCove</option>
-              <option value="大梅沙">大梅沙</option>
-              <option value="小梅沙">小梅沙</option>
               <option value="深业上城">深业上城</option>
               <option value="宝安空港">宝安空港</option>
               <option value="海上世界">海上世界</option>
@@ -505,7 +500,6 @@
               <option value="COCO Park">COCO Park</option>
               <option value="Riad">Riad</option>
               <option value="深圳宝安国際空港">深圳宝安国際空港</option>
-              <option value="大梅沙洲际">大梅沙洲际</option>
               <option value="逸扉酒店">逸扉酒店</option>
               <option value="華強北">华强北</option>
               <option value="市民中心">市民中心</option>
@@ -514,6 +508,8 @@
               <option value="莲花山公园">莲花山公园</option>
               <option value="深圳湾公園">深圳湾公園</option>
               <option value="陶陶居">陶陶居</option>
+              <option value="大梅沙">大梅沙</option>
+              <option value="小梅沙">小梅沙</option>
             </optgroup>
             <optgroup label="香港">
               <option value="尖沙咀">尖沙咀</option>
@@ -566,8 +562,7 @@
       { id: 5, area: 'hk', from: '花園道', to: '旺角', time: 25, hkd: 120, jpy: 2800, type: 'タクシー', note: '九龍エリアへ移動', recommend: false },
       { id: 6, area: 'hk', from: '旺角', to: '皇岗', time: 30, hkd: 380, jpy: 8700, type: 'タクシー', note: '旺角から国境口岸へ', recommend: false },
 
-      // 新規追加ルート（UrCove・大梅沙京基洲际酒店関連など）
-      { id: 31, area: 'sz', from: '大梅沙京基洲际酒店', to: 'UrCove', time: 50, cny: 150, jpy: 4100, type: '配車/タクシー', note: 'ホテル間・拠点間のスムーズ移動', recommend: true },
+      // 新規追加ルート（UrCove関連など）
       { id: 32, area: 'sz', from: 'UrCove', to: '海上世界', time: 30, cny: 60, jpy: 1600, type: '配車/タクシー', note: '海上世界エリアへ移動', recommend: false },
       { id: 33, area: 'sz', from: '深业上城', to: 'UrCove', time: 20, cny: 40, jpy: 1100, type: '配車/タクシー', note: '深业上城からUrCoveへ', recommend: false },
       { id: 34, area: 'sz', from: 'UrCove', to: '宝安空港', time: 30, cny: 100, jpy: 2700, type: '配車/タクシー', note: '空港へのアクセス', recommend: false },
@@ -579,7 +574,6 @@
       { id: 40, area: 'sz', from: 'UrCove', to: 'Riad', time: 12, cny: 25, jpy: 700, type: '配車/タクシー', note: 'Riadへ移動', recommend: false },
 
       // 既存の深圳ルート
-      { id: 7, area: 'sz', from: '深圳宝安国際空港', to: '大梅沙洲际', time: 65, cny: 200, jpy: 5400, type: '配車/タクシー', note: '空港から大梅沙洲际へ', recommend: false },
       { id: 10, area: 'sz', from: '深业上城', to: '深业上城', time: 20, cny: 40, jpy: 1100, type: '配車/タクシー', note: '深业上城からの移動', recommend: false },
       { id: 12, area: 'sz', from: '福田', to: '福田', time: 10, cny: 25, jpy: 700, type: '配車/タクシー', note: '福田エリア内移動', recommend: false },
       { id: 13, area: 'sz', from: '大梅沙', to: '小梅沙', time: 7, cny: 20, jpy: 540, type: '配車/タクシー', note: '近隣のビーチエリア間移動', recommend: false },
