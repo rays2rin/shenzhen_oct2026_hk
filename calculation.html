@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共有型家計簿 & 割り勘計算</title>
+    <!-- Tailwind CSSの読み込み -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-p-4">
+    <div class="max-w-3xl mx-auto p-4 sm:p-6">
+        
+        <!-- タイトル -->
+        <header class="mb-8 text-center">
+            <h1 class="text-2xl sm:text-3xl font-bold text-indigo-600">共有型家計簿 & 割り勘計算</h1>
+            <p class="text-sm text-gray-500 mt-1">データを入力して、誰がいくら支払うべきかを自動計算します</p>
+        </header>
+
+        <!-- 入力フォームセクション -->
+        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700">支出の追加</h2>
+            <form id="expense-form" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                
+                <!-- 支払者プルダウン -->
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">支払者</label>
+                    <select id="payer" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <option value="TAKERU">TAKERU</option>
+                        <option value="RYOHEI">RYOHEI</option>
+                        <option value="ERIKA">ERIKA</option>
+                    </select>
+                </div>
+
+                <!-- カテゴリープルダウン -->
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">カテゴリー</label>
+                    <select id="category" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <option value="交通費">交通費</option>
+                        <option value="食費">食費</option>
+                        <option value="アクティビティ">アクティビティ</option>
+                        <option value="その他">その他</option>
+                    </select>
+                </div>
+
+                <!-- 金額入力 -->
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">金額 (円)</label>
+                    <input type="number" id="amount" placeholder="例: 3000" required min="1" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+
+                <!-- 追加ボタン -->
+                <div class="flex items-end">
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition">
+                        追加する
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 集計・割り勘結果セクション -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            
+            <!-- 個人別の支払総額 -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="text-lg font-semibold mb-4 text-gray-700">メンバー別の支払額</h2>
+                <ul id="summary-list" class="space-y-3">
+                    <!-- JSで動的生成 -->
+                </ul>
+            </div>
+
+            <!-- 割り勘・清算結果 -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="text-lg font-semibold mb-4 text-gray-700">精算シミュレーション</h2>
+                <div id="settlement-result" class="space-y-3 text-sm text-gray-600">
+                    <!-- JSで動的生成 -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 履歴一覧セクション -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-700">入力履歴</h2>
+                <button id="clear-all" class="text-xs text-red-500 hover:underline">すべてのデータを削除</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b text-gray-400">
+                            <th class="pb-2 font-medium">支払者</th>
+                            <th class="pb-2 font-medium">カテゴリー</th>
+                            <th class="pb-2 font-medium text-right">金額</th>
+                            <th class="pb-2 font-medium text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expense-table-body">
+                        <!-- JSで動적生成 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScriptロジック -->
+    <script>
+        const MEMBERS = ["TAKERU", "RYOHEI", "ERIKA"];
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+        const form = document.getElementById('expense-form');
+        const expenseTableBody = document.getElementById('expense-table-body');
+        const summaryList = document.getElementById('summary-list');
+        const settlementResult = document.getElementById('settlement-result');
+        const clearAllBtn = document.getElementById('clear-all');
+
+        // データの保存
+        function saveExpenses() {
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+        }
+
+        // 画面の更新
+        function render() {
+            expenseTableBody.innerHTML = '';
+            
+            // 支払総額の初期化
+            let totals = { TAKERU: 0, RYOHEI: 0, ERIKA: 0 };
+
+            if (expenses.length === 0) {
+                expenseTableBody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-gray-400">データがありません</td></tr>`;
+            }
+
+            expenses.forEach((item, index) => {
+                totals[item.payer] += Number(item.amount);
+
+                // 履歴テーブルの行作成
+                const tr = document.createElement('tr');
+                tr.className = "border-b hover:bg-gray-50";
+                tr.innerHTML = `
+                    <td class="py-3 font-medium text-gray-800">${item.payer}</td>
+                    <td class="py-3 text-gray-600">${item.category}</td>
+                    <td class="py-3 text-right font-semibold">¥${Number(item.amount).toLocaleString()}</td>
+                    <td class="py-3 text-center">
+                        <button onclick="deleteExpense(${index})" class="text-red-500 hover:text-red-700 text-xs bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded transition">削除</button>
+                    </td>
+                `;
+                expenseTableBody.appendChild(tr);
+            });
+
+            // メンバー別支払額の表示
+            summaryList.innerHTML = '';
+            MEMBERS.forEach(member => {
+                summaryList.innerHTML += `
+                    <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                        <span class="font-medium text-gray-700">${member}</span>
+                        <span class="font-bold text-indigo-600">¥${totals[member].toLocaleString()}</span>
+                    </li>
+                `;
+            });
+
+            // 割り勘・清算計算の実行
+            calculateSettlement(totals);
+        }
+
+        // 割り勘の計算ロジック
+        function calculateSettlement(totals) {
+            let totalAmount = totals.TAKERU + totals.RYOHEI + totals.ERIKA;
+            let sharePerPerson = totalAmount / MEMBERS.length;
+
+            settlementResult.innerHTML = '';
+
+            if (totalAmount === 0) {
+                settlementResult.innerHTML = `<p class="text-gray-400">データが入力されると計算されます</p>`;
+                return;
+            }
+
+            // 各自の過不足額（支払額 - 均等割りの額）を計算
+            let balances = {};
+            MEMBERS.forEach(member => {
+                balances[member] = totals[member] - sharePerPerson;
+            });
+
+            // 支払うべき人（マイナス）と受け取るべき人（プラス）に分ける
+            let debtors = []; // お金を払う人
+            let creditors = []; // お金を受け取る人
+
+            MEMBERS.forEach(member => {
+                if (balances[member] < -0.01) {
+                    debtors.push({ name: member, amount: -balances[member] });
+                } else if (balances[member] > 0.01) {
+                    creditors.push({ name: member, amount: balances[member] });
+                }
+            });
+
+            let instructions = [];
+            
+            // 簡易的な相殺処理
+            debtors.forEach(debtor => {
+                creditors.forEach(creditor => {
+                    if (debtor.amount > 0 && creditor.amount > 0) {
+                        let transfer = Math.min(debtor.amount, creditor.amount);
+                        instructions.push(`<div class="bg-indigo-50 p-3 rounded-lg text-indigo-900 font-medium">👉 <span class="font-bold">${debtor.name}</span> → <span class="font-bold">${creditor.name}</span> に <span class="text-indigo-600 font-bold">¥${Math.round(transfer).toLocaleString()}</span> 支払う</div>`);
+                        debtor.amount -= transfer;
+                        creditor.amount -= transfer;
+                    }
+                });
+            });
+
+            if (instructions.length === 0) {
+                settlementResult.innerHTML = `<p class="text-green-600 font-medium">綺麗に割り勘できています（精算なし）</p>`;
+            } else {
+                settlementResult.innerHTML = instructions.join('');
+            }
+        }
+
+        // データの追加イベント
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const payer = document.getElementById('payer').value;
+            const category = document.getElementById('category').value;
+            const amount = document.getElementById('amount').value;
+
+            expenses.push({ payer, category, amount });
+            saveExpenses();
+            render();
+
+            form.reset();
+        });
+
+        // データの個別削除
+        window.deleteExpense = function(index) {
+            expenses.splice(index, 1);
+            saveExpenses();
+            render();
+        }
+
+        // 全データ削除
+        clearAllBtn.addEventListener('click', () => {
+            if (confirm('すべてのデータを削除してもよろしいですか？')) {
+                expenses = [];
+                saveExpenses();
+                render();
+            }
+        });
+
+        // 初回描画
+        render();
+    </script>
+</body>
+</html>
 
