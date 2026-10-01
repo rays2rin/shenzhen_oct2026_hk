@@ -1,251 +1,599 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>共有型家計簿 & 割り勘計算</title>
-    <!-- Tailwind CSSの読み込み -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXPENSE CALCULATION - Shenzhen & Hong Kong</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fcfcf9;
+      color: #202A3A;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ナビゲーションバー */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #edf2f7;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .bar {
+      width: 20px;
+      height: 2px;
+      background-color: #202A3A;
+      border-radius: 2px;
+    }
+
+    .site-title {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .site-title a {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #202A3A;
+      text-decoration: none;
+    }
+
+    /* ドロワーメニュー */
+    .drawer-menu {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 300;
+      transition: left 0.3s ease;
+      padding: 24px;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    }
+
+    .drawer-menu.active { left: 0; }
+
+    .close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 20px;
+      color: #718096;
+    }
+
+    .drawer-menu ul { list-style: none; }
+    .drawer-menu li { margin-bottom: 16px; }
+    .drawer-menu a {
+      text-decoration: none;
+      color: #202A3A;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+    .drawer-menu .divider {
+      height: 1px;
+      background-color: #edf2f7;
+      margin: 16px 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 200;
+      display: none;
+    }
+    .overlay.active { display: block; }
+
+    /* メインレイアウト（他のページと統一感のある幅） */
+    .page-container {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px 60px 20px;
+    }
+
+    /* ヘッダー */
+    .schedule-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .schedule-sub {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      color: #718096;
+      margin-bottom: 6px;
+    }
+
+    .schedule-title {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1f2b1a;
+      letter-spacing: 1px;
+    }
+
+    /* 共通カードデザイン */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5e2d5;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #1e2d1d;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #f0eee6;
+      padding-bottom: 8px;
+    }
+
+    /* フォーム要素 */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: #718096;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-select, .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #e2ded0;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      background: #fcfcf9;
+      color: #202A3A;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .form-select:focus, .form-input:focus {
+      border-color: #1e2d1d;
+      background: #ffffff;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: #1e2d1d;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 6px;
+    }
+
+    .submit-btn:hover {
+      background-color: #2f442d;
+    }
+
+    /* リスト・集計表示 */
+    .summary-list, .settlement-box {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fcfcf9;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #f0eee6;
+      font-size: 13px;
+    }
+
+    .summary-amount {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: #1e2d1d;
+    }
+
+    .settlement-item {
+      background: #f7f6f0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      color: #202A3A;
+      border-left: 3px solid #1e2d1d;
+      line-height: 1.5;
+    }
+
+    .settlement-none {
+      font-size: 12px;
+      color: #718096;
+      text-align: center;
+      padding: 10px;
+    }
+
+    /* 履歴テーブル */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .history-table th {
+      text-align: left;
+      color: #718096;
+      font-weight: 500;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e2d5;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .history-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0eee6;
+      color: #202A3A;
+    }
+
+    .delete-btn {
+      background: transparent;
+      color: #e53e3e;
+      border: 1px solid #fed7d7;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .delete-btn:hover {
+      background: #fff5f5;
+    }
+
+    .clear-all-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+
+    .clear-all-btn {
+      background: none;
+      border: none;
+      color: #e53e3e;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* バックリンク */
+    .back-link {
+      margin-top: 36px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .back-link a {
+      font-family: 'Cinzel', serif;
+      color: #718096;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+
+    .back-link a:hover {
+      color: #1e2d1d;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-p-4">
-    <div class="max-w-3xl mx-auto p-4 sm:p-6">
-        
-        <!-- タイトル -->
-        <header class="mb-8 text-center">
-            <h1 class="text-2xl sm:text-3xl font-bold text-indigo-600">共有型家計簿 & 割り勘計算</h1>
-            <p class="text-sm text-gray-500 mt-1">データを入力して、誰がいくら支払うべきかを自動計算します</p>
-        </header>
+<body>
 
-        <!-- 入力フォームセクション -->
-        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
-            <h2 class="text-lg font-semibold mb-4 text-gray-700">支出の追加</h2>
-            <form id="expense-form" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                
-                <!-- 支払者プルダウン -->
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1">支払者</label>
-                    <select id="payer" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                        <option value="TAKERU">TAKERU</option>
-                        <option value="RYOHEI">RYOHEI</option>
-                        <option value="ERIKA">ERIKA</option>
-                    </select>
-                </div>
+  <!-- ナビゲーションバー -->
+  <header class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="site-title"><a href="index.html">SHENZHEN & HONG KONG</a></div>
+  </header>
 
-                <!-- カテゴリープルダウン -->
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1">カテゴリー</label>
-                    <select id="category" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                        <option value="交通費">交通費</option>
-                        <option value="食費">食費</option>
-                        <option value="アクティビティ">アクティビティ</option>
-                        <option value="その他">その他</option>
-                    </select>
-                </div>
+  <!-- ドロワーメニュー -->
+  <nav class="drawer-menu" id="drawerMenu">
+    <div class="close-btn" onclick="toggleMenu()">✕</div>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="day1.html">DAY 1</a></li>
+      <li><a href="day2.html">DAY 2</a></li>
+      <li><a href="day3.html">DAY 3</a></li>
+      <li class="divider"></li>
+      <li><a href="todo.html">todo</a></li>
+      <li><a href="expenses.html">expenses</a></li>
+      <li><a href="calculation.html" style="color: #1e2d1d;">calculation</a></li>
+      <li><a href="traffic.html">traffic</a></li>
+      <li><a href="foods.html">foods</a></li>
+    </ul>
+  </nav>
 
-                <!-- 金額入力 -->
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1">金額 (円)</label>
-                    <input type="number" id="amount" placeholder="例: 3000" required min="1" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                </div>
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-                <!-- 追加ボタン -->
-                <div class="flex items-end">
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition">
-                        追加する
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <!-- 集計・割り勘結果セクション -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            
-            <!-- 個人別の支払総額 -->
-            <div class="bg-white p-6 rounded-xl shadow-md">
-                <h2 class="text-lg font-semibold mb-4 text-gray-700">メンバー別の支払額</h2>
-                <ul id="summary-list" class="space-y-3">
-                    <!-- JSで動的生成 -->
-                </ul>
-            </div>
-
-            <!-- 割り勘・清算結果 -->
-            <div class="bg-white p-6 rounded-xl shadow-md">
-                <h2 class="text-lg font-semibold mb-4 text-gray-700">精算シミュレーション</h2>
-                <div id="settlement-result" class="space-y-3 text-sm text-gray-600">
-                    <!-- JSで動的生成 -->
-                </div>
-            </div>
-
-        </div>
-
-        <!-- 履歴一覧セクション -->
-        <div class="bg-white p-6 rounded-xl shadow-md">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold text-gray-700">入力履歴</h2>
-                <button id="clear-all" class="text-xs text-red-500 hover:underline">すべてのデータを削除</button>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead>
-                        <tr class="border-b text-gray-400">
-                            <th class="pb-2 font-medium">支払者</th>
-                            <th class="pb-2 font-medium">カテゴリー</th>
-                            <th class="pb-2 font-medium text-right">金額</th>
-                            <th class="pb-2 font-medium text-center">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody id="expense-table-body">
-                        <!-- JSで動적生成 -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
+  <!-- メインコンテンツ -->
+  <main class="page-container">
+    
+    <div class="schedule-header">
+      <p class="schedule-sub">SHARED EXPENSES</p>
+      <h1 class="schedule-title">CALCULATION</h1>
     </div>
 
-    <!-- JavaScriptロジック -->
-    <script>
-        const MEMBERS = ["TAKERU", "RYOHEI", "ERIKA"];
-        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+    <!-- 入力フォーム -->
+    <div class="card">
+      <div class="card-title">支出を追加</div>
+      <form id="expense-form">
+        <div class="form-group">
+          <label class="form-label">支払者</label>
+          <select id="payer" required class="form-select">
+            <option value="TAKERU">TAKERU</option>
+            <option value="RYOHEI">RYOHEI</option>
+            <option value="ERIKA">ERIKA</option>
+          </select>
+        </div>
 
-        const form = document.getElementById('expense-form');
-        const expenseTableBody = document.getElementById('expense-table-body');
-        const summaryList = document.getElementById('summary-list');
-        const settlementResult = document.getElementById('settlement-result');
-        const clearAllBtn = document.getElementById('clear-all');
+        <div class="form-group">
+          <label class="form-label">カテゴリー</label>
+          <select id="category" required class="form-select">
+            <option value="交通費">交通費</option>
+            <option value="食費">食費</option>
+            <option value="アクティビティ">アクティビティ</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
 
-        // データの保存
-        function saveExpenses() {
-            localStorage.setItem('expenses', JSON.stringify(expenses));
+        <div class="form-group">
+          <label class="form-label">金額 (円)</label>
+          <input type="number" id="amount" placeholder="例: 3000" required min="1" class="form-input">
+        </div>
+
+        <button type="submit" class="submit-btn">追加する</button>
+      </form>
+    </div>
+
+    <!-- メンバー別支払額 -->
+    <div class="card">
+      <div class="card-title">メンバー別 支払総額</div>
+      <ul id="summary-list" class="summary-list">
+        <!-- JSで動的生成 -->
+      </ul>
+    </div>
+
+    <!-- 精算シミュレーション -->
+    <div class="card">
+      <div class="card-title">割り勘・清算シミュレーション</div>
+      <div id="settlement-result" class="settlement-box">
+        <!-- JSで動的生成 -->
+      </div>
+    </div>
+
+    <!-- 履歴一覧 -->
+    <div class="card">
+      <div class="card-title" style="display: flex; justify-content: space-between; align-items: center; border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+        <span>入力履歴</span>
+      </div>
+      <div style="height: 1px; background-color: #f0eee6; margin: 12px 0;"></div>
+      <div class="table-container">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>支払者</th>
+              <th>カテゴリー</th>
+              <th style="text-align: right;">金額</th>
+              <th style="text-align: center;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="expense-table-body">
+            <!-- JSで動的生成 -->
+          </tbody>
+        </table>
+      </div>
+      <div class="clear-all-container">
+        <button id="clear-all" class="clear-all-btn">すべてのデータを削除</button>
+      </div>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← TOP PAGE</a>
+    </div>
+
+  </main>
+
+  <script>
+    // メニュー開閉用
+    function toggleMenu() {
+      document.getElementById('drawerMenu').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+
+    // 家計簿・割り勘ロジック
+    const MEMBERS = ["TAKERU", "RYOHEI", "ERIKA"];
+    let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+    const form = document.getElementById('expense-form');
+    const expenseTableBody = document.getElementById('expense-table-body');
+    const summaryList = document.getElementById('summary-list');
+    const settlementResult = document.getElementById('settlement-result');
+    const clearAllBtn = document.getElementById('clear-all');
+
+    function saveExpenses() {
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+    }
+
+    function render() {
+      expenseTableBody.innerHTML = '';
+      let totals = { TAKERU: 0, RYOHEI: 0, ERIKA: 0 };
+
+      if (expenses.length === 0) {
+        expenseTableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #718096; padding: 16px 0;">データがありません</td></tr>`;
+      }
+
+      expenses.forEach((item, index) => {
+        totals[item.payer] += Number(item.amount);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight: 500;">${item.payer}</td>
+          <td style="color: #718096;">${item.category}</td>
+          <td style="text-align: right; font-family: 'Cinzel', serif; font-weight: 600;">¥${Number(item.amount).toLocaleString()}</td>
+          <td style="text-align: center;">
+            <button onclick="deleteExpense(${index})" class="delete-btn">削除</button>
+          </td>
+        `;
+        expenseTableBody.appendChild(tr);
+      });
+
+      // メンバー別集計
+      summaryList.innerHTML = '';
+      MEMBERS.forEach(member => {
+        summaryList.innerHTML += `
+          <li class="summary-item">
+            <span style="font-weight: 500;">${member}</span>
+            <span class="summary-amount">¥${totals[member].toLocaleString()}</span>
+          </li>
+        `;
+      });
+
+      calculateSettlement(totals);
+    }
+
+    function calculateSettlement(totals) {
+      let totalAmount = totals.TAKERU + totals.RYOHEI + totals.ERIKA;
+      let sharePerPerson = totalAmount / MEMBERS.length;
+
+      settlementResult.innerHTML = '';
+
+      if (totalAmount === 0) {
+        settlementResult.innerHTML = `<div class="settlement-none">データが入力されると計算されます</div>`;
+        return;
+      }
+
+      let balances = {};
+      MEMBERS.forEach(member => {
+        balances[member] = totals[member] - sharePerPerson;
+      });
+
+      let debtors = [];
+      let creditors = [];
+
+      MEMBERS.forEach(member => {
+        if (balances[member] < -0.01) {
+          debtors.push({ name: member, amount: -balances[member] });
+        } else if (balances[member] > 0.01) {
+          creditors.push({ name: member, amount: balances[member] });
         }
+      });
 
-        // 画面の更新
-        function render() {
-            expenseTableBody.innerHTML = '';
-            
-            // 支払総額の初期化
-            let totals = { TAKERU: 0, RYOHEI: 0, ERIKA: 0 };
-
-            if (expenses.length === 0) {
-                expenseTableBody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-gray-400">データがありません</td></tr>`;
-            }
-
-            expenses.forEach((item, index) => {
-                totals[item.payer] += Number(item.amount);
-
-                // 履歴テーブルの行作成
-                const tr = document.createElement('tr');
-                tr.className = "border-b hover:bg-gray-50";
-                tr.innerHTML = `
-                    <td class="py-3 font-medium text-gray-800">${item.payer}</td>
-                    <td class="py-3 text-gray-600">${item.category}</td>
-                    <td class="py-3 text-right font-semibold">¥${Number(item.amount).toLocaleString()}</td>
-                    <td class="py-3 text-center">
-                        <button onclick="deleteExpense(${index})" class="text-red-500 hover:text-red-700 text-xs bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded transition">削除</button>
-                    </td>
-                `;
-                expenseTableBody.appendChild(tr);
-            });
-
-            // メンバー別支払額の表示
-            summaryList.innerHTML = '';
-            MEMBERS.forEach(member => {
-                summaryList.innerHTML += `
-                    <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
-                        <span class="font-medium text-gray-700">${member}</span>
-                        <span class="font-bold text-indigo-600">¥${totals[member].toLocaleString()}</span>
-                    </li>
-                `;
-            });
-
-            // 割り勘・清算計算の実行
-            calculateSettlement(totals);
-        }
-
-        // 割り勘の計算ロジック
-        function calculateSettlement(totals) {
-            let totalAmount = totals.TAKERU + totals.RYOHEI + totals.ERIKA;
-            let sharePerPerson = totalAmount / MEMBERS.length;
-
-            settlementResult.innerHTML = '';
-
-            if (totalAmount === 0) {
-                settlementResult.innerHTML = `<p class="text-gray-400">データが入力されると計算されます</p>`;
-                return;
-            }
-
-            // 各自の過不足額（支払額 - 均等割りの額）を計算
-            let balances = {};
-            MEMBERS.forEach(member => {
-                balances[member] = totals[member] - sharePerPerson;
-            });
-
-            // 支払うべき人（マイナス）と受け取るべき人（プラス）に分ける
-            let debtors = []; // お金を払う人
-            let creditors = []; // お金を受け取る人
-
-            MEMBERS.forEach(member => {
-                if (balances[member] < -0.01) {
-                    debtors.push({ name: member, amount: -balances[member] });
-                } else if (balances[member] > 0.01) {
-                    creditors.push({ name: member, amount: balances[member] });
-                }
-            });
-
-            let instructions = [];
-            
-            // 簡易的な相殺処理
-            debtors.forEach(debtor => {
-                creditors.forEach(creditor => {
-                    if (debtor.amount > 0 && creditor.amount > 0) {
-                        let transfer = Math.min(debtor.amount, creditor.amount);
-                        instructions.push(`<div class="bg-indigo-50 p-3 rounded-lg text-indigo-900 font-medium">👉 <span class="font-bold">${debtor.name}</span> → <span class="font-bold">${creditor.name}</span> に <span class="text-indigo-600 font-bold">¥${Math.round(transfer).toLocaleString()}</span> 支払う</div>`);
-                        debtor.amount -= transfer;
-                        creditor.amount -= transfer;
-                    }
-                });
-            });
-
-            if (instructions.length === 0) {
-                settlementResult.innerHTML = `<p class="text-green-600 font-medium">綺麗に割り勘できています（精算なし）</p>`;
-            } else {
-                settlementResult.innerHTML = instructions.join('');
-            }
-        }
-
-        // データの追加イベント
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const payer = document.getElementById('payer').value;
-            const category = document.getElementById('category').value;
-            const amount = document.getElementById('amount').value;
-
-            expenses.push({ payer, category, amount });
-            saveExpenses();
-            render();
-
-            form.reset();
+      let instructions = [];
+      debtors.forEach(debtor => {
+        creditors.forEach(creditor => {
+          if (debtor.amount > 0 && creditor.amount > 0) {
+            let transfer = Math.min(debtor.amount, creditor.amount);
+            instructions.push(`<div class="settlement-item">👉 <strong style="font-family: 'Cinzel', serif;">${debtor.name}</strong> から <strong style="font-family: 'Cinzel', serif;">${creditor.name}</strong> へ <strong style="font-family: 'Cinzel', serif; color: #1e2d1d;">¥${Math.round(transfer).toLocaleString()}</strong> 支払う</div>`);
+            debtor.amount -= transfer;
+            creditor.amount -= transfer;
+          }
         });
+      });
 
-        // データの個別削除
-        window.deleteExpense = function(index) {
-            expenses.splice(index, 1);
-            saveExpenses();
-            render();
-        }
+      if (instructions.length === 0) {
+        settlementResult.innerHTML = `<div class="settlement-item" style="border-left-color: #38a169; color: #276749;">綺麗に割り勘できています（精算なし）</div>`;
+      } else {
+        settlementResult.innerHTML = instructions.join('');
+      }
+    }
 
-        // 全データ削除
-        clearAllBtn.addEventListener('click', () => {
-            if (confirm('すべてのデータを削除してもよろしいですか？')) {
-                expenses = [];
-                saveExpenses();
-                render();
-            }
-        });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const payer = document.getElementById('payer').value;
+      const category = document.getElementById('category').value;
+      const amount = document.getElementById('amount').value;
 
-        // 初回描画
+      expenses.push({ payer, category, amount });
+      saveExpenses();
+      render();
+      form.reset();
+    });
+
+    window.deleteExpense = function(index) {
+      expenses.splice(index, 1);
+      saveExpenses();
+      render();
+    }
+
+    clearAllBtn.addEventListener('click', () => {
+      if (confirm('すべてのデータを削除してもよろしいですか？')) {
+        expenses = [];
+        saveExpenses();
         render();
-    </script>
+      }
+    });
+
+    render();
+  </script>
 </body>
 </html>
-
