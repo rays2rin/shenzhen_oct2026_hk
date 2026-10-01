@@ -77,11 +77,20 @@
       line-height: 1.2;
     }
 
-    /* 3段目：TODO / EXPENSES */
-    .secondary-row-2 {
+    /* 3段目：TODO / EXPENSES / CALCULATION (3列に調整) */
+    .secondary-row-3-alt {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
+    }
+
+    .secondary-row-3-alt .btn-secondary {
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
+      min-height: unset !important;
+      font-size: 10px; /* 文字数が少し増えるため微調整 */
+      letter-spacing: 0.2px;
+      line-height: 1.2;
     }
   </style>
 </head>
@@ -126,10 +135,11 @@
         <!-- PLAN 区切り線 -->
         <div class="nav-divider">PLAN</div>
 
-        <!-- 3段目：TODO / EXPENSES -->
-        <div class="secondary-row-2">
+        <!-- 3段目：TODO / EXPENSES / CALCULATION -->
+        <div class="secondary-row-3-alt">
           <a href="todo.html" class="btn btn-secondary">TODO</a>
           <a href="expenses.html" class="btn btn-secondary">EXPENSES</a>
+          <a href="calculation.html" class="btn btn-secondary">CALC</a>
         </div>
       </nav>
 
