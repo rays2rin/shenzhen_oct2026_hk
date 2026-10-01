@@ -119,7 +119,7 @@
     }
     .overlay.active { display: block; }
 
-    /* メインレイアウト（他のページと統一感のある幅） */
+    /* メインレイアウト */
     .page-container {
       max-width: 480px;
       width: 100%;
@@ -291,6 +291,7 @@
       padding: 10px 0;
       border-bottom: 1px solid #f0eee6;
       color: #202A3A;
+      vertical-align: middle;
     }
 
     .delete-btn {
@@ -411,6 +412,12 @@
           <input type="number" id="amount" placeholder="例: 3000" required min="1" class="form-input">
         </div>
 
+        <!-- 追加されたメモ欄（任意・非必須） -->
+        <div class="form-group">
+          <label class="form-label">メモ (任意)</label>
+          <input type="text" id="memo" placeholder="例: タクシー代、お土産など" class="form-input">
+        </div>
+
         <button type="submit" class="submit-btn">追加する</button>
       </form>
     </div>
@@ -441,7 +448,7 @@
         <table class="history-table">
           <thead>
             <tr>
-              <th>支払者</th>
+              <th>支払者 / 内容</th>
               <th>カテゴリー</th>
               <th style="text-align: right;">金額</th>
               <th style="text-align: center;">操作</th>
@@ -495,9 +502,15 @@
       expenses.forEach((item, index) => {
         totals[item.payer] += Number(item.amount);
 
+        // メオスがあれば小さく表示
+        const memoHtml = item.memo ? `<div style="font-size: 10.5px; color: #718096; margin-top: 2px;">${item.memo}</div>` : '';
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td style="font-weight: 500;">${item.payer}</td>
+          <td>
+            <div style="font-weight: 500;">${item.payer}</div>
+            ${memoHtml}
+          </td>
           <td style="color: #718096;">${item.category}</td>
           <td style="text-align: right; font-family: 'Cinzel', serif; font-weight: 600;">¥${Number(item.amount).toLocaleString()}</td>
           <td style="text-align: center;">
@@ -572,8 +585,9 @@
       const payer = document.getElementById('payer').value;
       const category = document.getElementById('category').value;
       const amount = document.getElementById('amount').value;
+      const memo = document.getElementById('memo').value.trim();
 
-      expenses.push({ payer, category, amount });
+      expenses.push({ payer, category, amount, memo });
       saveExpenses();
       render();
       form.reset();
