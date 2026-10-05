@@ -150,7 +150,6 @@
       border: 1px solid #e5e2d5;
       border-radius: 8px;
       overflow: hidden;
-      margin-top: 10px; /* アンカー用の余白調整 */
     }
 
     /* アコーディオンヘッダー */
@@ -441,9 +440,6 @@
 
   <main class="page-container">
 
-    <!-- 香港エリアのアンカー（ここをHONG KONGブロックの真上に移動し、余白を調整） -->
-    <div id="hongkong" style="scroll-margin-top: 80px;"></div>
-
     <div class="food-header">
       <h1 class="food-title">FOOD GUIDE</h1>
     </div>
@@ -452,6 +448,8 @@
 
       <!-- 香港エリア -->
       <div>
+        <!-- FOOD GUIDEより下にし、idを hongkong に変更。stickyヘッダー分の余白(scroll-margin-top)を設定 -->
+        <div id="hongkong" style="scroll-margin-top: 80px;"></div>
         <div class="area-column" id="hk-column">
           <div class="area-header" onclick="toggleAccordion('hk-column')">
             <div class="area-title">HONG KONG</div>
