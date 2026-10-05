@@ -515,7 +515,11 @@
       <div class="timeline-item">
         <div class="timeline-content">
           <span class="time">15:30 - 17:30</span>
-          <span class="action-text">尖沙咀 ~ </span><a class="place-link" href="landmark.html#temple-street">女人街</a>
+          <!-- 尖沙咀 ~ 女人街 を改行させないようにインラインのフレックスコンテナで囲む -->
+          <div style="display: flex; align-items: baseline; flex-wrap: nowrap;">
+            <span class="action-text" style="white-space: nowrap;">尖沙咀 ~&nbsp;</span>
+            <a class="place-link" href="landmark.html#temple-street" style="white-space: nowrap;">女人街</a>
+          </div>
           <div class="inline-row">
             <a class="note-link" href="foods.html#hongkong">食事タイム含む</a>
           </div>
